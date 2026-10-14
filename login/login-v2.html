@@ -255,6 +255,21 @@ body.password .steps{display:none}
 .hint{margin:6px 0 0 6px;font-size:13px;color:#b9cbea;text-align:left}
 .peek{top:24px!important}
 body.password .primary svg{display:none}
+.aux{display:flex;justify-content:flex-end;margin-top:-4px}
+.aux .linkish{font-size:13px!important}
+.or{display:flex;align-items:center;gap:12px;color:#8fa8d4;font-size:13px;margin:2px 0}
+.or::before,.or::after{content:"";flex:1;height:1px;background:var(--line)}
+.alt{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:13px 18px;border-radius:999px;cursor:pointer;
+  font:600 15px "Inter",-apple-system,sans-serif;color:var(--ink);background:rgba(255,255,255,.05);border:1px solid var(--line);transition:border-color .2s,background .2s}
+.alt:hover{border-color:var(--cyan);background:rgba(58,215,255,.08)}
+.alt:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+.alt svg{width:19px;height:19px;flex:none;color:var(--cyan)}
+.alt .ic-face{display:none}
+body.password .alt .ic-face{display:block}
+body.password .alt .ic-lock{display:none}
+body.p2 .alt{border-radius:10px}
+body{height:auto!important;min-height:100%;overflow-y:auto!important}
+@media (max-height:880px){.scan{width:170px!important;height:170px!important}.stage h1{margin-top:8px}}
 </style>
 </head>
 <body>
@@ -294,15 +309,11 @@ body.password .primary svg{display:none}
       </button>
       <p class="hint" id="passHint">Debe tener al menos 6 caracteres.</p>
     </div>
+    <div class="aux"><button type="button" class="linkish" id="openUser" aria-haspopup="dialog">¿Olvidaste tu usuario?</button></div>
     <button type="submit" class="primary" id="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2M9 9v1M15 9v1M12 9v4h-1M9.5 16a3.5 3.5 0 0 0 5 0"/></svg><span id="goTxt">Continuar con Face ID</span></button>
-    <div class="links">
-      <button type="button" class="linkish" id="openQr" aria-haspopup="dialog">¿No tienes la app?</button>
-      <span class="sep" aria-hidden="true">·</span>
-      <button type="button" class="linkish" id="toggleMode">Ingresar con contraseña</button>
-    </div>
-    <div class="links links-row2">
-      <button type="button" class="linkish" id="openUser" aria-haspopup="dialog">¿Olvidaste tu usuario?</button>
-    </div>
+    <div class="or" aria-hidden="true"><span>o</span></div>
+    <button type="button" class="alt" id="toggleMode"><svg class="ic-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><svg class="ic-face" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2M9 9v1M15 9v1M12 9v4h-1M9.5 16a3.5 3.5 0 0 0 5 0"/></svg><span>Ingresar con contraseña</span></button>
+    <button type="button" class="alt" id="openQr" aria-haspopup="dialog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg><span>Descargar la app</span></button>
     
   </form>
 
@@ -663,7 +674,7 @@ toggle.addEventListener('click', () => {
   body.classList.toggle('password', toPassword);
   restMode();
   setTitle(toPassword ? 'Ingresa con tu contraseña' : 'Ingresa con Face ID');
-  toggle.textContent = toPassword ? 'Validar desde la app' : 'Ingresar con contraseña';
+  toggle.querySelector('span').textContent = toPassword ? 'Ingresar con Face ID' : 'Ingresar con contraseña';
   tag.textContent = toPassword ? 'Escribe tu usuario y contraseña.' : 'Escribe tu usuario y aprueba el ingreso desde tu app.'; document.getElementById('goTxt').textContent = toPassword ? 'Ingresar' : 'Continuar con Face ID';
   status.textContent = '';
   if (!toPassword) pass.value = '';
