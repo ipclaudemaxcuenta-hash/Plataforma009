@@ -1937,7 +1937,7 @@ const pent=(cx,cy,s)=>`${cx},${cy-s*.62} ${cx+s/2},${cy-s*.12} ${cx+s/2},${cy+s/
 const sh=(g,t='')=>`<g transform="${t}">${g}</g>`;
 const G={
  income:`<rect class="s" x="20" y="58" width="13" height="20" rx="4"/><rect class="s" x="38" y="48" width="13" height="30" rx="4"/><rect class="p" x="56" y="36" width="13" height="42" rx="4"/><path class="ps" stroke-width="6" d="M20 42 36 30l10 6 22-16"/><path class="ps" stroke-width="6" d="M60 20h9v9"/>`,
- extranjero:`<rect class="s" x="32" y="16" width="44" height="64" rx="7"/><rect class="p" x="24" y="20" width="44" height="64" rx="7"/><g class="cs" stroke-width="3.6"><circle cx="46" cy="46" r="12"/><ellipse cx="46" cy="46" rx="5" ry="12"/><path d="M34 46h24"/></g><rect class="c" x="36" y="68" width="20" height="4.5" rx="2.25"/>`,
+ extranjero:`<ellipse class="ss" cx="50" cy="50" rx="40" ry="14" stroke-width="5" transform="rotate(-20 50 50)"/><circle class="p" cx="50" cy="50" r="27"/><g class="cs" stroke-width="3.6"><ellipse cx="50" cy="50" rx="11" ry="27"/><path d="M23 50h54M27 37h46M27 63h46"/></g><circle class="p" cx="84" cy="31" r="5"/>`,
  proveedor:`<path class="ps" stroke-width="6" d="M38 32v-5a5 5 0 0 1 5-5h14a5 5 0 0 1 5 5v5"/><rect class="p" x="18" y="32" width="64" height="44" rx="9"/><rect class="c" x="18" y="50" width="64" height="4" opacity=".45"/><rect class="p" x="43" y="45" width="14" height="13" rx="3" stroke="var(--cut)" stroke-width="3.5"/>`,
  ruc:`<path class="p" d="M26 16h48v66l-8-5-8 5-8-5-8 5-8-5-8 5Z"/><g class="cs" stroke-width="4.5"><path d="M34 32h32M34 44h32M34 56h18"/></g>`,
  ip:`<rect class="p" x="16" y="20" width="68" height="46" rx="8"/><rect class="s" x="40" y="66" width="20" height="10"/><rect class="p" x="30" y="76" width="40" height="6" rx="3"/><text x="50" y="52" text-anchor="middle" font-family="-apple-system,Inter,sans-serif" font-weight="800" font-size="22" class="c">IP</text>`,
@@ -1949,7 +1949,7 @@ const G={
  'credit-pro':sh(gauge,'translate(-6 -8)')+B(bd.check),
  icar:`<path class="s" d="M26 46l6-15a6 6 0 0 1 5.6-4h24.8a6 6 0 0 1 5.6 4l6 15Z"/><rect class="p" x="16" y="44" width="68" height="22" rx="8"/><rect class="p" x="22" y="62" width="12" height="14" rx="4"/><rect class="p" x="66" y="62" width="12" height="14" rx="4"/><circle class="c" cx="29" cy="55" r="4.5"/><circle class="c" cx="71" cy="55" r="4.5"/>`,
  b2b:`<rect class="p" x="16" y="38" width="26" height="40" rx="5"/><rect class="p" x="58" y="38" width="26" height="40" rx="5"/>${[0,1,2].map(r=>`<rect class="c" x="22" y="${45+r*10}" width="14" height="5" rx="1.5"/><rect class="c" x="64" y="${45+r*10}" width="14" height="5" rx="1.5"/>`).join('')}<path class="ss" stroke-width="5" d="M30 30q20-16 40 0"/><path class="ss" stroke-width="5" d="M63 21l7 9-11 2"/>`,
- nfc:`<rect class="p" x="22" y="14" width="36" height="72" rx="9"/><rect class="c" x="34" y="76" width="12" height="4" rx="2"/><path class="ss" stroke-width="6" d="M66 38a16 16 0 0 1 0 24"/><path class="ps" stroke-width="6" d="M74 30a28 28 0 0 1 0 40"/>`,
+ nfc:`<rect class="s" x="38" y="8" width="24" height="84" rx="10"/><rect class="p" x="26" y="28" width="48" height="44" rx="14"/><g class="cs" stroke-width="4"><path d="M44 42a10 10 0 0 1 0 16"/><path d="M51 37a17 17 0 0 1 0 26"/><path d="M58 32a24 24 0 0 1 0 36" opacity=".55"/></g><circle class="c" cx="38" cy="50" r="3.5"/>`,
  onboarding:person()+B(bd.plus),
  podcast:`<circle class="s" cx="50" cy="50" r="32"/><rect class="p" x="40" y="22" width="20" height="36" rx="10"/><path class="ps" stroke-width="5" d="M32 48a18 18 0 0 0 36 0M50 66v12"/>`,
  'cese-laboral':`<path class="s" d="M24 16h28a6 6 0 0 1 6 6v56a6 6 0 0 1-6 6H24a6 6 0 0 1-6-6V22a6 6 0 0 1 6-6Z"/><path class="p" d="M18 22a6 6 0 0 1 6-6l18 6v62l-18-6a6 6 0 0 1-6-6Z"/><path class="ps" stroke-width="7" d="M50 50h32M72 40l10 10-10 10"/>`,
@@ -1969,7 +1969,7 @@ const G={
  'Diccionario Legal':`<rect class="p" x="47" y="24" width="6" height="46" rx="3"/><rect class="p" x="32" y="70" width="36" height="7" rx="3.5"/><rect class="p" x="20" y="28" width="60" height="6" rx="3"/><circle class="p" cx="50" cy="22" r="5"/><g class="ss" stroke-width="2.5"><path d="M28 33 20 54M28 33l8 21M72 33l-8 21M72 33l8 21"/></g><path class="p" d="M17 54h22a11 11 0 0 1-22 0ZM61 54h22a11 11 0 0 1-22 0Z"/>`,
  Historial:`<path class="ss" stroke-width="7" d="M27 40A26 26 0 1 1 24 55"/><path class="s" d="M16 31l15 2-7 13Z"/><circle class="p" cx="50" cy="50" r="17"/><path class="cs" stroke-width="4.5" d="M50 41v10l7 5"/>`,
  Dashboard:`<rect class="s" x="18" y="18" width="64" height="64" rx="12" style="opacity:.25"/><rect class="p" x="27" y="48" width="12" height="24" rx="4"/><rect class="p" x="44" y="30" width="12" height="42" rx="4"/><rect class="p" x="61" y="40" width="12" height="32" rx="4"/>`,
- Analytics:`<path class="s" d="M50 50V18a32 32 0 1 1-30.4 22Z"/><path class="p" d="M46 46V14a32 32 0 0 0-30.4 22Z" transform="translate(-2 -2)"/><circle class="c" cx="50" cy="50" r="12" style="opacity:.0"/>`,
+ Analytics:`<path class="s" d="M16 74 32 52l14 9 16-22 22-15V80H16Z" style="opacity:.35"/><path class="ps" stroke-width="6" d="M16 72 32 52l14 9 16-22 22-15"/><circle class="p" cx="32" cy="52" r="5.5"/><circle class="p" cx="46" cy="61" r="5.5"/><circle class="p" cx="62" cy="39" r="5.5"/><circle class="p" cx="84" cy="24" r="5.5"/><rect class="p" x="14" y="80" width="72" height="5" rx="2.5"/>`,
  Procesos:`<path class="p" d="M22 20h56a10 10 0 0 1 10 10v30a10 10 0 0 1-10 10H44l-16 13v-13h-6a10 10 0 0 1-10-10V30a10 10 0 0 1 10-10Z"/><path class="c" d="M50 30q1.6 9.4 11 11-9.4 1.6-11 11-1.6-9.4-11-11 9.4-1.6 11-11Z"/><path class="c" d="M66 46q.8 4.2 5 5-4.2.8-5 5-.8-4.2-5-5 4.2-.8 5-5Z" opacity=".7"/>`
 };
 // Colores: [fondo1, fondo2, glifo opcional (fondo blanco/negro/crema), glifo en oscuro opcional]
@@ -1978,9 +1978,9 @@ const C={income:['#55DB6C','#1A9A3A'],extranjero:['#3FE3D1','#06A39C'],proveedor
  splaft:['#FFFFFF','#F3E7E9','#E0263A'],crediticio:['#44AEC0','#0A5D73',,'#5FD0E0'],'credit-pro':['#FF72B4','#CF1676'],icar:['#FFD84A','#F0A800'],
  b2b:['#4566B8','#13275F',,'#8AA6FF'],nfc:['#3C3C40','#0F0F11','#4FD6FF'],onboarding:['#FFC6B2','#DB8467'],podcast:['#C892FF','#8B38D8'],
  'cese-laboral':['#8C9A78','#4A5640',,'#B5C49E'],'black-list':['#7A808C','#2A2E36'],
- clasico:['#FFF6DC','#F3DCA2','#E69100'],vip:['#3C3C40','#0F0F11','#FFD36B'],premium:['#6390FF','#2142D6'],
- zeta:['#FFC93C','#F08A00'],'z-basico':['#F6E35C','#CFAE00'],'z-basico-plus':['#FFFFFF','#E6ECF0','#14B58C'],'z-premium':['#E3E9FF','#B9C5F5','#3346C9'],'z-vip':['#3C3C40','#0F0F11','#FFB13D'],
- 'clasico-ia':['#B98BFF','#6C33E0'],'premium-ia':['#E89BFF','#AE48DF'],'ia-plus':['#7F7BFF','#3A2FC9'],'vip-ia':['#2A1F45','#0F0A1E','#D9C2FF'],
+ clasico:['#9CCBFF','#4A8EEA'],vip:['#6F98FF','#2E58D8',,'#9DB8FF'],premium:['#4F70E6','#1C3398',,'#8FA6FF'],
+ zeta:['#FFD85E','#F5A800'],'z-basico':['#FFCB4D','#EE9500'],'z-basico-plus':['#FFBC45','#EA8300'],'z-premium':['#FFA846','#E26C00'],'z-vip':['#FF9440','#CC5200'],
+ 'clasico-ia':['#D2AEFF','#9257F2'],'premium-ia':['#BE8EFF','#7438E4'],'ia-plus':['#A27FFF','#5833D8'],'vip-ia':['#8463E8','#3C1FA0',,'#B9A2FF'],
  Home:['#FFFFFF','#E9E9EE','#FF8A00'],Monitoreo:['#FF5E63','#D3122A'],'Asíncrona':['#4FD1FF','#0A7CFF'],'Diccionario Legal':['#C9466F','#741035',,'#FF85A8'],
  Historial:['#FFFFFF','#ECE6F3','#9B3BDB'],Dashboard:['#5AC2A8','#1F8A70'],Analytics:['#FF8FB1','#E0457B'],Procesos:['#B98BFF','#6C33E0']};
 const items=[...document.querySelectorAll('.chip-app')].map(b=>({k:b.dataset.id,el:b.querySelector('.chip-ico')}))
