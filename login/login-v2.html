@@ -328,6 +328,8 @@ input[type=text]:focus,input[type=password]:focus{border-color:#10b981!important
 .low .code{color:#ffb020!important;text-shadow:0 0 24px rgba(255,176,32,.6)!important}
 .low .ring{box-shadow:0 0 40px -6px rgba(255,176,32,.55)}
 .low #pushTime{color:#ffb020!important}
+/* Mensajes de error en rojo */
+.status:not(.ok),.modal-status:not(.ok){color:#ff5c6c!important}
 </style>
 </head>
 <body>
@@ -472,7 +474,8 @@ const TAU = Math.PI * 2;
 const COL = {
   base:  [58,215,255],   // cian del GIF
   deep:  [43,107,255],   // azul de la malla
-  amber: [255,176,32],   // espera y error
+  amber: [255,176,32],   // espera
+  red:   [255,77,94],    // error
   white: [220,245,255],
 };
 
@@ -555,7 +558,7 @@ function draw(now){
   const errK = clamp(1 - (t - s.errorAt) / 1.1);
   const grK = clamp((t - s.grantAt) / .6);
   if (s.mode === 'waiting'){ col = mix(COL.base, COL.amber, .55 + .45 * Math.sin(t * 4)); speed = 2.6; }
-  if (errK > 0) col = mix(col, COL.amber, errK);
+  if (errK > 0) col = mix(col, COL.red, errK);
   if (s.mode === 'granted') col = mix(COL.base, COL.white, grK * .5);
   scanPhase += dt * speed / 2.6;
 
