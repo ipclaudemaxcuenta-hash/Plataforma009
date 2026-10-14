@@ -412,6 +412,8 @@ body.password .pass-wrap{animation:fadeIn .35s ease!important}
 #modal .qr-sub{margin:0 0 22px!important}
 #modal .close{top:22px!important;right:22px!important}
 body.measuring .pass-wrap{animation:none!important}
+body.intro-done .stage > *{animation:none!important}
+#stage{transition-property:none!important}
 </style>
 </head>
 <body>
@@ -1046,8 +1048,30 @@ setTimeout(() => user.focus(), 1800);
     h.style.setProperty('--arcTop',(r.top+r.height*0.5-14)+'px'); // un poco más arriba
     if(pass){ st.style.position='relative'; st.style.top=(r.top-topOf(pw))+'px'; }
   }
-  ['resize','scroll'].forEach(e=>addEventListener(e,()=>place(true),{passive:true}));
-  document.getElementById('toggleMode').addEventListener('click',()=>place());
+  let rz; ['resize','scroll'].forEach(e=>addEventListener(e,()=>{ place(true); clearTimeout(rz); rz=setTimeout(()=>place(true),200); },{passive:true}));
+  // Cambio de modo suave (técnica FLIP): cada elemento se desliza de su posición anterior a la nueva
+  const flipSel='.stage > .brand-logo, .stage > .scan, .stage > h1, .stage > .sub, .form > .wrap:not(.pass-wrap), .form > .aux, .form > #go, .form > .links';
+  let before=null;
+  document.addEventListener('click',e=>{
+    if(!e.target.closest('#toggleMode')) return;
+    before=new Map([...document.querySelectorAll(flipSel)].filter(el=>el.offsetParent).map(el=>[el,el.getBoundingClientRect().top]));
+  },true);
+  document.getElementById('toggleMode').addEventListener('click',()=>{
+    place();
+    if(!before || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    before.forEach((top,el)=>{
+      if(!el.offsetParent) return;
+      const d=top-el.getBoundingClientRect().top;
+      if(Math.abs(d)<1) return;
+      el.style.transition='none'; el.style.transform='translateY('+d+'px)';
+      requestAnimationFrame(()=>requestAnimationFrame(()=>{
+        el.style.transition='transform .4s cubic-bezier(.2,.8,.2,1)'; el.style.transform='';
+        setTimeout(()=>{ el.style.transition=''; },450);
+      }));
+    });
+    before=null;
+  });
+  setTimeout(()=>B.classList.add('intro-done'),2600);
   // Se ubica una sola vez, con las fuentes ya cargadas, y recién entonces aparece (sin saltos)
   const show=()=>{ place(); requestAnimationFrame(()=>h.classList.add('ready')); };
   if(document.fonts && document.fonts.status!=='loaded') document.fonts.ready.then(show); else show();
