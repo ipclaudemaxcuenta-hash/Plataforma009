@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>iPartner · Acceso seguro</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
   --void:#030b24;
@@ -20,7 +20,7 @@
 html,body{height:100%}
 body{
   margin:0;
-  font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-family:"Space Grotesk",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   color:var(--ink);
   background:radial-gradient(60% 55% at 50% 38%, #0b2a66 0%, #061638 45%, var(--void) 100%);
   display:grid;place-items:center;
@@ -83,7 +83,7 @@ input[type=text],input[type=password],input[type=email]{
   width:100%;padding:13px 44px;
   background:rgba(4,14,40,.6);
   border:1px solid var(--line);border-radius:999px;
-  color:var(--ink);font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:14px;text-align:center;outline:none;
+  color:var(--ink);font-family:"Space Grotesk",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:14px;text-align:center;outline:none;
   transition:border-color .2s, box-shadow .2s, background .2s;
 }
 input::placeholder{color:#5f77a6}
@@ -100,7 +100,7 @@ body.password .pass-wrap{display:block;animation:fadeUp .35s ease}
 .links{display:flex;justify-content:center;align-items:center;gap:10px;font-size:12px;color:var(--ink-dim);flex-wrap:wrap;margin-top:2px}
 .links-row2{margin-top:-6px}
 .sep{color:rgba(140,180,255,.4)}
-.linkish{background:none;border:0;padding:0;cursor:pointer;font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:12px;color:var(--cyan)}
+.linkish{background:none;border:0;padding:0;cursor:pointer;font-family:"Space Grotesk",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:12px;color:var(--cyan)}
 .linkish:hover{text-decoration:underline}
 .linkish:focus-visible{outline:2px solid var(--cyan);outline-offset:4px;border-radius:4px}
 .status{min-height:18px;margin:8px 0 0;font-size:12.5px;color:var(--amber)}
@@ -138,7 +138,7 @@ body.password .pass-wrap{display:block;animation:fadeUp .35s ease}
 .recover input{padding:12px 16px}
 .send{
   padding:12px 16px;border:0;border-radius:999px;cursor:pointer;
-  font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:13px;font-weight:700;letter-spacing:.04em;color:#04122e;
+  font-family:"Space Grotesk",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:13px;font-weight:700;letter-spacing:.04em;color:#04122e;
   background:linear-gradient(120deg,var(--cyan),var(--blue));
 }
 .send:hover{filter:brightness(1.1)}
@@ -159,7 +159,7 @@ body.password .pass-wrap{display:block;animation:fadeUp .35s ease}
 .left span{color:var(--ink)}
 .cancel{
   margin-top:20px;padding:11px 34px;background:none;border:1px solid var(--line);border-radius:999px;
-  color:var(--ink);cursor:pointer;font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink);cursor:pointer;font-family:"Space Grotesk",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
 }
 .cancel:hover{border-color:var(--cyan);color:var(--cyan)}
 
@@ -182,7 +182,7 @@ h1{font-size:26px;font-weight:700;letter-spacing:-.01em;margin:14px 0 6px}
 .field-label{font-size:13px;letter-spacing:0;text-transform:none;color:#b9cbea;text-align:left;padding-left:18px;margin-bottom:-4px}
 input[type=text],input[type=password]{text-align:left!important;padding:14px 20px!important;font-size:16px!important}
 input::placeholder{color:#7f97c4!important}
-.primary{margin-top:4px;padding:14px 20px;border:0;border-radius:999px;cursor:pointer;font:600 16px "Inter",-apple-system,sans-serif;color:#04122e;
+.primary{margin-top:4px;padding:14px 20px;border:0;border-radius:999px;cursor:pointer;font:600 16px "Space Grotesk",-apple-system,sans-serif;color:#04122e;
   background:linear-gradient(120deg,var(--cyan),var(--blue));box-shadow:0 10px 30px -10px rgba(58,215,255,.7);display:flex;align-items:center;justify-content:center;gap:10px;transition:filter .2s,transform .15s}
 .primary:hover{filter:brightness(1.08)}
 .primary:active{transform:scale(.98)}
@@ -208,7 +208,7 @@ body.waiting .primary{opacity:.6;cursor:progress}
 .badge{display:none}
 .switch{position:fixed;z-index:6;right:calc(24px + env(safe-area-inset-right,0px));bottom:calc(24px + env(safe-area-inset-bottom,0px));
   display:flex;align-items:center;gap:10px;padding:10px 12px 10px 18px;border-radius:999px;cursor:pointer;
-  font:600 14px "Inter",-apple-system,sans-serif;color:var(--ink);background:rgba(10,30,70,.7);border:1px solid var(--line);
+  font:600 14px "Space Grotesk",-apple-system,sans-serif;color:var(--ink);background:rgba(10,30,70,.7);border:1px solid var(--line);
   backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:border-color .2s,transform .2s}
 .switch:hover{border-color:var(--cyan);transform:translateX(2px)}
 .switch:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
@@ -261,7 +261,7 @@ body.password .forgot-pass{display:inline}
 .or{display:flex;align-items:center;gap:12px;color:#8fa8d4;font-size:13px;margin:2px 0}
 .or::before,.or::after{content:"";flex:1;height:1px;background:var(--line)}
 .alt{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:13px 18px;border-radius:999px;cursor:pointer;
-  font:600 15px "Inter",-apple-system,sans-serif;color:var(--ink);background:rgba(255,255,255,.05);border:1px solid var(--line);transition:border-color .2s,background .2s}
+  font:600 15px "Space Grotesk",-apple-system,sans-serif;color:var(--ink);background:rgba(255,255,255,.05);border:1px solid var(--line);transition:border-color .2s,background .2s}
 .alt:hover{border-color:var(--cyan);background:rgba(58,215,255,.08)}
 .alt:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
 .alt svg{width:19px;height:19px;flex:none;color:var(--cyan)}
@@ -293,6 +293,11 @@ body:not(.p2) input[type=text],body:not(.p2) input[type=password]{background:#07
 body:not(.p2) input[type=text]:focus,body:not(.p2) input[type=password]:focus{background:#08204f!important}
 /* la X tiene su propia fila: el título nunca queda debajo */
 .modal-card:has(.close){padding-top:56px!important}
+/* Tipografía del login original: Chakra Petch (títulos y botones), Space Grotesk (textos), JetBrains Mono (datos) */
+h1,.modal-card h2,.primary,.send,.cancel,.code{font-family:"Chakra Petch",-apple-system,sans-serif!important}
+.left span,.hud,#pushTime{font-family:"JetBrains Mono",ui-monospace,monospace!important}
+/* Campo seleccionado: mismo color del login original (#22d3ff) */
+input[type=text]:focus,input[type=password]:focus,input[type=email]:focus{border-color:#22d3ff!important;box-shadow:0 0 0 3px rgba(34,211,255,.16)!important}
 </style>
 </head>
 <body>
