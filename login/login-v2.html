@@ -281,6 +281,11 @@ body.password .links-face,body.password .sep-face,body:not(.password) .sep-pass{
 /* El rostro es solo animación: no se puede pulsar */
 .scan{cursor:default!important;pointer-events:none}
 .scan:hover,.scan:active{transform:none!important}
+/* Enlaces de abajo: los separadores quedan alineados en una misma columna central */
+.links,.links-face{display:grid!important;grid-template-columns:1fr auto 1fr;column-gap:10px;width:100%}
+.links > .linkish:first-child{justify-self:end;text-align:right}
+.links > .linkish:last-child{justify-self:start;text-align:left}
+body.password .links-face{display:none!important}
 </style>
 </head>
 <body>
