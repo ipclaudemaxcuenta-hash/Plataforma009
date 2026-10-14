@@ -10,3 +10,6 @@ Skills instaladas en `.claude/skills/`, provenientes de:
 2. Al final de cada párrafo de respuesta, añadir una línea corta indicando cuál(es) de las 3 skills se usó para ese apartado, por ejemplo: `Skill: Apple Design (layout estilo iPadOS)`. Si no se usó ninguna, indicarlo.
 3. Estilo objetivo: interfaz tipo iPad/iPadOS, fácil de usar y de calidad premium.
 4. Entregables en HTML (luego pasan a Figma y otra persona los integra en la plataforma).
+
+## Decisiones pendientes para la plataforma (después del login)
+- Botón de cerrar ventanas estilo macOS ("semáforo": solo el círculo rojo, con la x al pasar el mouse). Se descartó en el login y se reserva para el interior de la plataforma.
