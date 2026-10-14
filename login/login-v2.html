@@ -371,6 +371,7 @@ body.password .lk-orb{animation:lkFloatSoft 6s ease-in-out .6s infinite!importan
 @keyframes lkBreathe{0%,100%{transform:scale(1)}50%{transform:scale(1.02)}}
 @keyframes lkTwinkle{0%,100%{opacity:.25;transform:scale(.9)}50%{opacity:.6;transform:scale(1)}}
 .lk-spark{animation-duration:7s!important}
+body.password .pass-wrap{animation:fadeIn .35s ease!important}
 </style>
 </head>
 <body>
@@ -950,13 +951,23 @@ setTimeout(() => user.focus(), 1800);
   // Se mide con el campo de usuario del modo Face ID; en modo contraseña se usa el campo
   // que ocupa ese mismo lugar. Cambiar de modo NO mueve el aro.
   const h=document.querySelector('.horizon'), u=document.getElementById('user'), pw=document.getElementById('pass');
+  const st=document.getElementById('stage'), B=document.body;
+  // En modo contraseña, el campo de contraseña queda exactamente donde está
+  // "Escribe tu usuario" en modo Face ID; así el aro nunca se mueve.
   function place(){
-    const el=document.body.classList.contains('password') ? pw : u;
-    const r=el.getBoundingClientRect(); h.style.setProperty('--arcTop',(r.top+r.height*0.5-14)+'px'); // un poco más arriba
+    const pass=B.classList.contains('password');
+    st.style.top='0px';
+    const tg=document.getElementById('tag'), tt=document.getElementById('title'), keep=[tg.textContent,tt.textContent];
+    if(pass){ B.classList.remove('password'); tg.textContent='Escribe tu usuario y aprueba el ingreso desde tu app.'; tt.textContent='Ingresa con Face ID'; }
+    const r=u.getBoundingClientRect();               // posición de referencia (modo Face ID)
+    if(pass){ B.classList.add('password'); tg.textContent=keep[0]; tt.textContent=keep[1]; }
+    h.style.setProperty('--arcTop',(r.top+r.height*0.5-14)+'px'); // un poco más arriba
+    if(pass){ st.style.position='relative'; st.style.top=(r.top-pw.getBoundingClientRect().top)+'px'; }
   }
   ['resize','scroll'].forEach(e=>addEventListener(e,place,{passive:true}));
+  document.getElementById('toggleMode').addEventListener('click',()=>{requestAnimationFrame(place);setTimeout(place,450);});
   if(document.fonts) document.fonts.ready.then(place);
-  place(); setTimeout(place,400);
+  place(); setTimeout(place,400); setTimeout(place,2600);
 })();
 
 /* Enlaces de la segunda fila: abren las mismas ventanas */
