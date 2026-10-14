@@ -879,6 +879,20 @@ nav{align-self:end!important;margin:0!important}
 .accion{width:44px;height:44px}
 .accion svg{width:20px;height:20px}
 
+/* Multiplicador junto al nombre del producto */
+.chip-lbl{width:128px}
+.chip-mult{font-weight:600;color:var(--naranja-tinta);white-space:nowrap}
+body[data-tema="atardecer"] .chip-mult,body[data-tema="confeti"] .chip-mult,body[data-tema="ondas"] .chip-mult{color:#ffd9a8}
+/* Colores de los iconos nuevos */
+.k-refer .chip-ico{background:linear-gradient(160deg,#6ad0a8,#1fa37a)}
+.k-busq .chip-ico{background:linear-gradient(160deg,#7ab8f0,#4a8ad0)}
+.k-ip .chip-ico{background:linear-gradient(160deg,#8f9bff,#5563e6)}
+.k-icar .chip-ico{background:linear-gradient(160deg,#ff8f6b,#e8532c)}
+.k-nfc .chip-ico{background:linear-gradient(160deg,#5fd0e8,#1c9fc4)}
+.k-onb .chip-ico{background:linear-gradient(160deg,#ff9ec4,#ec5c98)}
+.k-pod .chip-ico{background:linear-gradient(160deg,#c78af0,#9a4fe0)}
+.k-cese .chip-ico{background:linear-gradient(160deg,#9aa3b8,#5f6880)}
+
 </style>
 </head>
 <body data-tema="degradado">
@@ -1032,6 +1046,77 @@ nav{align-self:end!important;margin:0!important}
       </div>
       <div class="paginas" id="lienzo" tabindex="-1">
       <div class="pagina" role="group" aria-label="Pantalla 1">
+        <button class="chip-app k-income" data-id="income" aria-label="Income, consume 3 consultas" title="Income (×3)">
+          <span class="chip-ico"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 8v32"/><path d="M31 14a7 5 0 0 0-7-4c-4 0-7 2-7 5s3 4 7 5 7 2 7 5-3 5-7 5a7 5 0 0 1-7-4"/></svg></span>
+          <span class="chip-lbl">Income <span class="chip-mult">(×3)</span></span>
+        </button>
+        <button class="chip-app k-refer" data-id="referencia-laboral" aria-label="Referencia laboral, consume 1 consulta" title="Referencia laboral (×1)">
+          <span class="chip-ico"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="19" cy="15" r="6"/><path d="M8 38a11 11 0 0 1 22 0"/><path d="m29 27 4 4 8-9"/></svg></span>
+          <span class="chip-lbl">Referencia laboral <span class="chip-mult">(×1)</span></span>
+        </button>
+        <button class="chip-app k-busq" data-id="busqueda-personas" aria-label="Búsqueda de personas, consume 1 consulta" title="Búsqueda de personas (×1)">
+          <span class="chip-ico"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="21" cy="21" r="12"/><path d="m30 30 9 9"/><circle cx="21" cy="18" r="3.6"/><path d="M14.5 28a7 7 0 0 1 13 0"/></svg></span>
+          <span class="chip-lbl">Búsqueda de personas <span class="chip-mult">(×1)</span></span>
+        </button>
+        <button class="chip-app k-mundo" data-id="extranjero" aria-label="Extranjero, consume 2 consultas" title="Extranjero (×2)">
+          <span class="chip-ico"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="16"/><path d="M8 24h32M24 8c5 5 5 27 0 32M24 8c-5 5-5 27 0 32"/></svg></span>
+          <span class="chip-lbl">Extranjero <span class="chip-mult">(×2)</span></span>
+        </button>
+        <button class="chip-app k-empresa" data-id="proveedor" aria-label="Empresarial, consume 2 consultas" title="Empresarial (×2)">
+          <span class="chip-ico"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 17-8 17 8-17 8-17-8Z"/><path d="M7 15v15l17 8 17-8V15"/><path d="M24 23v15"/></svg></span>
+          <span class="chip-lbl">Empresarial <span class="chip-mult">(×2)</span></span>
+        </button>
+        <button class="chip-app k-ruc" data-id="ruc" aria-label="RUC, consume 2 consultas" title="RUC (×2)">
+          <span class="chip-ico"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="30" height="30" rx="4"/><path d="M16 18h16M16 24h16M16 30h10"/></svg></span>
+          <span class="chip-lbl">RUC <span class="chip-mult">(×2)</span></span>
+        </button>
+        <button class="chip-app k-ip" data-id="ip" aria-label="IP, consume 2 consultas" title="IP (×2)">
+          <span class="chip-ico"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="9" width="34" height="22" rx="3"/><path d="M18 39h12M24 31v8"/><path d="M16 15v10M21 25V15h4.5a3.2 3.2 0 0 1 0 6.4H21"/></svg></span>
+          <span class="chip-lbl">IP <span class="chip-mult">(×2)</span></span>
+        </button>
+        <button class="chip-app k-ficha" data-id="ficha-id" aria-label="Ficha ID, consume 1 consulta" title="Ficha ID (×1)">
+          <span class="chip-ico"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="11" width="34" height="26" rx="3"/><circle cx="18" cy="22" r="4"/><path d="M12 32a6 6 0 0 1 12 0"/><path d="M29 19h7M29 25h7M29 31h4"/></svg></span>
+          <span class="chip-lbl">Ficha ID <span class="chip-mult">(×1)</span></span>
+        </button>
+        <button class="chip-app k-splaft" data-id="splaft" aria-label="Splaft, consume 1 consulta" title="Splaft (×1)">
+          <span class="chip-ico"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 6 10 11v10c0 9 6 15 14 18 8-3 14-9 14-18V11L24 6Z"/><path d="M24 18v8M24 30h.02"/></svg></span>
+          <span class="chip-lbl">Splaft <span class="chip-mult">(×1)</span></span>
+        </button>
+        <button class="chip-app k-cred" data-id="crediticio" aria-label="Crediticio, consume 1 consulta" title="Crediticio (×1)">
+          <span class="chip-ico"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="13" width="34" height="22" rx="3"/><path d="M7 20h34"/><path d="M12 28h7"/></svg></span>
+          <span class="chip-lbl">Crediticio <span class="chip-mult">(×1)</span></span>
+        </button>
+        <button class="chip-app k-icar" data-id="icar" aria-label="ICAR, consume 1 consulta" title="ICAR (×1)">
+          <span class="chip-ico"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 30v-7l4-9h22l4 9v7"/><rect x="7" y="23" width="34" height="9" rx="3"/><path d="M11 32v4M37 32v4"/><circle cx="14" cy="27.5" r="1.6" fill="#fff"/><circle cx="34" cy="27.5" r="1.6" fill="#fff"/><path d="M15 18h18"/></svg></span>
+          <span class="chip-lbl">ICAR <span class="chip-mult">(×1)</span></span>
+        </button>
+        <button class="chip-app k-b2b" data-id="b2b" aria-label="B2B, consume 1 consulta" title="B2B (×1)">
+          <span class="chip-ico"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="16" width="13" height="24" rx="2"/><rect x="28" y="10" width="13" height="30" rx="2"/><path d="M11 22h5M11 28h5M32 16h5M32 22h5M32 28h5M20 30h8"/></svg></span>
+          <span class="chip-lbl">B2B <span class="chip-mult">(×1)</span></span>
+        </button>
+        <button class="chip-app k-nfc" data-id="nfc" aria-label="NFC" title="NFC">
+          <span class="chip-ico"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="13" y="5" width="18" height="38" rx="4"/><path d="M33 17a10 10 0 0 1 0 14M37 13a16 16 0 0 1 0 22"/><path d="M20 38h4"/></svg></span>
+          <span class="chip-lbl">NFC</span>
+        </button>
+        <button class="chip-app k-onb" data-id="onboarding" aria-label="Onboarding" title="Onboarding">
+          <span class="chip-ico"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="19" cy="15" r="6"/><path d="M8 38a11 11 0 0 1 22 0"/><path d="M36 18v12M30 24h12"/></svg></span>
+          <span class="chip-lbl">Onboarding</span>
+        </button>
+        <button class="chip-app k-pod" data-id="podcast" aria-label="Podcast" title="Podcast">
+          <span class="chip-ico"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="18" y="6" width="12" height="20" rx="6"/><path d="M12 22a12 12 0 0 0 24 0M24 34v7M18 41h12"/></svg></span>
+          <span class="chip-lbl">Podcast</span>
+        </button>
+        <button class="chip-app k-cese" data-id="cese-laboral" aria-label="Cese laboral" title="Cese laboral">
+          <span class="chip-ico"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 8H11a3 3 0 0 0-3 3v26a3 3 0 0 0 3 3h9"/><path d="M30 16l8 8-8 8M38 24H18"/></svg></span>
+          <span class="chip-lbl">Cese laboral</span>
+        </button>
+        <button class="chip-app k-black" data-id="black-list" aria-label="Black List" title="Black List">
+          <span class="chip-ico"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="16"/><path d="m13 13 22 22"/></svg></span>
+          <span class="chip-lbl">Black List</span>
+        </button>
+        <span class="chip-hueco" aria-hidden="true"></span>
+      </div>
+      <div class="pagina" role="group" aria-label="Pantalla 2">
         <button class="chip-app k-star" data-id="zeta" aria-label="ZETA" title="ZETA">
           <span class="chip-ico"><svg viewBox="0 0 48 48" fill="#fff"><path d="M24 5.2c.7 0 1.3.4 1.6 1l4.2 8.9 9.4 1.4c.7.1 1.3.6 1.5 1.3.2.7 0 1.4-.5 1.9l-6.8 6.8 1.6 9.7c.1.7-.2 1.4-.7 1.8-.6.4-1.3.5-1.9.1L24 33.6l-8.4 4.6c-.6.3-1.4.3-1.9-.1-.6-.4-.9-1.1-.7-1.8l1.6-9.7-6.8-6.8c-.5-.5-.7-1.2-.5-1.9.2-.7.8-1.2 1.5-1.3l9.4-1.4 4.2-8.9c.3-.6.9-1 1.6-1Z"/></svg></span>
           <span class="chip-lbl">ZETA</span>
@@ -1072,40 +1157,10 @@ nav{align-self:end!important;margin:0!important}
           <span class="chip-ico"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16l7 7 11-13 11 13 7-7v20a3 3 0 0 1-3 3H9a3 3 0 0 1-3-3V16Z"/></svg></span>
           <span class="chip-lbl">VIP</span>
         </button>
-        <button class="chip-app k-ficha" data-id="ficha-id" aria-label="Ficha ID" title="Ficha ID">
-          <span class="chip-ico"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="11" width="34" height="26" rx="3"/><circle cx="18" cy="22" r="4"/><path d="M12 32a6 6 0 0 1 12 0"/><path d="M29 19h7M29 25h7M29 31h4"/></svg></span>
-          <span class="chip-lbl">Ficha ID</span>
-        </button>
-        <button class="chip-app k-splaft" data-id="splaft" aria-label="Splaft" title="Splaft">
-          <span class="chip-ico"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 6 10 11v10c0 9 6 15 14 18 8-3 14-9 14-18V11L24 6Z"/><path d="M24 18v8M24 30h.02"/></svg></span>
-          <span class="chip-lbl">Splaft</span>
-        </button>
-        <button class="chip-app k-cred" data-id="crediticio" aria-label="Crediticio" title="Crediticio">
-          <span class="chip-ico"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="13" width="34" height="22" rx="3"/><path d="M7 20h34"/><path d="M12 28h7"/></svg></span>
-          <span class="chip-lbl">Crediticio</span>
-        </button>
         <button class="chip-app k-violeta" data-id="credit-pro" aria-label="Credit Pro" title="Credit Pro">
           <span class="chip-ico"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M24 5l15 5.5v11c0 9.7-6.4 16.8-15 19.5C15.4 38.3 9 31.2 9 21.5v-11L24 5Z"/><path d="M17 24l5 5 9-10"/></svg></span>
           <span class="chip-lbl">Credit Pro</span>
         </button>
-        <button class="chip-app k-income" data-id="income" aria-label="Income" title="Income">
-          <span class="chip-ico"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 8v32"/><path d="M31 14a7 5 0 0 0-7-4c-4 0-7 2-7 5s3 4 7 5 7 2 7 5-3 5-7 5a7 5 0 0 1-7-4"/></svg></span>
-          <span class="chip-lbl">Income</span>
-        </button>
-        <button class="chip-app k-empresa" data-id="proveedor" aria-label="Empresarial" title="Empresarial">
-          <span class="chip-ico"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 17-8 17 8-17 8-17-8Z"/><path d="M7 15v15l17 8 17-8V15"/><path d="M24 23v15"/></svg></span>
-          <span class="chip-lbl">Empresarial</span>
-        </button>
-        <button class="chip-app k-mundo" data-id="extranjero" aria-label="Extranjero" title="Extranjero">
-          <span class="chip-ico"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="16"/><path d="M8 24h32M24 8c5 5 5 27 0 32M24 8c-5 5-5 27 0 32"/></svg></span>
-          <span class="chip-lbl">Extranjero</span>
-        </button>
-        <button class="chip-app k-ruc" data-id="ruc" aria-label="RUC" title="RUC">
-          <span class="chip-ico"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="30" height="30" rx="4"/><path d="M16 18h16M16 24h16M16 30h10"/></svg></span>
-          <span class="chip-lbl">RUC</span>
-        </button>
-      </div>
-      <div class="pagina" role="group" aria-label="Pantalla 2">
         <button class="chip-app k-libro" data-id="diccionario-legal" aria-label="Diccionario Legal" title="Diccionario Legal">
           <span class="chip-ico"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 10h12a6 6 0 0 1 6 6v24a4 4 0 0 0-4-4H6Z"/><path d="M42 10H30a6 6 0 0 0-6 6v24a4 4 0 0 1 4-4h14Z"/></svg></span>
           <span class="chip-lbl">Diccionario Legal</span>
@@ -1125,14 +1180,6 @@ nav{align-self:end!important;margin:0!important}
         <button class="chip-app k-proc" data-id="procesos" aria-label="Procesos" title="Procesos">
           <span class="chip-ico"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="14" r="4"/><circle cx="36" cy="34" r="4"/><path d="M16 14h11a7 7 0 0 1 0 14h-6a7 7 0 0 0 0 14h7"/></svg></span>
           <span class="chip-lbl">Procesos</span>
-        </button>
-        <button class="chip-app k-b2b" data-id="b2b" aria-label="B2B" title="B2B">
-          <span class="chip-ico"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="16" width="13" height="24" rx="2"/><rect x="28" y="10" width="13" height="30" rx="2"/><path d="M11 22h5M11 28h5M32 16h5M32 22h5M32 28h5M20 30h8"/></svg></span>
-          <span class="chip-lbl">B2B</span>
-        </button>
-        <button class="chip-app k-black" data-id="black-list" aria-label="Black List" title="Black List">
-          <span class="chip-ico"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="16"/><path d="m13 13 22 22"/></svg></span>
-          <span class="chip-lbl">Black List</span>
         </button>
         <button class="chip-app k-arena" data-id="asincrona" aria-label="Asíncrona" title="Asíncrona">
           <span class="chip-ico"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 6h20M14 42h20"/><path d="M16 6v6c0 6 8 8 8 12s-8 6-8 12v6"/><path d="M32 6v6c0 6-8 8-8 12s8 6 8 12v6"/></svg></span>
