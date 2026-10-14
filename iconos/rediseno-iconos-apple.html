@@ -59,7 +59,7 @@ header p{margin:6px 0 0;color:var(--muted)}
 .icon.g{--p:var(--g);--cut:var(--c1)}
 .icon.g svg{filter:none}
 /* Modo oscuro: fondo grafito, glifo toma el color de marca (como macOS Tahoe) */
-body.dark .icon{--p:var(--g,var(--c1));--cut:#1f1f22;--so:.55;
+body.dark .icon{--p:var(--gd,var(--g,var(--c1)));--cut:#1f1f22;--so:.55;
   background:linear-gradient(180deg,#3a3a3e,#161618);
   box-shadow:0 6px 16px -4px rgba(0,0,0,.6),inset 0 0 0 .5px rgba(255,255,255,.12)}
 body.dark .icon::after{background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,0) 40%);box-shadow:inset 0 1px 0 rgba(255,255,255,.18)}
@@ -123,6 +123,8 @@ const I={
  black:`<circle class="s" cx="50" cy="50" r="28" style="fill-opacity:.4;opacity:1"/><circle class="ps" cx="50" cy="50" r="26" stroke-width="8"/><path class="ps" stroke-width="8" d="M32 68 68 32"/>`
 };
 // [nombre, glifo, fondo1, fondo2, color de glifo opcional]
+// Glifo más brillante solo en modo oscuro para tonos muy profundos
+const darkGlyph={b2b:'#8AA6FF',dicc:'#FF85A8',cred:'#5FD0E0',emp:'#B9C8D8'};
 const apps=[
  ['ZETA','zeta','#FFC93C','#F08A00'],['Z. Básico','zbas','#F6E35C','#CFAE00'],['Z. Básico Plus','zbasp','#B8E44C','#62A812'],['Z. Premium','zprem','#62D4FF','#0093DD'],['Z. VIP','zvip','#FFC6B2','#DB8467'],
  ['Clásico','clasico','#FFF6DC','#F3DCA2','#E69100'],['Premium IA','premia','#B98BFF','#6C33E0'],['Básico Plus','basp','#FFFFFF','#E6ECF0','#14B58C'],['Premium','prem','#6390FF','#2142D6'],['VIP','vip','#3C3C40','#0F0F11','#FFD36B'],
@@ -131,7 +133,7 @@ const apps=[
  ['Historial','hist','#FFFFFF','#ECE6F3','#9B3BDB'],['Mis paquetes','paq','#D9A46A','#97602A'],['Procesos','proc','#3C3C40','#0F0F11','#5BE36C'],['B2B','b2b','#4566B8','#13275F'],['Black List','black','#7A808C','#2A2E36']
 ];
 document.getElementById('grid').innerHTML=apps.map(([n,k,c1,c2,g])=>
- `<div class="app"><div class="icon${g?' g':''}" style="--c1:${c1};--c2:${c2}${g?';--g:'+g:''}"><svg viewBox="0 0 100 100" aria-hidden="true">${I[k]}</svg></div><span>${n}</span></div>`).join('');
+ `<div class="app"><div class="icon${g?' g':''}" style="--c1:${c1};--c2:${c2}${g?';--g:'+g:''}${darkGlyph[k]?';--gd:'+darkGlyph[k]:''}"><svg viewBox="0 0 100 100" aria-hidden="true">${I[k]}</svg></div><span>${n}</span></div>`).join('');
 document.querySelectorAll('.seg button').forEach(b=>b.onclick=()=>{
  document.querySelectorAll('.seg button').forEach(x=>x.setAttribute('aria-pressed',x===b));
  document.body.className=b.dataset.mode==='light'?'':b.dataset.mode==='dark'?'dark':'dark tint';
