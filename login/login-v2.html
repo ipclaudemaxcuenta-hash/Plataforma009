@@ -255,7 +255,9 @@ body.password .steps{display:none}
 .hint{margin:6px 0 0 6px;font-size:13px;color:#b9cbea;text-align:left}
 .peek{top:24px!important}
 body.password .primary svg{display:none}
-.aux{display:flex;justify-content:flex-end;margin-top:-4px}
+.aux{display:flex;justify-content:flex-start;align-items:center;gap:8px;flex-wrap:wrap;margin-top:-4px;padding-left:6px}
+.forgot-pass{display:none}
+body.password .forgot-pass{display:inline}
 .aux .linkish{font-size:13px!important}
 .or{display:flex;align-items:center;gap:12px;color:#8fa8d4;font-size:13px;margin:2px 0}
 .or::before,.or::after{content:"";flex:1;height:1px;background:var(--line)}
@@ -309,7 +311,7 @@ body{height:auto!important;min-height:100%;overflow-y:auto!important}
       </button>
       <p class="hint" id="passHint">Debe tener al menos 6 caracteres.</p>
     </div>
-    <div class="aux"><button type="button" class="linkish" id="openUser" aria-haspopup="dialog">¿Olvidaste tu usuario?</button></div>
+    <div class="aux"><button type="button" class="linkish forgot-pass" id="openPass" aria-haspopup="dialog">¿Olvidaste tu contraseña?</button><span class="sep forgot-pass" aria-hidden="true">·</span><button type="button" class="linkish" id="openUser" aria-haspopup="dialog">¿Olvidaste tu usuario?</button></div>
     <button type="submit" class="primary" id="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2M9 9v1M15 9v1M12 9v4h-1M9.5 16a3.5 3.5 0 0 0 5 0"/></svg><span id="goTxt">Continuar con Face ID</span></button>
     <div class="or" aria-hidden="true"><span>o</span></div>
     <button type="button" class="alt" id="toggleMode"><svg class="ic-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><svg class="ic-face" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2M9 9v1M15 9v1M12 9v4h-1M9.5 16a3.5 3.5 0 0 0 5 0"/></svg><span>Ingresar con contraseña</span></button>
@@ -342,6 +344,19 @@ body{height:auto!important;min-height:100%;overflow-y:auto!important}
       <button type="button" class="send" id="sendMail">Enviar</button>
     </div>
     <p class="modal-status" id="mailStatus" role="status" aria-live="polite"></p>
+  </div>
+</div>
+
+<div class="modal" id="modalPass" hidden>
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="passTitle">
+    <button class="close" type="button" aria-label="Cerrar">&times;</button>
+    <h2 id="passTitle">¿Olvidaste tu contraseña?</h2>
+    <p>Escribe tu correo registrado y te enviamos un enlace para crear una nueva contraseña.</p>
+    <div class="recover">
+      <input id="mailPass" type="email" autocomplete="email" placeholder="correo@ejemplo.com">
+      <button type="button" class="send" id="sendPass">Enviar enlace</button>
+    </div>
+    <p class="modal-status" id="passStatus" role="status" aria-live="polite"></p>
   </div>
 </div>
 
@@ -790,6 +805,26 @@ setTimeout(() => user.focus(), 1800);
     
     txt.textContent=on?'Ver propuesta 1':'Ver propuesta 2';
   });
+})();
+
+/* Recuperar contraseña (solo visible en el modo contraseña) */
+(function(){
+  const m=document.getElementById('modalPass'), open=document.getElementById('openPass');
+  const mail=document.getElementById('mailPass'), send=document.getElementById('sendPass'), st=document.getElementById('passStatus');
+  const close=()=>{ m.hidden=true; open.focus(); };
+  open.addEventListener('click',()=>{ st.textContent=''; st.classList.remove('ok'); send.disabled=false; m.hidden=false; m.querySelector('.close').focus(); });
+  m.querySelector('.close').addEventListener('click',close);
+  m.addEventListener('click',e=>{ if(e.target===m) close(); });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape' && !m.hidden) close(); });
+  function go(){
+    const v=mail.value.trim();
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)){ st.classList.remove('ok'); st.textContent='Escribe un correo válido.'; mail.focus(); return; }
+    // ── Aquí va tu llamada real ── fetch('/api/recuperar-contrasena', { method:'POST', body: JSON.stringify({ mail: v }) })
+    send.disabled=true; st.classList.add('ok'); st.textContent='Listo. Revisa tu correo y sigue el enlace.';
+  }
+  send.addEventListener('click',go);
+  mail.addEventListener('keydown',e=>{ if(e.key==='Enter') go(); });
+  mail.addEventListener('input',()=>{ st.textContent=''; });
 })();
 </script>
 </body>
