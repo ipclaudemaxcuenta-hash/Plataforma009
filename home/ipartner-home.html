@@ -1005,6 +1005,30 @@ body:not([data-tema]) .stage::after{
     linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,.04) 45%,rgba(61,36,57,.1) 100%);
 }
 
+/* ===== Feedback: 4 íconos por fila (6 filas = 24 por pantalla) ===== */
+.pagina{
+  grid-template-columns:repeat(4,var(--icon))!important;
+  grid-auto-rows:84px!important;row-gap:12px!important;
+}
+.paginas{margin-top:32px!important}
+.chip-app{gap:7px!important}
+/* Pantalla 1 agrupada por consumo: un color por grupo */
+.k-g-x3 .chip-ico{background:linear-gradient(160deg,#52d977,#17b046)}
+.k-g-x2 .chip-ico{background:linear-gradient(160deg,#4fd8d0,#14aab8)}
+.k-g-x1 .chip-ico{background:linear-gradient(160deg,#8f9bff,#5563e6)}
+.k-g-va .chip-ico{background:linear-gradient(160deg,#ff9ec4,#ec5c98)}
+
+/* ===== Feedback: íconos del Dock circulares ===== */
+.nav-chip{border-radius:50%!important}
+.nav-item{border-radius:50%}
+/* 4 por fila como bloque compacto y centrado (columnas de 176px, filas de 92px) */
+.pagina{
+  grid-template-columns:repeat(4,176px)!important;
+  justify-content:center!important;justify-items:center;
+  padding-left:0!important;padding-right:0!important;
+  grid-auto-rows:84px!important;row-gap:10px!important;
+}
+
 </style>
 </head>
 <body data-tema="degradado">
@@ -1178,75 +1202,75 @@ body:not([data-tema]) .stage::after{
       <div class="paginas" id="lienzo" tabindex="-1">
         <div class="pista" id="pista">
       <div class="pagina" role="group" aria-label="Pantalla 1">
-        <button class="chip-app k-income" data-id="income" aria-label="Income, consume 3 consultas" title="Income (×3)">
+        <button class="chip-app k-g-x3 fila-nueva" data-id="income" aria-label="Income, consume 3 consultas" title="Income (×3)">
           <span class="chip-ico"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 8v32"/><path d="M31 14a7 5 0 0 0-7-4c-4 0-7 2-7 5s3 4 7 5 7 2 7 5-3 5-7 5a7 5 0 0 1-7-4"/></svg></span>
           <span class="chip-lbl">Income <span class="chip-mult">(×3)</span></span>
         </button>
-        <button class="chip-app k-refer" data-id="referencia-laboral" aria-label="Referencia laboral, consume 1 consulta" title="Referencia laboral (×1)">
-          <span class="chip-ico"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="19" cy="15" r="6"/><path d="M8 38a11 11 0 0 1 22 0"/><path d="m29 27 4 4 8-9"/></svg></span>
-          <span class="chip-lbl">Referencia laboral <span class="chip-mult">(×1)</span></span>
-        </button>
-        <button class="chip-app k-busq" data-id="busqueda-personas" aria-label="Búsqueda de personas, consume 1 consulta" title="Búsqueda de personas (×1)">
-          <span class="chip-ico"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="21" cy="21" r="12"/><path d="m30 30 9 9"/><circle cx="21" cy="18" r="3.6"/><path d="M14.5 28a7 7 0 0 1 13 0"/></svg></span>
-          <span class="chip-lbl">Búsqueda de personas <span class="chip-mult">(×1)</span></span>
-        </button>
-        <button class="chip-app k-mundo" data-id="extranjero" aria-label="Extranjero, consume 2 consultas" title="Extranjero (×2)">
+        <button class="chip-app k-g-x2 fila-nueva" data-id="extranjero" aria-label="Extranjero, consume 2 consultas" title="Extranjero (×2)">
           <span class="chip-ico"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="16"/><path d="M8 24h32M24 8c5 5 5 27 0 32M24 8c-5 5-5 27 0 32"/></svg></span>
           <span class="chip-lbl">Extranjero <span class="chip-mult">(×2)</span></span>
         </button>
-        <button class="chip-app k-empresa" data-id="proveedor" aria-label="Empresarial, consume 2 consultas" title="Empresarial (×2)">
+        <button class="chip-app k-g-x2" data-id="proveedor" aria-label="Empresarial, consume 2 consultas" title="Empresarial (×2)">
           <span class="chip-ico"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 17-8 17 8-17 8-17-8Z"/><path d="M7 15v15l17 8 17-8V15"/><path d="M24 23v15"/></svg></span>
           <span class="chip-lbl">Empresarial <span class="chip-mult">(×2)</span></span>
         </button>
-        <button class="chip-app k-ruc" data-id="ruc" aria-label="RUC, consume 2 consultas" title="RUC (×2)">
+        <button class="chip-app k-g-x2" data-id="ruc" aria-label="RUC, consume 2 consultas" title="RUC (×2)">
           <span class="chip-ico"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="30" height="30" rx="4"/><path d="M16 18h16M16 24h16M16 30h10"/></svg></span>
           <span class="chip-lbl">RUC <span class="chip-mult">(×2)</span></span>
         </button>
-        <button class="chip-app k-ip" data-id="ip" aria-label="IP, consume 2 consultas" title="IP (×2)">
+        <button class="chip-app k-g-x2" data-id="ip" aria-label="IP, consume 2 consultas" title="IP (×2)">
           <span class="chip-ico"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="9" width="34" height="22" rx="3"/><path d="M18 39h12M24 31v8"/><path d="M16 15v10M21 25V15h4.5a3.2 3.2 0 0 1 0 6.4H21"/></svg></span>
           <span class="chip-lbl">IP <span class="chip-mult">(×2)</span></span>
         </button>
-        <button class="chip-app k-ficha" data-id="ficha-id" aria-label="Ficha ID, consume 1 consulta" title="Ficha ID (×1)">
+        <button class="chip-app k-g-x1 fila-nueva" data-id="referencia-laboral" aria-label="Referencia laboral, consume 1 consulta" title="Referencia laboral (×1)">
+          <span class="chip-ico"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="19" cy="15" r="6"/><path d="M8 38a11 11 0 0 1 22 0"/><path d="m29 27 4 4 8-9"/></svg></span>
+          <span class="chip-lbl">Referencia laboral <span class="chip-mult">(×1)</span></span>
+        </button>
+        <button class="chip-app k-g-x1" data-id="busqueda-personas" aria-label="Búsqueda de personas, consume 1 consulta" title="Búsqueda de personas (×1)">
+          <span class="chip-ico"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="21" cy="21" r="12"/><path d="m30 30 9 9"/><circle cx="21" cy="18" r="3.6"/><path d="M14.5 28a7 7 0 0 1 13 0"/></svg></span>
+          <span class="chip-lbl">Búsqueda de personas <span class="chip-mult">(×1)</span></span>
+        </button>
+        <button class="chip-app k-g-x1" data-id="ficha-id" aria-label="Ficha ID, consume 1 consulta" title="Ficha ID (×1)">
           <span class="chip-ico"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="11" width="34" height="26" rx="3"/><circle cx="18" cy="22" r="4"/><path d="M12 32a6 6 0 0 1 12 0"/><path d="M29 19h7M29 25h7M29 31h4"/></svg></span>
           <span class="chip-lbl">Ficha ID <span class="chip-mult">(×1)</span></span>
         </button>
-        <button class="chip-app k-splaft" data-id="splaft" aria-label="Splaft, consume 1 consulta" title="Splaft (×1)">
+        <button class="chip-app k-g-x1" data-id="splaft" aria-label="Splaft, consume 1 consulta" title="Splaft (×1)">
           <span class="chip-ico"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 6 10 11v10c0 9 6 15 14 18 8-3 14-9 14-18V11L24 6Z"/><path d="M24 18v8M24 30h.02"/></svg></span>
           <span class="chip-lbl">Splaft <span class="chip-mult">(×1)</span></span>
         </button>
-        <button class="chip-app k-cred" data-id="crediticio" aria-label="Crediticio, consume 1 consulta" title="Crediticio (×1)">
+        <button class="chip-app k-g-x1" data-id="crediticio" aria-label="Crediticio, consume 1 consulta" title="Crediticio (×1)">
           <span class="chip-ico"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="13" width="34" height="22" rx="3"/><path d="M7 20h34"/><path d="M12 28h7"/></svg></span>
           <span class="chip-lbl">Crediticio <span class="chip-mult">(×1)</span></span>
         </button>
-        <button class="chip-app k-violeta" data-id="credit-pro" aria-label="Credit Pro, consume 1 consulta" title="Credit Pro (×1)">
+        <button class="chip-app k-g-x1" data-id="credit-pro" aria-label="Credit Pro, consume 1 consulta" title="Credit Pro (×1)">
           <span class="chip-ico"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M24 5l15 5.5v11c0 9.7-6.4 16.8-15 19.5C15.4 38.3 9 31.2 9 21.5v-11L24 5Z"/><path d="M17 24l5 5 9-10"/></svg></span>
           <span class="chip-lbl">Credit Pro <span class="chip-mult">(×1)</span></span>
         </button>
-        <button class="chip-app k-icar" data-id="icar" aria-label="ICAR, consume 1 consulta" title="ICAR (×1)">
+        <button class="chip-app k-g-x1" data-id="icar" aria-label="ICAR, consume 1 consulta" title="ICAR (×1)">
           <span class="chip-ico"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 30v-7l4-9h22l4 9v7"/><rect x="7" y="23" width="34" height="9" rx="3"/><path d="M11 32v4M37 32v4"/><circle cx="14" cy="27.5" r="1.6" fill="#fff"/><circle cx="34" cy="27.5" r="1.6" fill="#fff"/><path d="M15 18h18"/></svg></span>
           <span class="chip-lbl">ICAR <span class="chip-mult">(×1)</span></span>
         </button>
-        <button class="chip-app k-b2b" data-id="b2b" aria-label="B2B, consume 1 consulta" title="B2B (×1)">
+        <button class="chip-app k-g-x1" data-id="b2b" aria-label="B2B, consume 1 consulta" title="B2B (×1)">
           <span class="chip-ico"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="16" width="13" height="24" rx="2"/><rect x="28" y="10" width="13" height="30" rx="2"/><path d="M11 22h5M11 28h5M32 16h5M32 22h5M32 28h5M20 30h8"/></svg></span>
           <span class="chip-lbl">B2B <span class="chip-mult">(×1)</span></span>
         </button>
-        <button class="chip-app k-nfc" data-id="nfc" aria-label="NFC" title="NFC">
+        <button class="chip-app k-g-va fila-nueva" data-id="nfc" aria-label="NFC" title="NFC">
           <span class="chip-ico"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="13" y="5" width="18" height="38" rx="4"/><path d="M33 17a10 10 0 0 1 0 14M37 13a16 16 0 0 1 0 22"/><path d="M20 38h4"/></svg></span>
           <span class="chip-lbl">NFC</span>
         </button>
-        <button class="chip-app k-onb" data-id="onboarding" aria-label="Onboarding" title="Onboarding">
+        <button class="chip-app k-g-va" data-id="onboarding" aria-label="Onboarding" title="Onboarding">
           <span class="chip-ico"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="19" cy="15" r="6"/><path d="M8 38a11 11 0 0 1 22 0"/><path d="M36 18v12M30 24h12"/></svg></span>
           <span class="chip-lbl">Onboarding</span>
         </button>
-        <button class="chip-app k-pod" data-id="podcast" aria-label="Podcast" title="Podcast">
+        <button class="chip-app k-g-va" data-id="podcast" aria-label="Podcast" title="Podcast">
           <span class="chip-ico"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="18" y="6" width="12" height="20" rx="6"/><path d="M12 22a12 12 0 0 0 24 0M24 34v7M18 41h12"/></svg></span>
           <span class="chip-lbl">Podcast</span>
         </button>
-        <button class="chip-app k-cese" data-id="cese-laboral" aria-label="Cese laboral" title="Cese laboral">
+        <button class="chip-app k-g-va" data-id="cese-laboral" aria-label="Cese laboral" title="Cese laboral">
           <span class="chip-ico"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 8H11a3 3 0 0 0-3 3v26a3 3 0 0 0 3 3h9"/><path d="M30 16l8 8-8 8M38 24H18"/></svg></span>
           <span class="chip-lbl">Cese laboral</span>
         </button>
-        <button class="chip-app k-black" data-id="black-list" aria-label="Black List" title="Black List">
+        <button class="chip-app k-g-va" data-id="black-list" aria-label="Black List" title="Black List">
           <span class="chip-ico"><svg viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="16"/><path d="m13 13 22 22"/></svg></span>
           <span class="chip-lbl">Black List</span>
         </button>
