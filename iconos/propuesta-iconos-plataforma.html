@@ -1914,6 +1914,10 @@ window.addEventListener("storage",function(e){
 .ap-glass .gl{--t1:var(--g);--t2:var(--g)}
 .ap-glass .nav-chip[style*='--h0']{--t1:#FF9A1F;--t2:#F07800}
 .ap-glass .n2,.ap-glass.lv1 .chip-ico svg{filter:drop-shadow(0 1px 2px rgba(0,0,0,.28))!important}
+/* Botón del buscador = mismo icono de Asíncrona (robot celeste) */
+.lv2 #buscaIr{background:linear-gradient(180deg,#4FD1FF,#0A7CFF)!important;--p:#fff;--cut:#0A7CFF;--so:.5}
+.ap-dark.lv2 #buscaIr{background:linear-gradient(180deg,#3a3a3e,#161618)!important;--p:#4FD1FF;--cut:#1f1f22;--so:.55}
+.ap-glass.lv2 #buscaIr{background:linear-gradient(180deg,rgba(79,209,255,.62),rgba(10,124,255,.78))!important;--p:#fff;--cut:#0A7CFF}
 </style>
 <div id="pz" role="region" aria-label="Propuesta de iconos">
   <b>VERSIÓN</b><div class="sg" data-k="lv"><button data-v="" aria-pressed="false">Actual</button><button data-v="lv1" aria-pressed="false">Nivel 1</button><button data-v="lv2" aria-pressed="true">Nivel 2</button></div>
@@ -1996,7 +2000,7 @@ let render=function(){root.classList.remove('lv1','lv2','ap-dark','ap-glass');lv
 document.querySelectorAll('#pz .sg').forEach(sg=>sg.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
  sg.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));if(sg.dataset.k==='lv')lv=b.dataset.v;else ap=b.dataset.v;render();}));
 const bi=document.getElementById('buscaIr');const biO=bi&&bi.innerHTML;
-const _r=render;render=function(){_r();if(!bi)return;bi.innerHTML=lv==='lv2'?`<svg class="n2" viewBox="0 0 100 100" aria-hidden="true" style="--p:#fff;--cut:#8a4fb0;--so:.55;width:72%;height:72%">${G['Asíncrona']}</svg>`:biO;};
+const _r=render;render=function(){_r();if(!bi)return;bi.innerHTML=lv==='lv2'?`<svg class="n2" viewBox="0 0 100 100" aria-hidden="true" style="width:92% !important;height:92% !important">${G['Asíncrona']}</svg>`:biO;};
 render();
 })();
 </script>
