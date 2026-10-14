@@ -286,7 +286,7 @@ body{height:auto!important;min-height:100%;overflow-y:auto!important}
 .close:hover{background:rgba(235,245,255,.22)!important;color:#fff!important}
 .close:active{transform:scale(.92)}
 .close:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
-body:not(.p2) .horizon::before{top:56%}
+body:not(.p2) .horizon::before{top:var(--arcTop,56%)}
 .hud,.cross{z-index:1!important}
 </style>
 </head>
@@ -841,6 +841,18 @@ setTimeout(() => user.focus(), 1800);
   send.addEventListener('click',go);
   mail.addEventListener('keydown',e=>{ if(e.key==='Enter') go(); });
   mail.addEventListener('input',()=>{ st.textContent=''; });
+})();
+
+/* El borde del planeta siempre pasa detrás del campo "Escribe tu usuario",
+   sin importar el alto de la pantalla ni el modo (Face ID o contraseña). */
+(function(){
+  const h=document.querySelector('.horizon'), u=document.getElementById('user');
+  function place(){ const r=u.getBoundingClientRect(); h.style.setProperty('--arcTop',(r.top+r.height*0.5)+'px'); }
+  ['resize','scroll'].forEach(e=>addEventListener(e,place,{passive:true}));
+  document.getElementById('toggleMode').addEventListener('click',()=>setTimeout(place,80));
+  document.getElementById('switch').addEventListener('click',()=>setTimeout(place,80));
+  if(document.fonts) document.fonts.ready.then(place);
+  place(); setTimeout(place,400);
 })();
 </script>
 </body>
