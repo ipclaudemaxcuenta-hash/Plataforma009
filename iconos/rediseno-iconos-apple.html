@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Iconos estilo Apple</title>
+<style>
+:root{
+  --wall: radial-gradient(120% 90% at 15% 10%, #ffe3ec 0%, transparent 60%),
+          radial-gradient(90% 80% at 85% 30%, #ffd0e0 0%, transparent 55%),
+          linear-gradient(160deg,#fbe7ee,#f6d6e3);
+  --text:#1d1d1f; --label:#1d1d1f; --muted:#6e6e73;
+  --panel:rgba(255,255,255,.55); --panel-b:rgba(255,255,255,.7);
+  --seg:rgba(118,118,128,.14); --seg-on:#fff;
+}
+body.dark{
+  --wall: radial-gradient(120% 90% at 15% 10%, #3a2030 0%, transparent 60%),
+          radial-gradient(90% 80% at 85% 30%, #26203a 0%, transparent 55%),
+          linear-gradient(160deg,#141418,#0b0b0e);
+  --text:#f5f5f7; --label:#f5f5f7; --muted:#a1a1a6;
+  --panel:rgba(40,40,46,.55); --panel-b:rgba(255,255,255,.08);
+  --seg:rgba(118,118,128,.24); --seg-on:#636366;
+}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:var(--wall);background-attachment:fixed;color:var(--text);
+  font:15px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif;
+  -webkit-font-smoothing:antialiased;transition:background .4s}
+.wrap{max-width:1100px;margin:0 auto;padding:40px 16px 80px}
+header{display:flex;flex-wrap:wrap;gap:16px;align-items:end;justify-content:space-between;margin-bottom:28px}
+h1{font-size:34px;letter-spacing:-.02em;margin:0;font-weight:700}
+header p{margin:6px 0 0;color:var(--muted)}
+.seg{display:inline-flex;background:var(--seg);border-radius:10px;padding:2px;backdrop-filter:blur(20px)}
+.seg button{border:0;background:transparent;color:var(--text);font:600 13px/1 inherit;font-family:inherit;padding:8px 16px;border-radius:8px;cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--seg-on);box-shadow:0 3px 8px rgba(0,0,0,.12),0 0 0 .5px rgba(0,0,0,.04)}
+.seg button:focus-visible{outline:2px solid #0a84ff;outline-offset:2px}
+.panel{background:var(--panel);border:1px solid var(--panel-b);border-radius:28px;padding:32px 20px;
+  backdrop-filter:blur(30px) saturate(160%);-webkit-backdrop-filter:blur(30px) saturate(160%)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));row-gap:28px;column-gap:8px}
+.app{display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center}
+.app span{font-size:13px;font-weight:500;color:var(--label);max-width:120px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ---------- Icono (squircle 1024 → 88px) ---------- */
+.icon{--p:#fff;--cut:var(--c2);--so:.5;
+  position:relative;width:88px;height:88px;border-radius:22.4%;
+  background:linear-gradient(180deg,var(--c1),var(--c2));
+  box-shadow:0 1px 1px rgba(0,0,0,.08),0 6px 14px -4px rgba(0,0,0,.25),inset 0 0 0 .5px rgba(255,255,255,.35);
+  overflow:hidden;transition:transform .2s cubic-bezier(.3,.7,.4,1.4),background .4s}
+.icon::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:linear-gradient(180deg,rgba(255,255,255,.35),rgba(255,255,255,0) 45%);
+  box-shadow:inset 0 1.5px 0 rgba(255,255,255,.45)}
+.app:hover .icon{transform:scale(1.06)}
+.icon svg{position:absolute;inset:0;width:100%;height:100%;filter:drop-shadow(0 1.5px 1.5px rgba(0,0,0,.14))}
+.p{fill:var(--p)} .s{fill:var(--p);opacity:var(--so)} .c{fill:var(--cut)}
+.ps{fill:none;stroke:var(--p);stroke-linecap:round;stroke-linejoin:round}
+.ss{fill:none;stroke:var(--p);opacity:var(--so);stroke-linecap:round;stroke-linejoin:round}
+.cs{fill:none;stroke:var(--cut);stroke-linecap:round;stroke-linejoin:round}
+
+/* Modo oscuro: fondo grafito, glifo toma el color de marca (como macOS Tahoe) */
+body.dark .icon{--p:var(--c1);--cut:#1f1f22;--so:.55;
+  background:linear-gradient(180deg,#3a3a3e,#161618);
+  box-shadow:0 6px 16px -4px rgba(0,0,0,.6),inset 0 0 0 .5px rgba(255,255,255,.12)}
+body.dark .icon::after{background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,0) 40%);box-shadow:inset 0 1px 0 rgba(255,255,255,.18)}
+/* Tintado: monocromo */
+body.tint .icon{--p:#ffc6d5;--cut:#2a1d22;--c1:#ffc6d5}
+body.tint .icon svg{filter:none}
+
+.notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:28px}
+.note{background:var(--panel);border:1px solid var(--panel-b);border-radius:20px;padding:18px 20px;backdrop-filter:blur(30px)}
+.note h3{margin:0 0 6px;font-size:15px}.note p{margin:0;color:var(--muted);font-size:14px}
+@media (max-width:520px){.grid{grid-template-columns:repeat(3,1fr)}.icon{width:68px;height:68px}h1{font-size:28px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div><h1>Iconos de la plataforma</h1><p>Propuesta de rediseño con lenguaje de iconos de Apple (macOS / iPadOS 26).</p></div>
+    <div class="seg" role="group" aria-label="Apariencia">
+      <button data-mode="light" aria-pressed="true">Claro</button>
+      <button data-mode="dark" aria-pressed="false">Oscuro</button>
+      <button data-mode="tint" aria-pressed="false">Tintado</button>
+    </div>
+  </header>
+  <section class="panel"><div class="grid" id="grid"></div></section>
+  <div class="notes">
+    <div class="note"><h3>Glifos rellenos y por capas</h3><p>Se reemplaza el trazo fino por formas sólidas con una capa translúcida detrás, para dar profundidad como en Fotos o Atajos.</p></div>
+    <div class="note"><h3>Modo oscuro real</h3><p>El fondo pasa a grafito y el glifo conserva el color de marca, igual que los iconos de Apple en oscuro.</p></div>
+    <div class="note"><h3>Familia ZETA</h3><p>Una insignia «Z» común agrupa los planes Z sin cambiar la forma de cada nivel.</p></div>
+  </div>
+</div>
+<script>
+const st=(cx,cy,R,r)=>{let p=[];for(let i=0;i<10;i++){const a=-Math.PI/2+i*Math.PI/5,d=i%2?r:R;p.push((cx+d*Math.cos(a)).toFixed(1)+','+(cy+d*Math.sin(a)).toFixed(1))}return p.join(' ')};
+const star=(cx=50,cy=52,R=27,r=12.5)=>`<polygon class="p" points="${st(cx,cy,R,r)}" stroke="var(--p)" stroke-width="5" stroke-linejoin="round"/>`;
+const zb=`<circle class="p" cx="73" cy="73" r="13"/><path class="cs" stroke-width="3.6" d="M68 68h10l-10 10h10"/>`;
+const plus=`<path class="ss" stroke-width="5" d="M74 18v14M67 25h14"/>`;
+const diamond=`<polygon class="p" points="27,40 37,26 63,26 73,40" stroke="var(--p)" stroke-width="4" stroke-linejoin="round"/><polygon class="s" points="27,42 73,42 50,76" stroke="var(--p)" stroke-width="4" stroke-linejoin="round"/>`;
+const crown=`<path class="p" stroke="var(--p)" stroke-width="5" stroke-linejoin="round" d="M27 64 24 34 38 46 50 28 62 46 76 34 73 64Z"/><rect class="s" x="27" y="69" width="46" height="7" rx="3.5"/>`;
+const shield=`<path class="p" d="M50 22 73 30.5V49c0 15-10 25-23 30-13-5-23-15-23-30V30.5Z"/>`;
+const shieldBack=`<path class="s" transform="translate(6 -4)" d="M50 22 73 30.5V49c0 15-10 25-23 30-13-5-23-15-23-30V30.5Z"/>`;
+const I={
+ zeta:`<circle class="s" cx="50" cy="50" r="30"/><path class="ps" stroke-width="11" d="M34 34h32L34 66h32"/>`,
+ zbas:star(48,48)+zb, zbasp:star(46,50,25,11.5)+plus+zb, zprem:`<g transform="translate(-3 -4)">${diamond}</g>`+zb, zvip:`<g transform="translate(-3 -5)">${crown}</g>`+zb,
+ clasico:star(), premia:shieldBack+shield+`<path class="c" d="M50 36q2.4 11 13 14-10.6 3-13 14-2.4-11-13-14 10.6-3 13-14Z"/>`,
+ basp:star(48,53)+plus, prem:diamond, vip:crown,
+ ficha:`<rect class="s" x="27" y="22" width="50" height="38" rx="8"/><rect class="p" x="21" y="31" width="58" height="42" rx="9"/><circle class="c" cx="38" cy="47" r="6.5"/><path class="c" d="M28 66c0-8 20-8 20 0Z"/><rect class="c" x="55" y="44" width="17" height="5" rx="2.5"/><rect class="c" x="55" y="55" width="12" height="5" rx="2.5" opacity=".6"/>`,
+ splaft:shield+`<rect class="c" x="46.5" y="35" width="7" height="22" rx="3.5"/><circle class="c" cx="50" cy="65" r="4"/>`,
+ cred:`<rect class="s" x="28" y="22" width="52" height="34" rx="7"/><rect class="p" x="20" y="34" width="56" height="38" rx="8"/><rect class="c" x="20" y="43" width="56" height="7"/><rect class="c" x="28" y="58" width="14" height="6" rx="2" opacity=".6"/>`,
+ credpro:`<rect class="s" x="20" y="24" width="54" height="36" rx="8"/><rect class="p" x="20" y="34" width="54" height="36" rx="8"/><rect class="c" x="20" y="42" width="54" height="7"/><circle class="p" cx="71" cy="69" r="14" stroke="var(--cut)" stroke-width="4"/><path class="cs" stroke-width="4" d="M65 69l4.5 4.5L77 65"/>`,
+ income:`<circle class="s" cx="56" cy="44" r="24"/><circle class="p" cx="46" cy="56" r="24"/><path class="cs" stroke-width="5" d="M54 46c-2-3-5-4-8-4-4 0-7 2-7 5 0 7 16 4 16 11 0 3-3 5-8 5-4 0-7-1-9-4M46 37v4M46 63v4"/>`,
+ emp:`<rect class="s" x="56" y="40" width="20" height="36" rx="4"/><rect class="p" x="24" y="22" width="36" height="54" rx="5"/>${[0,1,2].map(r=>[0,1].map(c=>`<rect class="c" x="${31+c*13}" y="${30+r*11}" width="8" height="6" rx="1.5"/>`).join('')).join('')}<rect class="c" x="37" y="64" width="10" height="12" rx="2"/>`,
+ ext:`<circle class="p" cx="50" cy="50" r="28"/><g class="cs" stroke-width="4"><ellipse cx="50" cy="50" rx="11" ry="27"/><path d="M23 50h54M27 37h46M27 63h46"/></g>`,
+ ruc:`<path class="p" d="M32 20h26l16 16v38a6 6 0 0 1-6 6H32a6 6 0 0 1-6-6V26a6 6 0 0 1 6-6Z"/><path class="s" d="M58 20v12a4 4 0 0 0 4 4h12Z" style="opacity:1;fill:var(--cut);fill-opacity:.35"/><g class="cs" stroke-width="4.5"><path d="M35 46h28M35 56h28M35 66h16"/></g>`,
+ dicc:`<path class="p" d="M50 30c-8-6-18-7-28-5v46c10-2 20-1 28 5Z"/><path class="s" d="M50 30c8-6 18-7 28-5v46c-10-2-20-1-28 5Z"/><path class="c" d="M60 26h9v20l-4.5-4-4.5 4Z"/>`,
+ recl:`<circle class="s" cx="40" cy="38" r="12"/><path class="s" d="M18 74c0-14 10-22 22-22s22 8 22 22Z"/><circle class="ps" cx="60" cy="56" r="11" stroke-width="6"/><circle class="c" cx="60" cy="56" r="8" opacity=".0"/><path class="ps" stroke-width="7" d="M68 64l10 10"/>`,
+ hist:`<circle class="p" cx="50" cy="50" r="28"/><path class="cs" stroke-width="6" d="M50 33v18l11 8"/>`,
+ paq:`<polygon class="s" points="50,22 76,35 50,48 24,35" style="opacity:1;fill:var(--p);fill-opacity:.65"/><polygon class="p" points="24,39 48,51 48,78 24,65"/><polygon class="p" points="76,39 52,51 52,78 76,65" style="opacity:.85"/><path class="cs" stroke-width="4" d="M37 28.5l26 13" opacity=".5"/>`,
+ proc:`<path class="ss" stroke-width="7" d="M30 30h26a12 12 0 0 1 0 24H44a12 12 0 0 0 0 24h26"/><circle class="p" cx="28" cy="30" r="9"/><circle class="p" cx="72" cy="78" r="9" transform="translate(0 -6)"/>`,
+ b2b:`<rect class="p" x="18" y="30" width="24" height="44" rx="5"/><rect class="p" x="58" y="30" width="24" height="44" rx="5"/>${[0,1,2].map(r=>`<rect class="c" x="24" y="${37+r*10}" width="12" height="5" rx="1.5"/><rect class="c" x="64" y="${37+r*10}" width="12" height="5" rx="1.5"/>`).join('')}<path class="ss" stroke-width="4.5" d="M45 44h10l-3-3M55 58H45l3 3"/>`,
+ black:`<circle class="s" cx="50" cy="50" r="28" style="fill-opacity:.4;opacity:1"/><circle class="ps" cx="50" cy="50" r="26" stroke-width="8"/><path class="ps" stroke-width="8" d="M32 68 68 32"/>`
+};
+const apps=[
+ ['ZETA','zeta','#FFD25A','#F39C0B'],['Z. Básico','zbas','#FFD25A','#F39C0B'],['Z. Básico Plus','zbasp','#FFD25A','#F39C0B'],['Z. Premium','zprem','#6DD0FF','#1C7CF2'],['Z. VIP','zvip','#FFDB6E','#E2A000'],
+ ['Clásico','clasico','#FFD25A','#F39C0B'],['Premium IA','premia','#C892FF','#7A3BE3'],['Básico Plus','basp','#FFD25A','#F39C0B'],['Premium','prem','#6DD0FF','#1C7CF2'],['VIP','vip','#FFDB6E','#E2A000'],
+ ['Ficha ID','ficha','#6CBBFF','#2E78F2'],['Splaft','splaft','#FF7A8C','#E3243C'],['Crediticio','cred','#9AAEFF','#4C59E8'],['Credit Pro','credpro','#A98AFF','#5B3BD3'],['Income','income','#5EE07A','#1EA846'],
+ ['Empresarial','emp','#4ADE9B','#139458'],['Extranjero','ext','#4FE6D4','#08A0B4'],['RUC','ruc','#FFBC57','#FF7419'],['Diccionario Legal','dicc','#9C8BFF','#4A39C8'],['Reclutamiento','recl','#78CBFF','#2A87DE'],
+ ['Historial','hist','#C88AFF','#8B38D8'],['Mis paquetes','paq','#86CDFF','#3A86EF'],['Procesos','proc','#FFAB59','#FF6600'],['B2B','b2b','#E89BFF','#AE48DF'],['Black List','black','#8E949F','#2B2F37']
+];
+document.getElementById('grid').innerHTML=apps.map(([n,k,c1,c2])=>
+ `<div class="app"><div class="icon" style="--c1:${c1};--c2:${c2}"><svg viewBox="0 0 100 100" aria-hidden="true">${I[k]}</svg></div><span>${n}</span></div>`).join('');
+document.querySelectorAll('.seg button').forEach(b=>b.onclick=()=>{
+ document.querySelectorAll('.seg button').forEach(x=>x.setAttribute('aria-pressed',x===b));
+ document.body.className=b.dataset.mode==='light'?'':b.dataset.mode==='dark'?'dark':'dark tint';
+});
+</script>
+</body>
+</html>
