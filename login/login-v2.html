@@ -411,6 +411,7 @@ body.password .pass-wrap{animation:fadeIn .35s ease!important}
 #modal h2{margin:0 0 4px!important}
 #modal .qr-sub{margin:0 0 22px!important}
 #modal .close{top:22px!important;right:22px!important}
+body.measuring .pass-wrap{animation:none!important}
 </style>
 </head>
 <body>
@@ -1029,18 +1030,24 @@ setTimeout(() => user.focus(), 1800);
   // "Escribe tu usuario" en modo Face ID; así el aro nunca se mueve.
   // Posición por layout (ignora las animaciones de entrada, que mueven los elementos con transform)
   const topOf=el=>{ let y=0; for(let n=el;n;n=n.offsetParent) y+=n.offsetTop; return y-scrollY; };
-  function place(){
+  let ref=null;                                     // posición de "Escribe tu usuario" en modo Face ID
+  function place(remeasure){
     const pass=B.classList.contains('password');
     st.style.top='0px';
-    const tg=document.getElementById('tag'), tt=document.getElementById('title'), keep=[tg.textContent,tt.textContent];
-    if(pass){ B.classList.remove('password'); tg.textContent='Escribe tu usuario y aprueba el ingreso desde tu app.'; tt.textContent='Ingresa con Face ID'; }
-    const r={top:topOf(u),height:u.offsetHeight};   // posición de referencia (modo Face ID)
-    if(pass){ B.classList.add('password'); tg.textContent=keep[0]; tt.textContent=keep[1]; }
+    if(!pass || !ref || remeasure){
+      const tg=document.getElementById('tag'), tt=document.getElementById('title'), keep=[tg.textContent,tt.textContent];
+      // Solo al cambiar el tamaño de la ventana en modo contraseña se mide el modo Face ID "en vivo";
+      // se congelan las animaciones para que el campo de contraseña no parpadee.
+      if(pass){ B.classList.add('measuring'); B.classList.remove('password'); tg.textContent='Escribe tu usuario y aprueba el ingreso desde tu app.'; tt.textContent='Ingresa con Face ID'; }
+      ref={top:topOf(u),height:u.offsetHeight};
+      if(pass){ B.classList.add('password'); tg.textContent=keep[0]; tt.textContent=keep[1]; void B.offsetWidth; B.classList.remove('measuring'); }
+    }
+    const r=ref;
     h.style.setProperty('--arcTop',(r.top+r.height*0.5-14)+'px'); // un poco más arriba
     if(pass){ st.style.position='relative'; st.style.top=(r.top-topOf(pw))+'px'; }
   }
-  ['resize','scroll'].forEach(e=>addEventListener(e,place,{passive:true}));
-  document.getElementById('toggleMode').addEventListener('click',()=>{requestAnimationFrame(place);setTimeout(place,450);});
+  ['resize','scroll'].forEach(e=>addEventListener(e,()=>place(true),{passive:true}));
+  document.getElementById('toggleMode').addEventListener('click',()=>place());
   // Se ubica una sola vez, con las fuentes ya cargadas, y recién entonces aparece (sin saltos)
   const show=()=>{ place(); requestAnimationFrame(()=>h.classList.add('ready')); };
   if(document.fonts && document.fonts.status!=='loaded') document.fonts.ready.then(show); else show();
