@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Iconos por sección</title>
+<style>
+:root{
+  --wall: radial-gradient(120% 90% at 15% 10%, #ffe3ec 0%, transparent 60%),
+          radial-gradient(90% 80% at 85% 30%, #ffd0e0 0%, transparent 55%),
+          linear-gradient(160deg,#fbe7ee,#f6d6e3);
+  --text:#1d1d1f; --label:#1d1d1f; --muted:#6e6e73;
+  --panel:rgba(255,255,255,.55); --panel-b:rgba(255,255,255,.7);
+  --seg:rgba(118,118,128,.14); --seg-on:#fff;
+}
+body.dark{
+  --wall: radial-gradient(120% 90% at 15% 10%, #3a2030 0%, transparent 60%),
+          radial-gradient(90% 80% at 85% 30%, #26203a 0%, transparent 55%),
+          linear-gradient(160deg,#141418,#0b0b0e);
+  --text:#f5f5f7; --label:#f5f5f7; --muted:#a1a1a6;
+  --panel:rgba(40,40,46,.55); --panel-b:rgba(255,255,255,.08);
+  --seg:rgba(118,118,128,.24); --seg-on:#636366;
+}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:var(--wall);background-attachment:fixed;color:var(--text);
+  font:15px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif;
+  -webkit-font-smoothing:antialiased;transition:background .4s}
+.wrap{max-width:1100px;margin:0 auto;padding:40px 16px 80px}
+header{display:flex;flex-wrap:wrap;gap:16px;align-items:end;justify-content:space-between;margin-bottom:28px}
+h1{font-size:34px;letter-spacing:-.02em;margin:0;font-weight:700}
+header p{margin:6px 0 0;color:var(--muted)}
+.seg{display:inline-flex;background:var(--seg);border-radius:10px;padding:2px;backdrop-filter:blur(20px)}
+.seg button{border:0;background:transparent;color:var(--text);font:600 13px/1 inherit;font-family:inherit;padding:8px 16px;border-radius:8px;cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--seg-on);box-shadow:0 3px 8px rgba(0,0,0,.12),0 0 0 .5px rgba(0,0,0,.04)}
+.seg button:focus-visible{outline:2px solid #0a84ff;outline-offset:2px}
+.panel{background:var(--panel);border:1px solid var(--panel-b);border-radius:28px;padding:32px 20px;
+  backdrop-filter:blur(30px) saturate(160%);-webkit-backdrop-filter:blur(30px) saturate(160%)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));row-gap:28px;column-gap:8px}
+.app{display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center}
+.app span{font-size:13px;font-weight:500;color:var(--label);max-width:120px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ---------- Icono (squircle 1024 → 88px) ---------- */
+.icon{--p:#fff;--cut:var(--c2);--so:.5;
+  position:relative;width:88px;height:88px;border-radius:22.4%;
+  background:linear-gradient(180deg,var(--c1),var(--c2));
+  box-shadow:0 1px 1px rgba(0,0,0,.08),0 6px 14px -4px rgba(0,0,0,.25),inset 0 0 0 .5px rgba(255,255,255,.35);
+  overflow:hidden;transition:transform .2s cubic-bezier(.3,.7,.4,1.4),background .4s}
+.icon::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:linear-gradient(180deg,rgba(255,255,255,.35),rgba(255,255,255,0) 45%);
+  box-shadow:inset 0 1.5px 0 rgba(255,255,255,.45)}
+.app:hover .icon{transform:scale(1.06)}
+.icon svg{position:absolute;inset:0;width:100%;height:100%;filter:drop-shadow(0 1.5px 1.5px rgba(0,0,0,.14))}
+.p{fill:var(--p)} .s{fill:var(--p);opacity:var(--so)} .c{fill:var(--cut)}
+.ps{fill:none;stroke:var(--p);stroke-linecap:round;stroke-linejoin:round}
+.ss{fill:none;stroke:var(--p);opacity:var(--so);stroke-linecap:round;stroke-linejoin:round}
+.cs{fill:none;stroke:var(--cut);stroke-linecap:round;stroke-linejoin:round}
+
+/* Iconos con glifo de color (fondo blanco, crema o negro) */
+.icon.g{--p:var(--g);--cut:var(--c1)}
+.icon.g svg{filter:none}
+/* Modo oscuro: fondo grafito, glifo toma el color de marca (como macOS Tahoe) */
+body.dark .icon{--p:var(--gd,var(--g,var(--c1)));--cut:#1f1f22;--so:.55;
+  background:linear-gradient(180deg,#3a3a3e,#161618);
+  box-shadow:0 6px 16px -4px rgba(0,0,0,.6),inset 0 0 0 .5px rgba(255,255,255,.12)}
+body.dark .icon::after{background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,0) 40%);box-shadow:inset 0 1px 0 rgba(255,255,255,.18)}
+/* Tintado: monocromo */
+body.tint .icon{--p:#ffc6d5;--cut:#2a1d22;--c1:#ffc6d5;--g:#ffc6d5}
+body.tint .icon svg{filter:none}
+
+.notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:28px}
+.note{background:var(--panel);border:1px solid var(--panel-b);border-radius:20px;padding:18px 20px;backdrop-filter:blur(30px)}
+.note h3{margin:0 0 6px;font-size:15px}.note p{margin:0;color:var(--muted);font-size:14px}
+.t{width:100%;border-collapse:collapse;font-size:14px}.t th{text-align:left;color:var(--muted);font-weight:600;padding:8px 10px;border-bottom:1px solid var(--panel-b)}
+.t td{padding:10px;border-bottom:1px solid var(--panel-b)}.pill{display:inline-block;padding:3px 10px;border-radius:99px;font-weight:600;font-size:12px}
+.ok{background:rgba(52,199,89,.18);color:#1a7f37}.warn{background:rgba(255,159,10,.2);color:#b25000}
+body.dark .ok{color:#5be37a}body.dark .warn{color:#ffb340}
+@media (max-width:520px){.grid{grid-template-columns:repeat(3,1fr)}.icon{width:68px;height:68px}h1{font-size:28px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div><h1>Iconos de la plataforma</h1><p>Versión 2 · cada icono representa lo que hace su sección.</p></div>
+    <div class="seg" role="group" aria-label="Apariencia">
+      <button data-mode="light" aria-pressed="true">Claro</button>
+      <button data-mode="dark" aria-pressed="false">Oscuro</button>
+      <button data-mode="tint" aria-pressed="false">Tintado</button>
+    </div>
+  </header>
+  <section class="panel"><div class="grid" id="grid"></div></section>
+  <section class="panel" style="margin-top:28px;padding:24px"><h2 style="margin:0 0 14px;font-size:20px">Nueva metáfora por sección</h2><div style="overflow-x:auto"><table class="t"><thead><tr><th>Sección</th><th>Antes</th><th>Propuesta</th><th>¿Funciona?</th></tr></thead><tbody><tr><td>Planes ZETA</td><td>Estrella / diamante / corona</td><td>«Z» + insignia de nivel</td><td><span class="pill ok">Sí</span></td></tr><tr><td>Clásico, Básico Plus, Premium, VIP, Premium IA</td><td>Estrella / escudo / diamante / corona</td><td>Informe + insignia de nivel (★, +, ◆, corona, chispa IA)</td><td><span class="pill ok">Sí</span></td></tr><tr><td>Ficha ID</td><td>Tarjeta de identidad</td><td>Se mantiene</td><td><span class="pill ok">Sí</span></td></tr><tr><td>Splaft</td><td>Escudo con alerta</td><td>Billete + alerta (lavado de activos)</td><td><span class="pill ok">Sí</span></td></tr><tr><td>Crediticio</td><td>Tarjeta</td><td>Medidor de score</td><td><span class="pill ok">Sí</span></td></tr><tr><td>Credit Pro</td><td>Escudo con check</td><td>Medidor + check</td><td><span class="pill ok">Sí</span></td></tr><tr><td>Income</td><td>Signo $</td><td>Barras de ingreso al alza</td><td><span class="pill ok">Sí</span></td></tr><tr><td>Empresarial</td><td>Caja 3D</td><td>Maletín</td><td><span class="pill ok">Sí</span></td></tr><tr><td>Extranjero</td><td>Globo</td><td>Pasaporte</td><td><span class="pill ok">Sí</span></td></tr><tr><td>RUC</td><td>Documento</td><td>Comprobante tributario</td><td><span class="pill warn">Validar</span></td></tr><tr><td>Diccionario Legal</td><td>Libro</td><td>Balanza de justicia</td><td><span class="pill ok">Sí</span></td></tr><tr><td>Reclutamiento</td><td>Persona con lupa</td><td>Candidato validado</td><td><span class="pill ok">Sí</span></td></tr><tr><td>Historial</td><td>Reloj</td><td>Reloj con flecha hacia atrás</td><td><span class="pill ok">Sí</span></td></tr><tr><td>Mis paquetes</td><td>Caja</td><td>Se mantiene</td><td><span class="pill ok">Sí</span></td></tr><tr><td>Procesos</td><td>Nodos</td><td>Engranaje</td><td><span class="pill warn">Validar</span></td></tr><tr><td>B2B</td><td>Bloques</td><td>Dos empresas conectadas</td><td><span class="pill warn">Validar</span></td></tr><tr><td>Black List</td><td>Señal de prohibido</td><td>Persona + prohibido</td><td><span class="pill ok">Sí</span></td></tr></tbody></table></div></section>
+  </div>
+</div>
+<script>
+const st=(cx,cy,R,r)=>{let p=[];for(let i=0;i<10;i++){const a=-Math.PI/2+i*Math.PI/5,d=i%2?r:R;p.push((cx+d*Math.cos(a)).toFixed(1)+','+(cy+d*Math.sin(a)).toFixed(1))}return p.join(' ')};
+const star=(cx=50,cy=52,R=27,r=12.5)=>`<polygon class="p" points="${st(cx,cy,R,r)}" stroke="var(--p)" stroke-width="5" stroke-linejoin="round"/>`;
+const zb=`<circle class="p" cx="73" cy="73" r="13"/><path class="cs" stroke-width="3.6" d="M68 68h10l-10 10h10"/>`;
+const plus=`<path class="ss" stroke-width="5" d="M74 18v14M67 25h14"/>`;
+const diamond=`<polygon class="p" points="27,40 37,26 63,26 73,40" stroke="var(--p)" stroke-width="4" stroke-linejoin="round"/><polygon class="s" points="27,42 73,42 50,76" stroke="var(--p)" stroke-width="4" stroke-linejoin="round"/>`;
+const crown=`<path class="p" stroke="var(--p)" stroke-width="5" stroke-linejoin="round" d="M27 64 24 34 38 46 50 28 62 46 76 34 73 64Z"/><rect class="s" x="27" y="69" width="46" height="7" rx="3.5"/>`;
+const shield=`<path class="p" d="M50 22 73 30.5V49c0 15-10 25-23 30-13-5-23-15-23-30V30.5Z"/>`;
+const shieldBack=`<path class="s" transform="translate(6 -4)" d="M50 22 73 30.5V49c0 15-10 25-23 30-13-5-23-15-23-30V30.5Z"/>`;
+// Sistema: la FORMA BASE dice la sección y la INSIGNIA dice el nivel
+const B=(x)=>`<circle class="p" cx="70" cy="70" r="16" stroke="var(--cut)" stroke-width="4"/>`+x;
+const bd={
+ star:`<polygon class="c" points="${st(70,71,8.5,4)}"/>`,
+ plus:`<path class="cs" stroke-width="4.5" d="M70 62v16M62 70h16"/>`,
+ gem:`<polygon class="c" points="61,67 65.5,62 74.5,62 79,67 70,79"/>`,
+ crown:`<path class="c" d="M62 76 61 64 66 68.5 70 62 74 68.5 79 64 78 76Z"/>`,
+ ai:`<path class="c" d="M70 60q1.4 8.4 10 10-8.6 1.6-10 10-1.4-8.4-10-10 8.6-1.6 10-10Z"/>`,
+ check:`<path class="cs" stroke-width="4.5" d="M63 70.5l4.5 4.5 9-9"/>`,
+ alert:`<rect class="c" x="67.8" y="60.5" width="4.4" height="12" rx="2.2"/><circle class="c" cx="70" cy="77.5" r="2.6"/>`,
+ ban:`<circle class="cs" cx="70" cy="70" r="8" stroke-width="3.6"/><path class="cs" stroke-width="3.6" d="M64.5 75.5l11-11"/>`
+};
+const Z=`<circle class="s" cx="44" cy="44" r="27"/><path class="ps" stroke-width="10" d="M30 30h28L30 58h28"/>`;
+const doc=`<path class="p" d="M26 16h26l14 14v42a6 6 0 0 1-6 6H26a6 6 0 0 1-6-6V22a6 6 0 0 1 6-6Z"/><path class="c" d="M52 16v10a4 4 0 0 0 4 4h10Z" opacity=".35"/><g class="cs" stroke-width="4.5"><path d="M29 40h22M29 50h26M29 60h14"/></g>`;
+const person=`<circle class="p" cx="42" cy="34" r="13"/><path class="p" d="M17 78c0-17 11-26 25-26s25 9 25 26Z"/>`;
+const gear=(()=>{let t='';for(let i=0;i<8;i++)t+=`<rect class="p" x="45" y="18" width="10" height="14" rx="3" transform="rotate(${i*45} 50 50)"/>`;return t+`<circle class="p" cx="50" cy="50" r="24"/><circle class="c" cx="50" cy="50" r="9"/>`})();
+const I={
+ zeta:`<circle class="s" cx="50" cy="50" r="30"/><path class="ps" stroke-width="11" d="M34 34h32L34 66h32"/>`,
+ zbas:Z+B(bd.star), zbasp:Z+B(bd.plus), zprem:Z+B(bd.gem), zvip:Z+B(bd.crown),
+ clasico:doc+B(bd.star), premia:doc+B(bd.ai), basp:doc+B(bd.plus), prem:doc+B(bd.gem), vip:doc+B(bd.crown),
+ ficha:`<rect class="s" x="27" y="22" width="50" height="38" rx="8"/><rect class="p" x="21" y="31" width="58" height="42" rx="9"/><circle class="c" cx="38" cy="47" r="6.5"/><path class="c" d="M28 66c0-8 20-8 20 0Z"/><rect class="c" x="55" y="44" width="17" height="5" rx="2.5"/><rect class="c" x="55" y="55" width="12" height="5" rx="2.5" opacity=".6"/>`,
+ splaft:`<rect class="s" x="22" y="22" width="52" height="32" rx="6"/><rect class="p" x="16" y="32" width="56" height="34" rx="6"/><circle class="c" cx="44" cy="49" r="8"/>`+B(bd.alert),
+ cred:`<path class="ss" stroke-width="11" d="M22 66a28 28 0 0 1 56 0"/><path class="ps" stroke-width="11" d="M22 66a28 28 0 0 1 40-25.3"/><path class="ps" stroke-width="5" d="M50 66 64 46"/><circle class="p" cx="50" cy="66" r="6"/>`,
+ credpro:`<g transform="translate(-6 -8)"><path class="ss" stroke-width="10" d="M22 66a28 28 0 0 1 56 0"/><path class="ps" stroke-width="10" d="M22 66a28 28 0 0 1 48-19.8"/><path class="ps" stroke-width="5" d="M50 66 66 50"/><circle class="p" cx="50" cy="66" r="6"/></g>`+B(bd.check),
+ income:`<rect class="s" x="20" y="58" width="13" height="20" rx="4"/><rect class="s" x="38" y="48" width="13" height="30" rx="4"/><rect class="p" x="56" y="36" width="13" height="42" rx="4"/><path class="ps" stroke-width="6" d="M20 42 36 30l10 6 22-16"/><path class="ps" stroke-width="6" d="M60 20h9v9"/>`,
+ emp:`<path class="ps" stroke-width="6" d="M38 32v-5a5 5 0 0 1 5-5h14a5 5 0 0 1 5 5v5"/><rect class="p" x="18" y="32" width="64" height="44" rx="9"/><rect class="c" x="18" y="50" width="64" height="4" opacity=".45"/><rect class="p" x="43" y="45" width="14" height="13" rx="3" stroke="var(--cut)" stroke-width="3.5"/>`,
+ ext:`<rect class="s" x="32" y="16" width="44" height="64" rx="7"/><rect class="p" x="24" y="20" width="44" height="64" rx="7"/><g class="cs" stroke-width="3.6"><circle cx="46" cy="46" r="12"/><ellipse cx="46" cy="46" rx="5" ry="12"/><path d="M34 46h24"/></g><rect class="c" x="36" y="68" width="20" height="4.5" rx="2.25"/>`,
+ ruc:`<path class="p" d="M26 16h48v66l-8-5-8 5-8-5-8 5-8-5-8 5Z"/><g class="cs" stroke-width="4.5"><path d="M34 32h32M34 44h32M34 56h18"/></g><circle class="c" cx="62" cy="62" r="6" opacity=".5"/>`,
+ dicc:`<rect class="p" x="47" y="24" width="6" height="46" rx="3"/><rect class="p" x="32" y="70" width="36" height="7" rx="3.5"/><rect class="p" x="20" y="28" width="60" height="6" rx="3"/><circle class="p" cx="50" cy="22" r="5"/><g class="ss" stroke-width="2.5"><path d="M28 33 20 54M28 33l8 21M72 33l-8 21M72 33l8 21"/></g><path class="p" d="M17 54h22a11 11 0 0 1-22 0ZM61 54h22a11 11 0 0 1-22 0Z"/>`,
+ recl:person+B(bd.check),
+ hist:`<path class="ss" stroke-width="7" d="M27 40A26 26 0 1 1 24 55"/><path class="p" d="M17 32l14 2-6 12Z" stroke="var(--p)" stroke-width="3" stroke-linejoin="round" opacity="var(--so)"/><circle class="p" cx="50" cy="50" r="17"/><path class="cs" stroke-width="4.5" d="M50 41v10l7 5"/>`,
+ paq:`<polygon class="s" points="50,22 76,35 50,48 24,35" style="opacity:1;fill:var(--p);fill-opacity:.65"/><polygon class="p" points="24,39 48,51 48,78 24,65"/><polygon class="p" points="76,39 52,51 52,78 76,65" style="opacity:.85"/><path class="cs" stroke-width="4" d="M37 28.5l26 13" opacity=".5"/>`,
+ proc:gear,
+ b2b:`<rect class="p" x="16" y="38" width="26" height="40" rx="5"/><rect class="p" x="58" y="38" width="26" height="40" rx="5"/>${[0,1,2].map(r=>`<rect class="c" x="22" y="${45+r*10}" width="14" height="5" rx="1.5"/><rect class="c" x="64" y="${45+r*10}" width="14" height="5" rx="1.5"/>`).join('')}<path class="ss" stroke-width="5" d="M30 30q20-16 40 0"/><path class="ss" stroke-width="5" d="M63 21l7 9-11 2"/>`,
+ black:person+B(bd.ban)
+};
+// [nombre, glifo, fondo1, fondo2, color de glifo opcional]
+// Glifo más brillante solo en modo oscuro para tonos muy profundos
+const darkGlyph={b2b:'#8AA6FF',dicc:'#FF85A8',cred:'#5FD0E0',emp:'#B9C8D8'};
+const apps=[
+ ['ZETA','zeta','#FFC93C','#F08A00'],['Z. Básico','zbas','#F6E35C','#CFAE00'],['Z. Básico Plus','zbasp','#B8E44C','#62A812'],['Z. Premium','zprem','#62D4FF','#0093DD'],['Z. VIP','zvip','#FFC6B2','#DB8467'],
+ ['Clásico','clasico','#FFF6DC','#F3DCA2','#E69100'],['Premium IA','premia','#B98BFF','#6C33E0'],['Básico Plus','basp','#FFFFFF','#E6ECF0','#14B58C'],['Premium','prem','#6390FF','#2142D6'],['VIP','vip','#3C3C40','#0F0F11','#FFD36B'],
+ ['Ficha ID','ficha','#FFFFFF','#E6EAF1','#2E6BF0'],['Splaft','splaft','#FF5E63','#D3122A'],['Crediticio','cred','#44AEC0','#0A5D73'],['Credit Pro','credpro','#FF72B4','#CF1676'],['Income','income','#55DB6C','#1A9A3A'],
+ ['Empresarial','emp','#9AACBF','#4B5E74'],['Extranjero','ext','#3FE3D1','#06A39C'],['RUC','ruc','#FFA54A','#FF5F00'],['Diccionario Legal','dicc','#C9466F','#741035'],['Reclutamiento','recl','#3C3C40','#0F0F11','#4FD6FF'],
+ ['Historial','hist','#FFFFFF','#ECE6F3','#9B3BDB'],['Mis paquetes','paq','#D9A46A','#97602A'],['Procesos','proc','#3C3C40','#0F0F11','#5BE36C'],['B2B','b2b','#4566B8','#13275F'],['Black List','black','#7A808C','#2A2E36']
+];
+document.getElementById('grid').innerHTML=apps.map(([n,k,c1,c2,g])=>
+ `<div class="app"><div class="icon${g?' g':''}" style="--c1:${c1};--c2:${c2}${g?';--g:'+g:''}${darkGlyph[k]?';--gd:'+darkGlyph[k]:''}"><svg viewBox="0 0 100 100" aria-hidden="true">${I[k]}</svg></div><span>${n}</span></div>`).join('');
+document.querySelectorAll('.seg button').forEach(b=>b.onclick=()=>{
+ document.querySelectorAll('.seg button').forEach(x=>x.setAttribute('aria-pressed',x===b));
+ document.body.className=b.dataset.mode==='light'?'':b.dataset.mode==='dark'?'dark':'dark tint';
+});
+</script>
+</body>
+</html>
