@@ -20,6 +20,9 @@ h1{font-size:34px;letter-spacing:-.02em;margin:0}
 .cell.d{background:linear-gradient(160deg,#1d1b22,#0b0b0e);color:#f5f5f7}
 .cell.t{background:linear-gradient(160deg,#2a1d24,#0e0b0d);color:#f5f5f7}
 .cell.s{background:linear-gradient(160deg,#fbe7ee,#f6d6e3);color:#1d1d1f}
+.cell.g{background:radial-gradient(120% 90% at 90% 0%,#4a1f6b,transparent 60%),#140f2a;color:#f5f5f7}
+.cell.g2{background:radial-gradient(60% 60% at 30% 30%,#ff7a59,transparent 70%),radial-gradient(60% 60% at 80% 70%,#3b82f6,transparent 70%),#1b1530;color:#f5f5f7}
+.ico.glass{backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-radius:23%;filter:drop-shadow(0 0 12px rgba(120,100,255,.45))}
 .ico{width:96px;height:96px;filter:drop-shadow(0 6px 10px rgba(0,0,0,.22))}
 .cell.s .ico{width:40px;height:40px;filter:drop-shadow(0 2px 3px rgba(0,0,0,.2))}
 .tag{display:inline-block;margin-left:8px;padding:3px 10px;border-radius:99px;font-size:12px;font-weight:600;background:rgba(52,199,89,.18);color:#1a7f37;vertical-align:middle}
@@ -28,7 +31,7 @@ h1{font-size:34px;letter-spacing:-.02em;margin:0}
 <body>
 <div class="wrap">
   <h1>Icono 1 · Home</h1>
-  <p class="sub">Tres variantes inspiradas en la referencia, en claro, oscuro, tintado y a tamaño pequeño (40 px).</p>
+  <p class="sub">Tres variantes inspiradas en la referencia, en claro, oscuro, tintado, cristal y a tamaño pequeño (40 px).</p>
   <div id="out"></div>
 </div>
 <script>
@@ -39,7 +42,8 @@ const house=`M50 17 86 47H78V76a6 6 0 0 1-6 6H28a6 6 0 0 1-6-6V47H14Z`;
 let uid=0;
 function icon(v,mode){
   const id='g'+(uid++);
-  const dark=mode!=='l', tint=mode==='t';
+  const glass=mode==='g', dark=mode!=='l', tint=mode==='t';
+  if(glass) return glassIcon(v,id);
   let bgA,bgB,body='';
   if(v==='A'){ // capas concéntricas, fondo claro (la más fiel a la referencia)
     const L=tint?['#ffb3c6','#ffc3d2','#ffd3de','#ffe3ea','#fff3f6']:['#FF8A00','#FFA21A','#FFB83D','#FFD271','#FFF1BC'];
@@ -78,13 +82,30 @@ function icon(v,mode){
     <path d="${SQ}" fill="url(#${id}h)"/>
     <path d="${SQ}" fill="none" stroke="#fff" stroke-opacity="${dark?.12:.5}" stroke-width=".8"/></svg>`;
 }
+// Cristal (Liquid Glass): fondo translúcido que deja ver lo de atrás, borde de luz y glifo blanco esmerilado
+function glassIcon(v,id){
+  const L=['#ffffff','#ffffff','#ffffff','#ffffff','#ffffff'],O=[.92,.55,.42,.32,.9];
+  const body=`<rect x="66" y="22" width="9" height="20" rx="2.5" fill="#fff" fill-opacity=".92"/>
+    <path d="${house}" fill="#fff" fill-opacity="${O[0]}" stroke="#fff" stroke-opacity="${O[0]}" stroke-width="3" stroke-linejoin="round"/>
+    <polygon points="${pent(50,60,38)}" fill="#6b4cff" fill-opacity=".28"/>
+    <polygon points="${pent(50,63,26)}" fill="#6b4cff" fill-opacity=".28"/>
+    <polygon points="${pent(50,65.5,15)}" fill="#6b4cff" fill-opacity=".3"/>
+    <polygon points="${pent(50,67,6)}" fill="#fff"/>`;
+  return `<svg class="ico glass" viewBox="0 0 100 100" aria-hidden="true"><defs>
+    <linearGradient id="${id}b" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5b7cff"/><stop offset=".5" stop-color="#8f6bff" stop-opacity=".5"/><stop offset="1" stop-color="#e48cff"/></linearGradient>
+    <linearGradient id="${id}f" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".16"/><stop offset="1" stop-color="#fff" stop-opacity=".04"/></linearGradient>
+    <clipPath id="${id}c"><path d="${SQ}"/></clipPath></defs>
+    <path d="${SQ}" fill="url(#${id}f)"/>
+    <g clip-path="url(#${id}c)"><g transform="translate(50 50) scale(.98) translate(-50 -50)">${body}</g></g>
+    <path d="${SQ}" fill="none" stroke="url(#${id}b)" stroke-width="1.6"/></svg>`;
+}
 const V=[
  ['A','Capas concéntricas','La más cercana a la referencia: casas dentro de casas, de naranja a crema, sobre fondo blanco.',true],
  ['B','Casa blanca sobre naranja','La misma idea de capas, pero con fondo de color como el resto de nuestros iconos.'],
  ['C','Casa simple','Solo la silueta con puerta. Es la que mejor se lee a tamaño pequeño.']
 ];
 document.getElementById('out').innerHTML=V.map(([k,t,d,rec])=>`<section class="card"><h2>Variante ${k} · ${t}${rec?'<span class="tag">Recomendada</span>':''}</h2><p>${d}</p><div class="row">
- <div class="cell l">${icon(k,'l')}Claro</div><div class="cell d">${icon(k,'d')}Oscuro</div><div class="cell t">${icon(k,'t')}Tintado</div><div class="cell s">${icon(k,'l')}40 px</div></div></section>`).join('');
+ <div class="cell l">${icon(k,'l')}Claro</div><div class="cell d">${icon(k,'d')}Oscuro</div><div class="cell t">${icon(k,'t')}Tintado</div><div class="cell s">${icon(k,'l')}40 px</div>${k==='A'?`<div class="cell g">${icon(k,'g')}Cristal</div><div class="cell g2">${icon(k,'g')}Cristal sobre foto</div>`:''}</div></section>`).join('');
 </script>
 </body>
 </html>
