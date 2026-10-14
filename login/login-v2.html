@@ -248,6 +248,7 @@ body.p2 h1{margin-top:4px}
 body.p2 input[type=text],body.p2 input[type=password]{border-radius:12px;background:rgba(0,0,0,.35);border-color:rgba(160,205,255,.18)}
 body.p2 .field-label{padding-left:4px}
 body.p2 .primary{border-radius:14px}
+body.password .steps{display:none}
 </style>
 </head>
 <body>
@@ -632,7 +633,7 @@ function granted(){
   status.classList.add('ok');
   status.textContent = 'Ingreso validado.';
   tag.textContent = 'Identidad confirmada. Entrando…'; setStep(3);
-  setTimeout(() => { window.location.href = DESTINO; }, 1400);
+  setTimeout(() => { window.location.href = DESTINO; }, 900);
 }
 
 orb.addEventListener('click', submit);
@@ -642,6 +643,11 @@ form.addEventListener('submit', e => { e.preventDefault(); submit(); });
 [user, pass].forEach(input => input.addEventListener('input', () => {
   fxState.energy = 1;
   fxState.hot = .15 + Math.random() * .55;
+  // Si vuelve a editar tras validar, se reinicia el estado (igual que el login original)
+  if (body.classList.contains('granted')){
+    body.classList.remove('granted'); restMode(); setStep(1);
+    tag.textContent = isPasswordMode() ? 'Escribe tu usuario y contraseña.' : 'Escribe tu usuario y aprueba el ingreso desde tu app.';
+  }
   status.textContent = '';
 }));
 
@@ -649,7 +655,7 @@ toggle.addEventListener('click', () => {
   const toPassword = !isPasswordMode();
   body.classList.toggle('password', toPassword);
   restMode();
-  setTitle(toPassword ? 'Ingresa con tu contraseña' : 'Valida tu ingreso desde la APP');
+  setTitle(toPassword ? 'Ingresa con tu contraseña' : 'Ingresa con Face ID');
   toggle.textContent = toPassword ? 'Validar desde la app' : 'Ingresar con contraseña';
   tag.textContent = toPassword ? 'Escribe tu usuario y contraseña.' : 'Escribe tu usuario y aprueba el ingreso desde tu app.'; document.getElementById('goTxt').textContent = toPassword ? 'Ingresar' : 'Continuar con Face ID';
   status.textContent = '';
