@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Icono Home</title>
+<style>
+:root{--bg:#f2f2f7;--card:#fff;--text:#1d1d1f;--muted:#6e6e73;--line:rgba(0,0,0,.08)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#000;--card:#1c1c1e;--text:#f5f5f7;--muted:#a1a1a6;--line:rgba(255,255,255,.1)}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.45 -apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1100px;margin:0 auto;padding:40px 16px 80px}
+h1{font-size:34px;letter-spacing:-.02em;margin:0}
+.sub{color:var(--muted);margin:6px 0 28px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:24px;margin-bottom:20px}
+.card h2{margin:0;font-size:20px}.card p{margin:4px 0 20px;color:var(--muted)}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px}
+.cell{border-radius:18px;padding:24px 12px 16px;display:flex;flex-direction:column;align-items:center;gap:12px;font-size:13px;font-weight:600}
+.cell.l{background:linear-gradient(160deg,#fbe7ee,#f6d6e3);color:#1d1d1f}
+.cell.d{background:linear-gradient(160deg,#1d1b22,#0b0b0e);color:#f5f5f7}
+.cell.t{background:linear-gradient(160deg,#2a1d24,#0e0b0d);color:#f5f5f7}
+.cell.s{background:linear-gradient(160deg,#fbe7ee,#f6d6e3);color:#1d1d1f}
+.ico{width:96px;height:96px;filter:drop-shadow(0 6px 10px rgba(0,0,0,.22))}
+.cell.s .ico{width:40px;height:40px;filter:drop-shadow(0 2px 3px rgba(0,0,0,.2))}
+.tag{display:inline-block;margin-left:8px;padding:3px 10px;border-radius:99px;font-size:12px;font-weight:600;background:rgba(52,199,89,.18);color:#1a7f37;vertical-align:middle}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Icono 1 · Home</h1>
+  <p class="sub">Tres variantes inspiradas en la referencia, en claro, oscuro, tintado y a tamaño pequeño (40 px).</p>
+  <div id="out"></div>
+</div>
+<script>
+// Squircle de Apple aproximado (superelipse) en un lienzo de 100
+const SQ="M23 0H77C93 0 100 7 100 23V77C100 93 93 100 77 100H23C7 100 0 93 0 77V23C0 7 7 0 23 0Z";
+const pent=(cx,cy,s)=>`${cx},${cy-s*.62} ${cx+s/2},${cy-s*.12} ${cx+s/2},${cy+s/2} ${cx-s/2},${cy+s/2} ${cx-s/2},${cy-s*.12}`;
+const house=`M50 17 86 47H78V76a6 6 0 0 1-6 6H28a6 6 0 0 1-6-6V47H14Z`;
+let uid=0;
+function icon(v,mode){
+  const id='g'+(uid++);
+  const dark=mode!=='l', tint=mode==='t';
+  let bgA,bgB,body='';
+  if(v==='A'){ // capas concéntricas, fondo claro (la más fiel a la referencia)
+    const L=tint?['#ffb3c6','#ffc3d2','#ffd3de','#ffe3ea','#fff3f6']:['#FF8A00','#FFA21A','#FFB83D','#FFD271','#FFF1BC'];
+    [bgA,bgB]=dark?['#3a3a3e','#161618']:['#ffffff','#e9e9ee'];
+    body=`<rect x="66" y="22" width="9" height="20" rx="2.5" fill="${L[0]}"/>
+      <path d="${house}" fill="${L[0]}" stroke="${L[0]}" stroke-width="3" stroke-linejoin="round"/>
+      <polygon points="${pent(50,60,38)}" fill="${L[1]}" stroke="${L[1]}" stroke-width="3" stroke-linejoin="round"/>
+      <polygon points="${pent(50,63,26)}" fill="${L[2]}" stroke="${L[2]}" stroke-width="3" stroke-linejoin="round"/>
+      <polygon points="${pent(50,65.5,15)}" fill="${L[3]}" stroke="${L[3]}" stroke-width="2.5" stroke-linejoin="round"/>
+      <polygon points="${pent(50,67,6)}" fill="${L[4]}" stroke="${L[4]}" stroke-width="2" stroke-linejoin="round"/>`;
+  }
+  if(v==='B'){ // fondo de color, casa blanca con capas translúcidas
+    const P=tint?'#ffc6d5':(dark?'#FFB13D':'#fff');
+    [bgA,bgB]=dark?['#3a3a3e','#161618']:['#FFB23F','#FF6A00'];
+    body=`<rect x="66" y="22" width="9" height="20" rx="2.5" fill="${P}"/>
+      <path d="${house}" fill="${P}" stroke="${P}" stroke-width="3" stroke-linejoin="round"/>
+      <polygon points="${pent(50,62,36)}" fill="${dark?'#000':'#FF8A00'}" fill-opacity="${dark?.35:.28}" stroke-width="3" stroke-linejoin="round"/>
+      <polygon points="${pent(50,65,22)}" fill="${dark?'#000':'#FF8A00'}" fill-opacity="${dark?.35:.3}"/>
+      <polygon points="${pent(50,67,10)}" fill="${dark?'#000':'#FF8A00'}" fill-opacity="${dark?.4:.38}"/>`;
+  }
+  if(v==='C'){ // casa simple con puerta y ventana, sin capas (la más limpia)
+    const P=tint?'#ffc6d5':(dark?'#FFA53A':'#fff');
+    const cut=tint?'#2a1d22':(dark?'#1f1f22':'#FF7A10');
+    [bgA,bgB]=dark?['#3a3a3e','#161618']:['#FFB23F','#FF6A00'];
+    body=`<rect x="66" y="22" width="9" height="20" rx="2.5" fill="${P}" opacity=".6"/>
+      <path d="${house}" fill="${P}" stroke="${P}" stroke-width="3" stroke-linejoin="round"/>
+      <rect x="42" y="56" width="16" height="26" rx="4" fill="${cut}"/>
+      <circle cx="54" cy="70" r="1.8" fill="${P}"/>`;
+  }
+  return `<svg class="ico" viewBox="0 0 100 100" aria-hidden="true"><defs>
+    <linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${tint?'#3a3a3e':bgA}"/><stop offset="1" stop-color="${tint?'#161618':bgB}"/></linearGradient>
+    <linearGradient id="${id}h" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="${dark?.14:.5}"/><stop offset=".45" stop-color="#fff" stop-opacity="0"/></linearGradient>
+    <clipPath id="${id}c"><path d="${SQ}"/></clipPath></defs>
+    <path d="${SQ}" fill="url(#${id})"/>
+    <g clip-path="url(#${id}c)"><g transform="translate(50 50) scale(.98) translate(-50 -50)">${body}</g></g>
+    <path d="${SQ}" fill="url(#${id}h)"/>
+    <path d="${SQ}" fill="none" stroke="#fff" stroke-opacity="${dark?.12:.5}" stroke-width=".8"/></svg>`;
+}
+const V=[
+ ['A','Capas concéntricas','La más cercana a la referencia: casas dentro de casas, de naranja a crema, sobre fondo blanco.',true],
+ ['B','Casa blanca sobre naranja','La misma idea de capas, pero con fondo de color como el resto de nuestros iconos.'],
+ ['C','Casa simple','Solo la silueta con puerta. Es la que mejor se lee a tamaño pequeño.']
+];
+document.getElementById('out').innerHTML=V.map(([k,t,d,rec])=>`<section class="card"><h2>Variante ${k} · ${t}${rec?'<span class="tag">Recomendada</span>':''}</h2><p>${d}</p><div class="row">
+ <div class="cell l">${icon(k,'l')}Claro</div><div class="cell d">${icon(k,'d')}Oscuro</div><div class="cell t">${icon(k,'t')}Tintado</div><div class="cell s">${icon(k,'l')}40 px</div></div></section>`).join('');
+</script>
+</body>
+</html>
