@@ -233,6 +233,16 @@ body.p2 .stage{width:min(440px,100%);padding:40px 34px 30px;border-radius:28px;
   border:1px solid rgba(160,205,255,.18);
   box-shadow:0 50px 100px -30px rgba(0,0,0,.95),inset 0 1px 0 rgba(255,255,255,.08);
   backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+/* borde luminoso tipo vidrio (degradado en el borde + brillo exterior) */
+body.p2 .stage{border:0!important;
+  background:linear-gradient(180deg,rgba(30,70,150,.32),rgba(6,18,48,.6) 70%)!important;
+  box-shadow:0 0 0 1px rgba(120,190,255,.10),0 0 40px -6px rgba(70,160,255,.45),0 50px 100px -30px rgba(0,0,0,.9),inset 0 0 60px rgba(90,170,255,.08)!important}
+body.p2 .stage::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:1.5px;pointer-events:none;
+  background:linear-gradient(160deg,rgba(220,245,255,.95) 0%,rgba(110,190,255,.55) 18%,rgba(80,150,255,.18) 45%,rgba(80,150,255,.18) 60%,rgba(120,200,255,.6) 85%,rgba(210,240,255,.9) 100%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;
+          mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0)}
+body.p2 input[type=text],body.p2 input[type=password]{border-radius:10px!important;background:rgba(255,255,255,.04)!important;border-color:rgba(150,200,255,.22)!important}
+body.p2 .primary{border-radius:10px!important}
 body.p2 .brand-logo{display:none}
 body.p2 h1{margin-top:4px}
 body.p2 input[type=text],body.p2 input[type=password]{border-radius:12px;background:rgba(0,0,0,.35);border-color:rgba(160,205,255,.18)}
