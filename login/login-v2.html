@@ -372,13 +372,6 @@ body.password .lk-orb{animation:lkFloatSoft 6s ease-in-out .6s infinite!importan
 @keyframes lkTwinkle{0%,100%{opacity:.25;transform:scale(.9)}50%{opacity:.6;transform:scale(1)}}
 .lk-spark{animation-duration:7s!important}
 body.password .pass-wrap{animation:fadeIn .35s ease!important}
-/* Panel de simulación (solo modo prueba) */
-.sim{margin:14px 0 0;padding:10px;border:1px dashed rgba(255,176,32,.55);border-radius:14px;background:rgba(255,176,32,.06)}
-.sim-tit{margin:0 0 8px!important;font-size:11.5px!important;color:#ffcf7a!important}
-.sim-btns{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
-.sim-b{border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06);color:#e9eef8;border-radius:999px;padding:7px 11px;font:600 12px "Space Grotesk",sans-serif;cursor:pointer}
-.sim-b.ok{border-color:#10b981;color:#6ee7b7}
-.sim-b:hover{background:rgba(255,255,255,.12)}
 .primary:disabled{opacity:.5;cursor:not-allowed}
 </style>
 </head>
@@ -512,14 +505,6 @@ body.password .pass-wrap{animation:fadeIn .35s ease!important}
     <p class="left">El código vence en <span id="pushTime">0:45</span></p>
     <p class="push-help">¿No te llegó la notificación?</p>
     <button type="button" class="resend" id="pushResend">Reenviar notificación</button>
-    <div class="sim" aria-label="Simulación del celular">
-      <p class="sim-tit">Modo prueba · simula lo que haces en tu celular</p>
-      <div class="sim-btns">
-        <button type="button" class="sim-b ok" id="simOk">Tocar el número correcto</button>
-        <button type="button" class="sim-b" id="simBad">Tocar otro número</button>
-        <button type="button" class="sim-b" id="simNo">Rechazar</button>
-      </div>
-    </div>
     <button type="button" class="cancel" id="pushCancel">Cancelar</button>
   </div>
 </div>
@@ -908,7 +893,7 @@ function startPush(){
   // fetch('/api/push-validacion', { method:'POST', body: JSON.stringify({ user: user.value.trim() }) })
   // y luego consulta el estado hasta que la app apruebe; cuando responda, llama a aprobar().
   // El setTimeout de abajo solo simula esa aprobación para ver el flujo completo.
-  // MODO PRUEBA: la aprobación se simula con los botones de la ventana (no hay aprobación automática).
+  demo = setTimeout(aprobar, 7000);
 }
 function cerrarPush(){ clearInterval(reloj); clearTimeout(demo); modalPush.hidden = true; }
 function aprobar(){ cerrarPush(); granted(); }
@@ -923,9 +908,6 @@ function endPush(mensaje){
   user.focus();
 }
 pushCancel.addEventListener('click', () => endPush('Ingreso cancelado.'));
-document.getElementById('simOk').addEventListener('click', aprobar);
-document.getElementById('simBad').addEventListener('click', () => endPush('Tocaste un número distinto. Por seguridad cancelamos el ingreso.'));
-document.getElementById('simNo').addEventListener('click', () => endPush('Rechazaste el ingreso desde tu app.'));
 
 // ── Diálogos: QR de la app y recuperar usuario ───────
 const modalQr   = document.getElementById('modal');
