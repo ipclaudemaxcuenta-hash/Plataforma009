@@ -996,14 +996,7 @@ header{position:relative;z-index:20}
 /* Sin cápsulas: nombres oscuros y homogéneos */
 .chip-lbl{background:none!important;box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;padding:0!important;
   text-shadow:0 0 6px rgba(255,255,255,.9),0 0 2px rgba(255,255,255,.9)!important}
-/* "Humo" sobre la planta y la taza del tema de escritorio, para que lo que va encima se lea */
-body[data-tema="degradado"] .stage::after,
-body:not([data-tema]) .stage::after{
-  background:
-    radial-gradient(38% 34% at 95% 50%, rgba(250,246,242,.82), rgba(250,246,242,.55) 45%, rgba(250,246,242,0) 100%),
-    radial-gradient(30% 32% at 97% 12%, rgba(250,246,242,.55), rgba(250,246,242,0) 100%),
-    linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,.04) 45%,rgba(61,36,57,.1) 100%);
-}
+
 
 /* ===== Feedback: 4 íconos por fila (6 filas = 24 por pantalla) ===== */
 .pagina{
@@ -1045,6 +1038,30 @@ body:not([data-tema]) .stage::after{
 /* Margen lateral del carrusel: los nombres largos pueden salir del ancho de la barra sin cortarse */
 .paginas{margin-left:-80px!important;margin-right:-80px!important;padding:0 80px!important}
 .pista{gap:160px}
+
+
+/* ===== Jerarquía de la grilla: aire entre filas, más aire entre grupos ===== */
+:root{--icon:58px!important}
+.pagina{grid-auto-rows:auto!important;row-gap:8px!important;align-content:start}
+.chip-app{gap:7px!important}
+/* nombres en dos líneas como máximo, ancho fijo y equilibrado */
+.chip-lbl{
+  white-space:normal!important;width:108px!important;max-width:108px!important;
+  line-height:1.22;min-height:2.44em;text-wrap:balance;font-size:12.5px;
+}
+/* separación extra al empezar un grupo nuevo */
+.chip-app.fila-nueva:not(:first-child){margin-top:12px}
+.paginas{margin-top:26px!important}
+.puntos-pag{margin-bottom:12px!important}
+.pagina{align-items:end!important}
+/* Reparto del alto: 10px entre filas, 10px extra entre grupos */
+:root{--icon:56px!important}
+.pagina{row-gap:10px!important}
+.chip-lbl{line-height:1.15!important;min-height:2.3em!important}
+.chip-app.fila-nueva:not(:first-child){margin-top:10px!important}
+.paginas{margin-top:14px!important}
+.pagina{row-gap:14px!important}
+.chip-lbl{text-shadow:0 0 3px #fff,0 0 6px #fff,0 0 10px rgba(255,255,255,.9)!important}
 
 </style>
 </head>
