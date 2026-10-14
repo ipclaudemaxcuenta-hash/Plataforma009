@@ -215,7 +215,8 @@ body.waiting .primary{opacity:.6;cursor:progress}
 .switch .arr{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;color:#04122e;background:linear-gradient(120deg,var(--cyan),var(--blue))}
 body.p2 .switch{right:auto;left:calc(24px + env(safe-area-inset-left,0px));flex-direction:row-reverse;padding:10px 18px 10px 12px}
 body.p2 .switch .arr svg{transform:rotate(180deg)}
-body.p2 .cross,body.p2 .hud,body.p2 .scan{display:none}
+body.p2 .cross,body.p2 .hud{display:none}
+body.p2 .scan{width:210px!important;height:210px!important;margin:-8px 0 0}
 body.p2{background:radial-gradient(60% 55% at 50% 38%,#0b2a66 0%,#061638 45%,#030b24 100%)}
 body.p2 #dust{opacity:.6}
 /* planeta: borde luminoso que se difumina hacia los lados y hacia abajo */
@@ -228,7 +229,7 @@ body.p2 .horizon::before{content:"";position:absolute;left:50%;top:50%;width:150
   box-shadow:0 -1px 0 rgba(235,250,255,.95),0 -3px 6px rgba(200,240,255,.9),0 -10px 30px rgba(80,180,255,.75),0 -40px 110px rgba(40,140,255,.45),
              inset 0 3px 6px rgba(220,245,255,.8),inset 0 18px 50px rgba(70,170,255,.45)}
 body.p2 .horizon::after{content:"";position:absolute;inset:auto 0 0 0;height:40%;background:linear-gradient(transparent,#030b24)}
-body.p2 .stage{width:min(440px,100%);padding:40px 34px 30px;border-radius:28px;
+body.p2 .stage{width:min(440px,100%);padding:26px 34px 26px;border-radius:28px;
   background:linear-gradient(180deg,rgba(20,55,130,.45),rgba(4,14,40,.85) 60%);
   border:1px solid rgba(160,205,255,.18);
   box-shadow:0 50px 100px -30px rgba(0,0,0,.95),inset 0 1px 0 rgba(255,255,255,.08);
@@ -249,6 +250,7 @@ body.p2 input[type=text],body.p2 input[type=password]{border-radius:12px;backgro
 body.p2 .field-label{padding-left:4px}
 body.p2 .primary{border-radius:14px}
 body.password .steps{display:none}
+@media (max-width:860px){body.p2{overflow:auto;padding-block:24px 96px!important;height:auto;min-height:100%}}
 </style>
 </head>
 <body>
@@ -769,8 +771,7 @@ setTimeout(() => user.focus(), 1800);
   sw.addEventListener('click',()=>{
     const on=!document.body.classList.contains('p2');
     document.body.classList.toggle('p2',on);
-    if(on){document.body.appendChild(orbEl);orbEl.tabIndex=-1;orbEl.setAttribute('aria-hidden','true');}
-    else{stageEl.insertBefore(orbEl,stageEl.children[1]);orbEl.removeAttribute('tabindex');orbEl.removeAttribute('aria-hidden');}
+    
     txt.textContent=on?'Ver propuesta 1':'Ver propuesta 2';
   });
 })();
