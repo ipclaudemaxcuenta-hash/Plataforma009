@@ -860,6 +860,25 @@ header{display:grid!important;grid-template-columns:440px minmax(0,1fr);column-g
 .chip-lbl{font-size:12px}
 nav{grid-column:2!important}
 
+/* Margen único en los 4 lados: el borde superior de los iconos de arriba,
+   el borde inferior del Dock y los laterales quedan a la misma distancia */
+:root{--margen:64px}
+.app{
+  padding:var(--margen)!important;
+  grid-template-rows:auto minmax(0,1fr) auto!important;
+}
+header{align-items:start!important;height:auto}
+.sesion{align-items:center}
+nav{align-self:end!important;margin:0!important}
+.panel{padding-top:28px!important}
+.escritorio{padding-top:28px!important}
+.paginas{margin-top:48px!important}
+.pagina{row-gap:72px!important}
+.puntos-pag{margin-bottom:20px!important}
+.servicio{height:44px;box-sizing:border-box}
+.accion{width:44px;height:44px}
+.accion svg{width:20px;height:20px}
+
 </style>
 </head>
 <body data-tema="degradado">
