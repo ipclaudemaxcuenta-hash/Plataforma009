@@ -193,6 +193,15 @@ body.waiting .primary{opacity:.6;cursor:progress}
 .linkish{font-size:14px!important}
 .status{font-size:14px!important}
 @media (max-width:420px){h1{font-size:22px}}
+
+/* v2: ventana de aprobación */
+.push-step{font-size:12px!important;font-weight:600;color:var(--cyan)!important;letter-spacing:.04em;margin:0 0 6px!important}
+.push-title{font-size:21px!important;letter-spacing:-.01em!important;text-transform:none!important;margin:0 0 14px!important;text-wrap:balance}
+.push-how{text-align:left;margin:0 auto;padding:0 0 0 20px;max-width:250px;color:#b9cbea;font-size:14px;line-height:1.5;display:grid;gap:4px}
+.push-how li::marker{color:var(--cyan);font-weight:600}
+.left{font-size:14px!important;color:#b9cbea!important}
+.push-help{font-size:12.5px!important;color:#8fa8d4!important;margin-top:12px!important}
+.cancel{text-transform:none!important;letter-spacing:0!important;font-size:14px!important;font-weight:600!important}
 </style>
 </head>
 <body>
@@ -271,8 +280,12 @@ body.waiting .primary{opacity:.6;cursor:progress}
 
 <div class="modal" id="modalPush" hidden>
   <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="pushTitle">
-    <h2 id="pushTitle" class="push-title">Iniciar sesión</h2>
-    <p>Se ha enviado una notificación a la APP, confirma tu identidad seleccionando este código</p>
+    <p class="push-step">Paso 2 de 3</p>
+    <h2 id="pushTitle" class="push-title">Aprueba el ingreso en tu app</h2>
+    <ol class="push-how">
+      <li>Abre la notificación de iPartner en tu teléfono.</li>
+      <li>Toca el mismo número que ves aquí.</li>
+    </ol>
     <div class="ring">
       <svg viewBox="0 0 120 120" aria-hidden="true">
         <defs><linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#3ad7ff"/><stop offset="100%" stop-color="#2b6bff"/></linearGradient></defs>
@@ -282,7 +295,8 @@ body.waiting .primary{opacity:.6;cursor:progress}
       <span class="ticks" aria-hidden="true"></span>
       <span class="code" id="pushCode">--</span>
     </div>
-    <p class="left">Tiempo restante: <span id="pushTime">0:45</span></p>
+    <p class="left">El código vence en <span id="pushTime">0:45</span></p>
+    <p class="push-help">¿No te llegó la notificación? Revisa que tengas la app abierta y conexión a internet.</p>
     <button type="button" class="cancel" id="pushCancel">Cancelar</button>
   </div>
 </div>
