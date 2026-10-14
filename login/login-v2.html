@@ -363,6 +363,14 @@ body.password .lock3d{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(0
 .lk-orb svg{position:relative;width:44%;height:auto;filter:drop-shadow(0 6px 18px rgba(4,6,22,.6))}
 .lk-spark{position:absolute;border-radius:50%;background:#fff;animation:lkTwinkle 5s ease-in-out infinite}
 @keyframes lkTwinkle{0%,100%{opacity:.15;transform:scale(.7)}50%{opacity:.9;transform:scale(1)}}
+/* Candado: animación más suave */
+body.password .lk-orb{animation:lkFloatSoft 6s ease-in-out .6s infinite!important}
+@keyframes lkFloatSoft{0%,100%{transform:translate(-50%,-50%)}50%{transform:translate(-50%,-51.5%)}}
+.lk-orb{transition:opacity .5s ease,transform .5s ease!important}
+.lk-halo{animation-duration:9s!important}
+@keyframes lkBreathe{0%,100%{transform:scale(1)}50%{transform:scale(1.02)}}
+@keyframes lkTwinkle{0%,100%{opacity:.25;transform:scale(.9)}50%{opacity:.6;transform:scale(1)}}
+.lk-spark{animation-duration:7s!important}
 </style>
 </head>
 <body>
