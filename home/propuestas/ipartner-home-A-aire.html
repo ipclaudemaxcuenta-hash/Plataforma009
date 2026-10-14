@@ -1062,12 +1062,12 @@ header{position:relative;z-index:20}
 .paginas{margin-top:14px!important}
 .pagina{row-gap:14px!important}
 .chip-lbl{text-shadow:0 0 3px #fff,0 0 6px #fff,0 0 10px rgba(255,255,255,.9)!important}
-
-/* PROPUESTA A · Más aire: misma separación entre todas las filas */
+/* Misma distancia entre TODAS las filas (sin extra por grupo) */
+.chip-app.fila-nueva:not(:first-child){margin-top:0!important}
 .pagina{row-gap:20px!important}
-.chip-app.fila-nueva:not(:first-child){margin-top:6px!important}
-.paginas{margin-top:10px!important}
-.chip-app.fila-nueva:not(:first-child){margin-top:0!important}.pagina{row-gap:22px!important}
+/* Mismo espacio en blanco entre el final de los nombres y la fila siguiente */
+.chip-lbl{min-height:0!important}
+.pagina{align-items:start!important;row-gap:30px!important}
 
 </style>
 </head>
