@@ -315,6 +315,19 @@ input[type=text]:focus,input[type=password]:focus{border-color:#10b981!important
 .fid.s-ok .fid-ok path{stroke-dashoffset:0}
 .fid-txt{margin:0;font:600 16px "Space Grotesk",-apple-system,sans-serif;color:#e9eef8;text-align:center}
 .fid.s-ok .fid-txt{color:#34d399}
+/* Ventana del código: sin recuadro detrás del anillo, textos centrados, aviso de poco tiempo */
+.prog{filter:none!important}
+.ring{border-radius:50%;box-shadow:0 0 40px -6px rgba(58,215,255,.55);transition:box-shadow .4s}
+#pushTitle{text-wrap:balance}
+.push-how{text-align:center!important;list-style:none!important;padding:0!important;max-width:none!important;counter-reset:s}
+.push-how li{counter-increment:s}
+.push-how li::before{content:counter(s) ". ";color:var(--cyan);font-weight:700}
+.resend{margin-top:6px;background:none;border:0;color:var(--cyan);font:600 13px "Space Grotesk",sans-serif;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.resend:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:4px}
+.low .prog{stroke:#ffb020!important}
+.low .code{color:#ffb020!important;text-shadow:0 0 24px rgba(255,176,32,.6)!important}
+.low .ring{box-shadow:0 0 40px -6px rgba(255,176,32,.55)}
+.low #pushTime{color:#ffb020!important}
 </style>
 </head>
 <body>
@@ -421,10 +434,10 @@ input[type=text]:focus,input[type=password]:focus{border-color:#10b981!important
 <div class="modal" id="modalPush" hidden>
   <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="pushTitle">
     <p class="push-step">Paso 2 de 3</p>
-    <h2 id="pushTitle" class="push-title">Aprueba el ingreso en tu app</h2>
+    <h2 id="pushTitle" class="push-title">Valídalo en tu app</h2>
     <ol class="push-how">
       <li>Abre la notificación de iPartner en tu teléfono.</li>
-      <li>Toca el mismo número que ves aquí.</li>
+      <li>Toca el número que ves aquí.</li>
     </ol>
     <div class="ring">
       <svg viewBox="0 0 120 120" aria-hidden="true">
@@ -436,7 +449,8 @@ input[type=text]:focus,input[type=password]:focus{border-color:#10b981!important
       <span class="code" id="pushCode">--</span>
     </div>
     <p class="left">El código vence en <span id="pushTime">0:45</span></p>
-    <p class="push-help">¿No te llegó la notificación? Revisa que tengas la app abierta y conexión a internet.</p>
+    <p class="push-help">¿No te llegó la notificación?</p>
+    <button type="button" class="resend" id="pushResend">Reenviar notificación</button>
     <button type="button" class="cancel" id="pushCancel">Cancelar</button>
   </div>
 </div>
@@ -776,6 +790,8 @@ function pintar(){
   const m = Math.floor(restante / 60), s = String(restante % 60).padStart(2, '0');
   pushTime.textContent = m + ':' + s;
   ringProg.style.strokeDashoffset = VUELTA * (1 - restante / SEGUNDOS);
+  // Últimos 10 segundos: anillo, número y contador en naranja
+  modalPush.querySelector('.modal-card').classList.toggle('low', restante <= 10);
 }
 function startPush(){
   // Código de dos dígitos que el usuario debe elegir en la app.
@@ -903,6 +919,13 @@ function runFaceAnim(done){
   setTimeout(()=>{set('s-ok'); txt.textContent='Ingreso validado';},2350);
   setTimeout(done,3400);
 }
+
+/* Reenviar notificación: reinicia el código y el contador */
+document.getElementById('pushResend').addEventListener('click',()=>{
+  clearInterval(reloj); clearTimeout(demo);
+  // ── Aquí va tu llamada real para reenviar la notificación ──
+  startPush();
+});
 </script>
 </body>
 </html>
