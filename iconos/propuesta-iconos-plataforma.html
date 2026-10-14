@@ -1918,6 +1918,21 @@ window.addEventListener("storage",function(e){
 .lv2 #buscaIr{background:linear-gradient(180deg,#4FD1FF,#0A7CFF)!important;--p:#fff;--cut:#0A7CFF;--so:.5}
 .ap-dark.lv2 #buscaIr{background:linear-gradient(180deg,#3a3a3e,#161618)!important;--p:#4FD1FF;--cut:#1f1f22;--so:.55}
 .ap-glass.lv2 #buscaIr{background:linear-gradient(180deg,rgba(79,209,255,.62),rgba(10,124,255,.78))!important;--p:#fff;--cut:#0A7CFF}
+/* Acciones superiores (Jaina, notificaciones, cuenta, más opciones) */
+.lv2 .accion.top2{background:linear-gradient(180deg,var(--c1),var(--c2))!important;--p:#fff;--cut:var(--c2);--so:.5;
+  box-shadow:0 4px 10px rgba(20,10,25,.22),inset 0 1px 1px rgba(255,255,255,.55),inset 0 0 0 .8px rgba(255,255,255,.3)!important;position:relative;overflow:visible}
+.lv2 .accion.top2::before{content:"";position:absolute;inset:0;border-radius:50%;pointer-events:none;background:linear-gradient(180deg,rgba(255,255,255,.38),rgba(255,255,255,0) 55%)}
+.lv2 .accion.top2 svg.n2{width:66%!important;height:66%!important;position:relative;z-index:1}
+.ap-dark.lv2 .accion.top2{background:linear-gradient(180deg,#3a3a3e,#161618)!important;--p:var(--c1);--cut:#1f1f22}
+.ap-glass.lv2 .accion.top2{background:linear-gradient(180deg,color-mix(in srgb,var(--c1) 62%,transparent),color-mix(in srgb,var(--c2) 78%,transparent))!important;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+/* Jaina: esfera azul brillante con la J de luz (igual en todas las apariencias) */
+.lv2 #btnJaina.top2,.ap-dark.lv2 #btnJaina.top2,.ap-glass.lv2 #btnJaina.top2{
+  background:radial-gradient(circle at 50% 56%,#0a2a63 0%,#123f8f 26%,#1f6fe8 58%,#2f82ff 78%,#1b63e6 100%)!important;
+  box-shadow:0 0 14px 3px rgba(40,120,255,.55),0 0 28px 8px rgba(40,120,255,.22),inset 0 1px 1px rgba(255,255,255,.4)!important}
+.lv2 #btnJaina.top2::before{background:radial-gradient(60% 45% at 32% 22%,rgba(190,225,255,.75),rgba(190,225,255,0) 70%)}
+.lv2 #btnJaina.top2{--p:#fff!important}
+.ap-dark.lv2 #btnViaje.top2{--p:#8FA0FF}
+.lv2 #btnJaina.top2 svg.n2{width:74%!important;height:74%!important;filter:drop-shadow(0 0 2px #fff) drop-shadow(0 0 5px rgba(160,210,255,.9))}
 </style>
 <div id="pz" role="region" aria-label="Propuesta de iconos">
   <b>VERSIÓN</b><div class="sg" data-k="lv"><button data-v="" aria-pressed="false">Actual</button><button data-v="lv1" aria-pressed="false">Nivel 1</button><button data-v="lv2" aria-pressed="true">Nivel 2</button></div>
@@ -2001,6 +2016,12 @@ document.querySelectorAll('#pz .sg').forEach(sg=>sg.addEventListener('click',e=>
  sg.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));if(sg.dataset.k==='lv')lv=b.dataset.v;else ap=b.dataset.v;render();}));
 const bi=document.getElementById('buscaIr');const biO=bi&&bi.innerHTML;
 const _r=render;render=function(){_r();if(!bi)return;bi.innerHTML=lv==='lv2'?`<svg class="n2" viewBox="0 0 100 100" aria-hidden="true" style="width:92% !important;height:92% !important">${G['Asíncrona']}</svg>`:biO;};
+const TOP={btnJaina:['#3d8bff','#1b63e6',`<path class="ps" stroke-width="9" d="M34 22h28v38a20 20 0 0 1-37 10.5"/>`],
+ btnNotif:['#5EE07A','#1EA846',`<path class="p" d="M50 14c-14 0-24 10.5-24 25v14l-8 11h64l-8-11V39c0-14.5-10-25-24-25Z"/><path class="s" d="M40 70a10 10 0 0 0 20 0Z"/><circle class="p" cx="50" cy="12" r="4"/>`],
+ btnUser:['#D27BE6','#8E2CB8',`<circle class="p" cx="50" cy="35" r="15"/><path class="p" d="M22 84c0-17 12.5-27 28-27s28 10 28 27Z"/>`],
+ btnViaje:['#4F63D6','#1B2577',`<polygon class="p" points="12,47 88,15 66,86 51,59" stroke="var(--p)" stroke-width="4" stroke-linejoin="round"/><polygon class="s" points="51,59 88,15 42,72" stroke="var(--p)" stroke-width="3" stroke-linejoin="round"/>`]};
+const tops=Object.keys(TOP).map(id=>{const el=document.getElementById(id);if(!el)return null;el.style.setProperty('--c1',TOP[id][0]);el.style.setProperty('--c2',TOP[id][1]);return{el,id,o:el.innerHTML}}).filter(Boolean);
+const _r2=render;render=function(){_r2();tops.forEach(t=>{const on=lv==='lv2';t.el.classList.toggle('top2',on);t.el.innerHTML=on?`<svg class="n2" viewBox="0 0 100 100" aria-hidden="true">${TOP[t.id][2]}</svg>`:t.o;});};
 render();
 })();
 </script>
