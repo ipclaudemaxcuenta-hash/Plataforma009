@@ -908,6 +908,24 @@ body[data-tema="atardecer"] .chip-mult,body[data-tema="confeti"] .chip-mult,body
 .k-app-ip .chip-ico::before{opacity:.5}
 .pagina{grid-auto-rows:104px!important;row-gap:28px!important;align-items:start}
 
+/* Botón de Asíncrona en el buscador: mismo chip que en el Dock */
+.busca-ir{
+  border-radius:16px;
+  background:linear-gradient(160deg,#c98fd6,#9a54b0);
+  box-shadow:0 6px 14px rgba(154,84,176,.35), inset 0 1px 1px rgba(255,255,255,.5);
+  position:relative;overflow:hidden;
+}
+.busca-ir::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.34),rgba(255,255,255,0) 58%,rgba(0,0,0,.04))}
+.busca-ir svg{position:relative;z-index:1;width:26px!important;height:26px!important}
+
+/* Grilla alineada con el contenido del buscador:
+   primer icono bajo la lupa, último icono bajo el botón de Asíncrona */
+.pagina{
+  grid-template-columns:repeat(6,var(--icon))!important;
+  justify-content:space-between;
+  padding-left:30px!important;padding-right:10px!important;
+}
+
 </style>
 </head>
 <body data-tema="degradado">
@@ -1055,8 +1073,8 @@ body[data-tema="atardecer"] .chip-mult,body[data-tema="confeti"] .chip-mult,body
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.2-3.2"/></svg>
         <input id="busca" type="text" placeholder="Buscar DNI" autocomplete="off" aria-label="Buscar DNI" inputmode="numeric" maxlength="8" pattern="[0-9]*">
         <button id="buscaClear" class="busca-x" aria-label="Limpiar" hidden>&times;</button>
-        <button id="buscaIr" class="busca-ir" aria-label="Consultar DNI en Prevención" title="Consultar">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 5 5.5v5c0 4.6 3.1 7.9 7 9 3.9-1.1 7-4.4 7-9v-5L12 3Z"/><path d="M12 9v3.5M12 15h.01"/></svg>
+        <button id="buscaIr" class="busca-ir" aria-label="Asíncrona" title="Asíncrona">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h10M7 21h10"/><path d="M8 3v3c0 3 4 4 4 6s-4 3-4 6v3"/><path d="M16 3v3c0 3-4 4-4 6s4 3 4 6v3"/></svg>
         </button>
       </div>
       <div class="paginas" id="lienzo" tabindex="-1">
@@ -1572,7 +1590,11 @@ window.addEventListener("storage",function(e){
   }
   input.addEventListener("input",filtrar);
   limpiar.addEventListener("click",function(){ input.value=""; filtrar(); input.focus(); });
-  ir.addEventListener("click",consultar);
+  // Botón de Asíncrona: abre el módulo (lleva el DNI si ya se escribió uno válido)
+  ir.addEventListener("click",function(){
+    var dni=soloDigitos();
+    window.location.href="ipartner-asincrona.html"+(dni.length===8?"?dni="+encodeURIComponent(dni):"");
+  });
   input.addEventListener("keydown",function(e){
     if(e.key==="Escape"){ input.value=""; filtrar(); }
     if(e.key==="Enter") consultar();
