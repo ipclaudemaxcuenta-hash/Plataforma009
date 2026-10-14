@@ -291,6 +291,8 @@ body:not(.p2) .horizon::before{top:var(--arcTop,56%)}
 /* campos opacos: la línea del planeta no se ve a través */
 body:not(.p2) input[type=text],body:not(.p2) input[type=password]{background:#071a42!important}
 body:not(.p2) input[type=text]:focus,body:not(.p2) input[type=password]:focus{background:#08204f!important}
+/* la X tiene su propia fila: el título nunca queda debajo */
+.modal-card:has(.close){padding-top:56px!important}
 </style>
 </head>
 <body>
