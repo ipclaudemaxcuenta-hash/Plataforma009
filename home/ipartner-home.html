@@ -926,6 +926,29 @@ body[data-tema="atardecer"] .chip-mult,body[data-tema="confeti"] .chip-mult,body
   padding-left:30px!important;padding-right:10px!important;
 }
 
+/* Menú del avión */
+header{position:relative;z-index:20}
+.menu-wrap{position:relative}
+.menu-pop{
+  position:absolute;top:calc(100% + 10px);right:-6px;z-index:30;
+  min-width:216px;padding:8px;border-radius:16px;
+  background:rgba(255,255,255,.96);
+  backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);
+  border:1px solid rgba(92,34,85,.08);
+  box-shadow:0 18px 40px rgba(61,36,57,.18),0 3px 8px rgba(61,36,57,.08);
+  transform-origin:top right;animation:menuIn .18s cubic-bezier(.2,.8,.3,1);
+}
+@keyframes menuIn{from{opacity:0;transform:scale(.94) translateY(-4px)}to{opacity:1;transform:none}}
+.menu-item{
+  display:flex;align-items:center;gap:12px;padding:9px 12px;border-radius:10px;
+  font-size:13.5px;color:var(--tinta);text-decoration:none;white-space:nowrap;
+  transition:background .15s;
+}
+.menu-item svg{width:18px;height:18px;flex:0 0 18px;color:var(--tinta-nav)}
+.menu-item:hover,.menu-item:focus-visible{background:var(--morado-velo);outline:none}
+.menu-item:focus-visible{box-shadow:inset 0 0 0 2px rgba(239,128,28,.45)}
+.a-viaje[aria-expanded="true"]{box-shadow:0 0 0 3px rgba(43,58,158,.25),0 4px 12px rgba(20,10,25,.18)}
+
 </style>
 </head>
 <body data-tema="degradado">
@@ -960,9 +983,19 @@ body[data-tema="atardecer"] .chip-mult,body[data-tema="confeti"] .chip-mult,body
         <button class="accion a-user usuario" id="btnUser" aria-label="Perfil de usuario" title="Perfil">
           <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="3.4"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></svg>
         </button>
-        <button class="accion a-viaje" id="btnViaje" aria-label="Viajes" title="Viajes">
+        <div class="menu-wrap">
+          <button class="accion a-viaje" id="btnViaje" aria-label="Más opciones" title="Más opciones" aria-haspopup="menu" aria-expanded="false" aria-controls="menuViaje">
           <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2Z"/></svg>
         </button>
+          <div class="menu-pop" id="menuViaje" role="menu" aria-label="Más opciones" hidden>
+            <a class="menu-item" role="menuitem" href="ipartner-admin.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="9" cy="12" r="2"/><path d="M6 17a3 3 0 0 1 6 0M14 11h4M14 15h3M9 6V4h6v2"/></svg>Admin</a>
+            <a class="menu-item" role="menuitem" href="ipartner-system.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="2"/><rect x="9.5" y="9.5" width="5" height="5" rx="1"/><path d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3"/></svg>System</a>
+            <a class="menu-item" role="menuitem" href="ipartner-slam.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 15l3-6 3 6M8 13h4M15 9v6h3"/></svg>SLAM</a>
+            <a class="menu-item" role="menuitem" href="ipartner-puntos-ip.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h8v5a4 4 0 0 1-8 0Z"/><path d="M8 6H5v1a3 3 0 0 0 3 3M16 6h3v1a3 3 0 0 1-3 3M12 13v4M9 20h6M10 17h4"/></svg>Puntos IP</a>
+            <a class="menu-item" role="menuitem" href="ipartner-eventos.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/><path d="m12 13 .9 1.8 2 .3-1.45 1.4.35 2-1.8-.95-1.8.95.35-2L9.1 15.1l2-.3Z"/></svg>Eventos</a>
+            <a class="menu-item" role="menuitem" href="ipartner-sugerencias.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10a4 4 0 0 1 8 0v9H4Z"/><path d="M8 10h10a2 2 0 0 1 2 2v7h-8M15 5v5M15 5h3"/></svg>Buzón de sugerencias</a>
+          </div>
+        </div>
       </div>
     </div>
   </header>
@@ -1289,7 +1322,22 @@ pintarServicio(document.getElementById("servicio").dataset.horas);
 
 /* ---- Accesos de la esquina superior ---- */
 (function(){
-  var acciones={btnJaina:"ipartner-jaina.html",btnNotif:null,btnUser:"ipartner-perfil.html",btnViaje:null};
+  var acciones={btnJaina:"ipartner-jaina.html",btnNotif:null,btnUser:"ipartner-perfil.html",};
+  /* ---- Menú del avión ---- */
+  var bv=document.getElementById("btnViaje"), menu=document.getElementById("menuViaje");
+  var opciones=[].slice.call(menu.querySelectorAll(".menu-item"));
+  function abrir(foco){ menu.hidden=false; bv.setAttribute("aria-expanded","true"); if(foco) opciones[0].focus(); }
+  function cerrar(volver){ menu.hidden=true; bv.setAttribute("aria-expanded","false"); if(volver) bv.focus(); }
+  bv.addEventListener("click",function(e){ e.stopPropagation(); menu.hidden?abrir(e.detail===0):cerrar(); });
+  document.addEventListener("click",function(e){ if(!menu.hidden && !menu.contains(e.target)) cerrar(); });
+  document.addEventListener("keydown",function(e){
+    if(menu.hidden) return;
+    var i=opciones.indexOf(document.activeElement);
+    if(e.key==="Escape"){ cerrar(true); }
+    else if(e.key==="ArrowDown"){ e.preventDefault(); opciones[(i+1)%opciones.length].focus(); }
+    else if(e.key==="ArrowUp"){ e.preventDefault(); opciones[(i-1+opciones.length)%opciones.length].focus(); }
+    else if(e.key==="Tab"){ cerrar(); }
+  });
   Object.keys(acciones).forEach(function(id){
     var b=document.getElementById(id); if(!b) return;
     b.addEventListener("click",function(){
