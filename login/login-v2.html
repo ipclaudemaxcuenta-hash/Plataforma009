@@ -372,6 +372,14 @@ body.password .lk-orb{animation:lkFloatSoft 6s ease-in-out .6s infinite!importan
 @keyframes lkTwinkle{0%,100%{opacity:.25;transform:scale(.9)}50%{opacity:.6;transform:scale(1)}}
 .lk-spark{animation-duration:7s!important}
 body.password .pass-wrap{animation:fadeIn .35s ease!important}
+/* Panel de simulación (solo modo prueba) */
+.sim{margin:14px 0 0;padding:10px;border:1px dashed rgba(255,176,32,.55);border-radius:14px;background:rgba(255,176,32,.06)}
+.sim-tit{margin:0 0 8px!important;font-size:11.5px!important;color:#ffcf7a!important}
+.sim-btns{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.sim-b{border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.06);color:#e9eef8;border-radius:999px;padding:7px 11px;font:600 12px "Space Grotesk",sans-serif;cursor:pointer}
+.sim-b.ok{border-color:#10b981;color:#6ee7b7}
+.sim-b:hover{background:rgba(255,255,255,.12)}
+.primary:disabled{opacity:.5;cursor:not-allowed}
 </style>
 </head>
 <body>
@@ -504,6 +512,14 @@ body.password .pass-wrap{animation:fadeIn .35s ease!important}
     <p class="left">El código vence en <span id="pushTime">0:45</span></p>
     <p class="push-help">¿No te llegó la notificación?</p>
     <button type="button" class="resend" id="pushResend">Reenviar notificación</button>
+    <div class="sim" aria-label="Simulación del celular">
+      <p class="sim-tit">Modo prueba · simula lo que haces en tu celular</p>
+      <div class="sim-btns">
+        <button type="button" class="sim-b ok" id="simOk">Tocar el número correcto</button>
+        <button type="button" class="sim-b" id="simBad">Tocar otro número</button>
+        <button type="button" class="sim-b" id="simNo">Rechazar</button>
+      </div>
+    </div>
     <button type="button" class="cancel" id="pushCancel">Cancelar</button>
   </div>
 </div>
@@ -757,6 +773,21 @@ function setStep(n){[1,2,3].forEach(i=>{const el=document.getElementById('st'+i)
 function isPasswordMode(){ return body.classList.contains('password'); }
 function restMode(){ fxState.mode = isPasswordMode() ? 'password' : 'idle'; fxState.dimTarget = isPasswordMode() ? 1 : 0; }
 
+/* ── MODO PRUEBA ── */
+const DEMO_USER = 'carlos2026', DEMO_PASS = 'carlos2026', MAX_INTENTOS = 3, ESPERA = 30;
+let intentos = 0, bloqueo = 0;
+function bloquear(){
+  bloqueo = ESPERA; intentos = 0;
+  const go = document.getElementById('go'); go.disabled = true;
+  const tick = () => {
+    status.classList.remove('ok');
+    status.textContent = 'Demasiados intentos fallidos. Podrás intentarlo de nuevo en ' + bloqueo + ' s.';
+    if (bloqueo-- <= 0){ clearInterval(t); bloqueo = 0; go.disabled = false; status.textContent = 'Ya puedes intentarlo de nuevo.'; }
+  };
+  const t = setInterval(tick, 1000); tick();
+  fxState.errorAt = now();
+  stage.classList.remove('shake'); void stage.offsetWidth; stage.classList.add('shake');
+}
 function fail(msg, field){
   status.classList.remove('ok');
   status.textContent = msg;
@@ -768,13 +799,26 @@ function fail(msg, field){
 function submit(){
   if (body.classList.contains('waiting') || body.classList.contains('granted')) return;
   if (!user.value.trim()) return fail('Escribe tu usuario para continuar.', user);
+  if (bloqueo) return fail('Demasiados intentos. Espera ' + bloqueo + ' s para volver a intentarlo.', pass);
+  // ── MODO PRUEBA: usuario y clave de demostración. Reemplazar por la validación real ──
+  const existe = user.value.trim().toLowerCase() === DEMO_USER;
 
   if (isPasswordMode()){
+    if (!pass.value) return fail('Escribe tu contraseña para continuar.', pass);
     if (pass.value.length < 6) return fail('La contraseña necesita al menos 6 caracteres.', pass);
-    // ── Login clásico: aquí va tu POST de usuario y contraseña ──
-    // fetch('/api/login', { method:'POST', body: ... }).then(...)
+    if (!existe) return fail('No encontramos ese usuario. Revisa que esté bien escrito.', user);
+    if (pass.value !== DEMO_PASS){
+      intentos++;
+      pass.value = '';
+      if (intentos >= MAX_INTENTOS) return bloquear();
+      const quedan = MAX_INTENTOS - intentos;
+      return fail('Contraseña incorrecta. Te ' + (quedan === 1 ? 'queda 1 intento.' : 'quedan ' + quedan + ' intentos.'), pass);
+    }
+    intentos = 0;
     return granted();
   }
+
+  if (!existe) return fail('No encontramos ese usuario. Revisa que esté bien escrito.', user);
 
   body.classList.add('waiting');
   fxState.mode = 'waiting';
@@ -864,7 +908,7 @@ function startPush(){
   // fetch('/api/push-validacion', { method:'POST', body: JSON.stringify({ user: user.value.trim() }) })
   // y luego consulta el estado hasta que la app apruebe; cuando responda, llama a aprobar().
   // El setTimeout de abajo solo simula esa aprobación para ver el flujo completo.
-  demo = setTimeout(aprobar, 7000);
+  // MODO PRUEBA: la aprobación se simula con los botones de la ventana (no hay aprobación automática).
 }
 function cerrarPush(){ clearInterval(reloj); clearTimeout(demo); modalPush.hidden = true; }
 function aprobar(){ cerrarPush(); granted(); }
@@ -879,6 +923,9 @@ function endPush(mensaje){
   user.focus();
 }
 pushCancel.addEventListener('click', () => endPush('Ingreso cancelado.'));
+document.getElementById('simOk').addEventListener('click', aprobar);
+document.getElementById('simBad').addEventListener('click', () => endPush('Tocaste un número distinto. Por seguridad cancelamos el ingreso.'));
+document.getElementById('simNo').addEventListener('click', () => endPush('Rechazaste el ingreso desde tu app.'));
 
 // ── Diálogos: QR de la app y recuperar usuario ───────
 const modalQr   = document.getElementById('modal');
