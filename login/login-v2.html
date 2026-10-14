@@ -795,21 +795,6 @@ function setStep(n){[1,2,3].forEach(i=>{const el=document.getElementById('st'+i)
 function isPasswordMode(){ return body.classList.contains('password'); }
 function restMode(){ fxState.mode = isPasswordMode() ? 'password' : 'idle'; fxState.dimTarget = isPasswordMode() ? 1 : 0; }
 
-/* ── MODO PRUEBA ── */
-const DEMO_USER = 'carlos2026', DEMO_PASS = 'carlos2026', MAX_INTENTOS = 3, ESPERA = 30;
-let intentos = 0, bloqueo = 0;
-function bloquear(){
-  bloqueo = ESPERA; intentos = 0;
-  const go = document.getElementById('go'); go.disabled = true;
-  const tick = () => {
-    status.classList.remove('ok');
-    status.textContent = 'Demasiados intentos fallidos. Podrás intentarlo de nuevo en ' + bloqueo + ' s.';
-    if (bloqueo-- <= 0){ clearInterval(t); bloqueo = 0; go.disabled = false; status.textContent = 'Ya puedes intentarlo de nuevo.'; }
-  };
-  const t = setInterval(tick, 1000); tick();
-  fxState.errorAt = now();
-  stage.classList.remove('shake'); void stage.offsetWidth; stage.classList.add('shake');
-}
 function fail(msg, field){
   status.classList.remove('ok');
   status.textContent = msg;
@@ -821,26 +806,14 @@ function fail(msg, field){
 function submit(){
   if (body.classList.contains('waiting') || body.classList.contains('granted')) return;
   if (!user.value.trim()) return fail('Escribe tu usuario para continuar.', user);
-  if (bloqueo) return fail('Demasiados intentos. Espera ' + bloqueo + ' s para volver a intentarlo.', pass);
-  // ── MODO PRUEBA: usuario y clave de demostración. Reemplazar por la validación real ──
-  const existe = user.value.trim().toLowerCase() === DEMO_USER;
 
   if (isPasswordMode()){
     if (!pass.value) return fail('Escribe tu contraseña para continuar.', pass);
     if (pass.value.length < 6) return fail('La contraseña necesita al menos 6 caracteres.', pass);
-    if (!existe) return fail('No encontramos ese usuario. Revisa que esté bien escrito.', user);
-    if (pass.value !== DEMO_PASS){
-      intentos++;
-      pass.value = '';
-      if (intentos >= MAX_INTENTOS) return bloquear();
-      const quedan = MAX_INTENTOS - intentos;
-      return fail('Contraseña incorrecta. Te ' + (quedan === 1 ? 'queda 1 intento.' : 'quedan ' + quedan + ' intentos.'), pass);
-    }
-    intentos = 0;
+    // ── Login clásico: aquí va tu POST de usuario y contraseña ──
+    // fetch('/api/login', { method:'POST', body: ... }).then(...)
     return granted();
   }
-
-  if (!existe) return fail('No encontramos ese usuario. Revisa que esté bien escrito.', user);
 
   body.classList.add('waiting');
   fxState.mode = 'waiting';
