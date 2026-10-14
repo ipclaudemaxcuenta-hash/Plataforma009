@@ -330,6 +330,16 @@ input[type=text]:focus,input[type=password]:focus{border-color:#10b981!important
 .low #pushTime{color:#ffb020!important}
 /* Mensajes de error en rojo */
 .status:not(.ok),.modal-status:not(.ok){color:#ff5c6c!important}
+/* Animación de entrada: primero se arma el rostro, luego aparecen textos y formulario */
+@keyframes introUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.stage > *:not(.scan){animation:introUp .6s cubic-bezier(.2,.7,.2,1) both}
+.stage > .brand-logo{animation-delay:.2s}
+.stage > h1{animation-delay:1.3s}
+.stage > .sub{animation-delay:1.42s}
+.stage > .steps{animation-delay:1.54s}
+.stage > .form{animation-delay:1.68s}
+.stage > .status{animation-delay:1.8s}
+@media (prefers-reduced-motion:reduce){.stage > *{animation:none!important}}
 </style>
 </head>
 <body>
