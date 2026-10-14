@@ -298,6 +298,10 @@ h1,.modal-card h2,.primary,.send,.cancel,.code{font-family:"Chakra Petch",-apple
 .left span,.hud,#pushTime{font-family:"JetBrains Mono",ui-monospace,monospace!important}
 /* Campo seleccionado: verde de la plataforma actual (#10b981) */
 input[type=text]:focus,input[type=password]:focus,input[type=email]:focus{border-color:#10b981!important;box-shadow:0 0 0 3px rgba(16,185,129,.18)!important}
+/* Modo Face ID: distribución original (2 filas de enlaces bajo el botón). Modo contraseña: sin cambios. */
+body:not(.password) .aux{display:none}
+body.password .links-face,body.password .sep-face,body:not(.password) .sep-pass{display:none}
+.links-face{margin-top:4px!important}
 </style>
 </head>
 <body>
@@ -340,8 +344,13 @@ input[type=text]:focus,input[type=password]:focus,input[type=email]:focus{border
     <button type="submit" class="primary" id="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2.5 8V6.5a4 4 0 0 1 4-4H8M16 2.5h1.5a4 4 0 0 1 4 4V8M21.5 16v1.5a4 4 0 0 1-4 4H16M8 21.5H6.5a4 4 0 0 1-4-4V16M8.2 8.4v1.9M15.8 8.4v1.9M12 8.4v4.3c0 .8-.5 1.2-1.2 1.2M8.4 16.1c2 1.6 5.2 1.6 7.2 0"/></svg><span id="goTxt">Continuar con Face ID</span></button>
     <div class="links">
       <button type="button" class="linkish" id="openQr" aria-haspopup="dialog">¿No tienes la app?</button>
-      <span class="sep" aria-hidden="true">·</span>
+      <span class="sep sep-face aux-sep" aria-hidden="true">|</span><span class="sep sep-pass" aria-hidden="true">·</span>
       <button type="button" class="linkish" id="toggleMode"><span>Ingresar con contraseña</span></button>
+    </div>
+    <div class="links links-face">
+      <button type="button" class="linkish" data-open="openUser" aria-haspopup="dialog">¿Olvidaste tu usuario?</button>
+      <span class="sep aux-sep" aria-hidden="true">|</span>
+      <button type="button" class="linkish" data-open="openPass" aria-haspopup="dialog">¿Olvidaste tu contraseña?</button>
     </div>
     
   </form>
@@ -870,6 +879,9 @@ setTimeout(() => user.focus(), 1800);
   if(document.fonts) document.fonts.ready.then(place);
   place(); setTimeout(place,400);
 })();
+
+/* Enlaces de la segunda fila: abren las mismas ventanas */
+document.querySelectorAll('[data-open]').forEach(b=>b.addEventListener('click',()=>document.getElementById(b.dataset.open).click()));
 </script>
 </body>
 </html>
