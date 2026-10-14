@@ -254,7 +254,7 @@ body{height:auto!important;min-height:100%;overflow-y:auto!important}
 .close:hover{background:rgba(235,245,255,.22)!important;color:#fff!important}
 .close:active{transform:scale(.92)}
 .close:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
-body .horizon::before{top:var(--arcTop,56%);transition:top .45s cubic-bezier(.4,0,.2,1)}
+body .horizon::before{top:var(--arcTop,56%)}
 .hud,.cross{z-index:1!important}
 /* campos opacos: la línea del planeta no se ve a través */
 body input[type=text],body input[type=password]{background:#071a42!important}
@@ -836,15 +836,11 @@ setTimeout(() => user.focus(), 1800);
   // Se mide con el campo de usuario del modo Face ID; en modo contraseña se usa el campo
   // que ocupa ese mismo lugar. Cambiar de modo NO mueve el aro.
   const h=document.querySelector('.horizon'), u=document.getElementById('user'), pw=document.getElementById('pass');
-  // El borde del aro cruza los costados del campo de usuario justo a media altura:
-  // se compensa la curva del planeta (elipse de 150vw x 110vw).
   function place(){
-    const r=u.getBoundingClientRect(), a=innerWidth*0.75, b=innerWidth*0.55;
-    const x=Math.min(r.width/2, a*0.999), drop=b*(1-Math.sqrt(1-(x/a)*(x/a)));
-    h.style.setProperty('--arcTop',(r.top+r.height*0.5-drop)+'px');
+    const el=document.body.classList.contains('password') ? pw : u;
+    const r=el.getBoundingClientRect(); h.style.setProperty('--arcTop',(r.top+r.height*0.5-14)+'px'); // un poco más arriba
   }
   ['resize','scroll'].forEach(e=>addEventListener(e,place,{passive:true}));
-  document.getElementById('toggleMode').addEventListener('click',()=>requestAnimationFrame(()=>requestAnimationFrame(place)));
   if(document.fonts) document.fonts.ready.then(place);
   place(); setTimeout(place,400);
 })();
