@@ -948,6 +948,13 @@ header{position:relative;z-index:20}
 .menu-item:hover,.menu-item:focus-visible{background:var(--morado-velo);outline:none}
 .menu-item:focus-visible{box-shadow:inset 0 0 0 2px rgba(239,128,28,.45)}
 .a-viaje[aria-expanded="true"]{box-shadow:0 0 0 3px rgba(43,58,158,.25),0 4px 12px rgba(20,10,25,.18)}
+.menu-sep{display:block;height:1px;margin:6px 10px;background:rgba(92,34,85,.1)}
+.menu-salir{color:#c0303f}
+.menu-salir svg{color:#c0303f}
+.menu-salir:hover,.menu-salir:focus-visible{background:rgba(224,36,59,.07)}
+.a-user[aria-expanded="true"]{box-shadow:0 0 0 3px rgba(122,29,114,.25),0 4px 12px rgba(20,10,25,.18)}
+/* Botón de Asíncrona circular: sigue la curva del extremo del buscador */
+.busca-ir{border-radius:50%!important}
 
 </style>
 </head>
@@ -980,9 +987,18 @@ header{position:relative;z-index:20}
         <button class="accion a-notif" id="btnNotif" aria-label="Notificaciones" title="Notificaciones">
           <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
         </button>
-        <button class="accion a-user usuario" id="btnUser" aria-label="Perfil de usuario" title="Perfil">
+        <div class="menu-wrap">
+          <button class="accion a-user usuario" id="btnUser" aria-label="Mi cuenta" title="Mi cuenta" aria-haspopup="menu" aria-expanded="false" aria-controls="menuUser">
           <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="3.4"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/></svg>
         </button>
+          <div class="menu-pop" id="menuUser" role="menu" aria-label="Mi cuenta" hidden>
+            <a class="menu-item" role="menuitem" href="ipartner-admin.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="9" cy="12" r="2"/><path d="M6 17a3 3 0 0 1 6 0M14 11h4M14 15h3M9 6V4h6v2"/></svg>Admin</a>
+            <a class="menu-item" role="menuitem" href="ipartner-actualizar-datos.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="10" r="3"/><path d="M6.6 18.3a6 6 0 0 1 10.8 0"/></svg>Actualizar datos</a>
+            <a class="menu-item" role="menuitem" href="ipartner-cambiar-password.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/><circle cx="12" cy="16" r="1.2"/></svg>Cambiar password</a>
+            <span class="menu-sep" role="separator"></span>
+            <a class="menu-item menu-salir" role="menuitem" href="ipartner-login.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4"/><path d="M9 8l-4 4 4 4M5 12h11"/></svg>Cerrar sesión</a>
+          </div>
+        </div>
         <div class="menu-wrap">
           <button class="accion a-viaje" id="btnViaje" aria-label="Más opciones" title="Más opciones" aria-haspopup="menu" aria-expanded="false" aria-controls="menuViaje">
           <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2Z"/></svg>
@@ -990,7 +1006,7 @@ header{position:relative;z-index:20}
           <div class="menu-pop" id="menuViaje" role="menu" aria-label="Más opciones" hidden>
             <a class="menu-item" role="menuitem" href="ipartner-admin.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="9" cy="12" r="2"/><path d="M6 17a3 3 0 0 1 6 0M14 11h4M14 15h3M9 6V4h6v2"/></svg>Admin</a>
             <a class="menu-item" role="menuitem" href="ipartner-system.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="2"/><rect x="9.5" y="9.5" width="5" height="5" rx="1"/><path d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3"/></svg>System</a>
-            <a class="menu-item" role="menuitem" href="ipartner-slam.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 15l3-6 3 6M8 13h4M15 9v6h3"/></svg>SLAM</a>
+            <a class="menu-item" role="menuitem" href="ipartner-slam.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4h6v2.5H9Z"/><path d="M15 5h2a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2"/><path d="M12 18.5s-4.6-2.7-4.6-5.8a2.4 2.4 0 0 1 4.6-1 2.4 2.4 0 0 1 4.6 1c0 3.1-4.6 5.8-4.6 5.8Z" fill="currentColor" stroke="none"/></svg>SLAM</a>
             <a class="menu-item" role="menuitem" href="ipartner-puntos-ip.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h8v5a4 4 0 0 1-8 0Z"/><path d="M8 6H5v1a3 3 0 0 0 3 3M16 6h3v1a3 3 0 0 1-3 3M12 13v4M9 20h6M10 17h4"/></svg>Puntos IP</a>
             <a class="menu-item" role="menuitem" href="ipartner-eventos.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/><path d="m12 13 .9 1.8 2 .3-1.45 1.4.35 2-1.8-.95-1.8.95.35-2L9.1 15.1l2-.3Z"/></svg>Eventos</a>
             <a class="menu-item" role="menuitem" href="ipartner-sugerencias.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10a4 4 0 0 1 8 0v9H4Z"/><path d="M8 10h10a2 2 0 0 1 2 2v7h-8M15 5v5M15 5h3"/></svg>Buzón de sugerencias</a>
@@ -1322,22 +1338,44 @@ pintarServicio(document.getElementById("servicio").dataset.horas);
 
 /* ---- Accesos de la esquina superior ---- */
 (function(){
-  var acciones={btnJaina:"ipartner-jaina.html",btnNotif:null,btnUser:"ipartner-perfil.html",};
-  /* ---- Menú del avión ---- */
-  var bv=document.getElementById("btnViaje"), menu=document.getElementById("menuViaje");
-  var opciones=[].slice.call(menu.querySelectorAll(".menu-item"));
-  function abrir(foco){ menu.hidden=false; bv.setAttribute("aria-expanded","true"); if(foco) opciones[0].focus(); }
-  function cerrar(volver){ menu.hidden=true; bv.setAttribute("aria-expanded","false"); if(volver) bv.focus(); }
-  bv.addEventListener("click",function(e){ e.stopPropagation(); menu.hidden?abrir(e.detail===0):cerrar(); });
-  document.addEventListener("click",function(e){ if(!menu.hidden && !menu.contains(e.target)) cerrar(); });
-  document.addEventListener("keydown",function(e){
-    if(menu.hidden) return;
-    var i=opciones.indexOf(document.activeElement);
-    if(e.key==="Escape"){ cerrar(true); }
-    else if(e.key==="ArrowDown"){ e.preventDefault(); opciones[(i+1)%opciones.length].focus(); }
-    else if(e.key==="ArrowUp"){ e.preventDefault(); opciones[(i-1+opciones.length)%opciones.length].focus(); }
-    else if(e.key==="Tab"){ cerrar(); }
+  var acciones={btnJaina:"ipartner-jaina.html",btnNotif:null};
+  Object.keys(acciones).forEach(function(id){
+    var b=document.getElementById(id); if(!b) return;
+    b.addEventListener("click",function(){
+      if(acciones[id]) window.location.href=acciones[id];
+      else console.log("Abrir:",b.getAttribute("aria-label"));
+    });
   });
+
+  /* ---- Menús desplegables (avión y usuario) ---- */
+  var menus=[];
+  function menuDesplegable(btnId,menuId){
+    var bt=document.getElementById(btnId), menu=document.getElementById(menuId);
+    if(!bt||!menu) return;
+    var opciones=[].slice.call(menu.querySelectorAll(".menu-item"));
+    var m={
+      abierto:function(){ return !menu.hidden; },
+      abrir:function(foco){
+        menus.forEach(function(o){ if(o!==m) o.cerrar(); });
+        menu.hidden=false; bt.setAttribute("aria-expanded","true"); if(foco) opciones[0].focus();
+      },
+      cerrar:function(volver){ menu.hidden=true; bt.setAttribute("aria-expanded","false"); if(volver) bt.focus(); },
+      contiene:function(el){ return menu.contains(el)||bt.contains(el); },
+      teclas:function(e){
+        var i=opciones.indexOf(document.activeElement);
+        if(e.key==="Escape"){ m.cerrar(true); }
+        else if(e.key==="ArrowDown"){ e.preventDefault(); opciones[(i+1)%opciones.length].focus(); }
+        else if(e.key==="ArrowUp"){ e.preventDefault(); opciones[(i-1+opciones.length)%opciones.length].focus(); }
+        else if(e.key==="Tab"){ m.cerrar(); }
+      }
+    };
+    bt.addEventListener("click",function(e){ e.stopPropagation(); m.abierto()?m.cerrar():m.abrir(e.detail===0); });
+    menus.push(m);
+  }
+  menuDesplegable("btnViaje","menuViaje");
+  menuDesplegable("btnUser","menuUser");
+  document.addEventListener("click",function(e){ menus.forEach(function(m){ if(m.abierto() && !m.contiene(e.target)) m.cerrar(); }); });
+  document.addEventListener("keydown",function(e){ menus.forEach(function(m){ if(m.abierto()) m.teclas(e); }); });
   Object.keys(acciones).forEach(function(id){
     var b=document.getElementById(id); if(!b) return;
     b.addEventListener("click",function(){
