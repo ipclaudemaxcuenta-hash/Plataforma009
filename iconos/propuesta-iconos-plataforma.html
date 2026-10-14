@@ -2019,7 +2019,7 @@ const _r=render;render=function(){_r();if(!bi)return;bi.innerHTML=lv==='lv2'?`<s
 const TOP={btnJaina:['#3d8bff','#1b63e6',`<path class="ps" stroke-width="9" d="M34 22h28v38a20 20 0 0 1-37 10.5"/>`],
  btnNotif:['#5EE07A','#1EA846',`<path class="p" d="M50 14c-14 0-24 10.5-24 25v14l-8 11h64l-8-11V39c0-14.5-10-25-24-25Z"/><path class="s" d="M40 70a10 10 0 0 0 20 0Z"/><circle class="p" cx="50" cy="12" r="4"/>`],
  btnUser:['#D27BE6','#8E2CB8',`<circle class="p" cx="50" cy="35" r="15"/><path class="p" d="M22 84c0-17 12.5-27 28-27s28 10 28 27Z"/>`],
- btnViaje:['#4F63D6','#1B2577',`<polygon class="p" points="12,47 88,15 66,86 51,59" stroke="var(--p)" stroke-width="4" stroke-linejoin="round"/><polygon class="s" points="51,59 88,15 42,72" stroke="var(--p)" stroke-width="3" stroke-linejoin="round"/>`]};
+ btnViaje:['#4F63D6','#1B2577',`<g transform="rotate(45 50 50)"><path class="p" d="M50 10c4 0 6 5 6 10v22l32 18v8l-32-9v17l9 7v6l-15-4-15 4v-6l9-7V59l-32 9v-8l32-18V20c0-5 2-10 6-10Z" stroke="var(--p)" stroke-width="2" stroke-linejoin="round"/><rect class="c" x="47" y="18" width="6" height="8" rx="3" opacity=".45"/></g>`]};
 const tops=Object.keys(TOP).map(id=>{const el=document.getElementById(id);if(!el)return null;el.style.setProperty('--c1',TOP[id][0]);el.style.setProperty('--c2',TOP[id][1]);return{el,id,o:el.innerHTML}}).filter(Boolean);
 const _r2=render;render=function(){_r2();tops.forEach(t=>{const on=lv==='lv2';t.el.classList.toggle('top2',on);t.el.innerHTML=on?`<svg class="n2" viewBox="0 0 100 100" aria-hidden="true">${TOP[t.id][2]}</svg>`:t.o;});};
 render();
