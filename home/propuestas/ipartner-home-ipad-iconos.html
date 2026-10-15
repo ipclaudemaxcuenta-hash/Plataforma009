@@ -1313,6 +1313,8 @@ body[data-tema="degradado"] .stage{background:
 
 /* Última columna: nombres largos en dos líneas para no pasar el margen */
 .chip-app[data-id="busqueda-personas"] .chip-lbl{white-space:normal!important;width:150px!important;max-width:150px!important;text-align:center;line-height:1.2}
+
+.app{margin-left:0!important}
 </style>
 </head>
 <body data-tema="degradado">
@@ -2062,7 +2064,13 @@ window.addEventListener("storage",function(e){
   function encajar(){
     var w=document.body.clientWidth, h=document.body.clientHeight;
     var k=Math.min(w/W, h/H);
-    app.style.transform="translate("+((w-W*k)/2)+"px,"+((h-H*k)/2)+"px) scale("+k+")";
+    var x=(w-W*k)/2, y=(h-H*k)/2;
+    app.style.transform="translate("+x+"px,"+y+"px) scale("+k+")";
+    // centra el contenido dentro de la pantalla visible (marco del iPad)
+    var st=document.querySelector(".stage").getBoundingClientRect(), pn=document.querySelector(".panel").getBoundingClientRect();
+    var av=document.getElementById("btnViaje").getBoundingClientRect();
+    var dx=((st.right-av.right)-(pn.left-st.left))/2;
+    app.style.transform="translate("+(x+dx)+"px,"+y+"px) scale("+k+")";
   }
   encajar(); window.addEventListener("resize",encajar);
 })();
