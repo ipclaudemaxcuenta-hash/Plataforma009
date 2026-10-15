@@ -1927,12 +1927,13 @@ window.addEventListener("storage",function(e){
 .ap-glass.lv2 .accion.top2{background:linear-gradient(180deg,color-mix(in srgb,var(--c1) 62%,transparent),color-mix(in srgb,var(--c2) 78%,transparent))!important;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
 /* Jaina: esfera azul brillante con la J de luz (igual en todas las apariencias) */
 .lv2 #btnJaina.top2,.ap-dark.lv2 #btnJaina.top2,.ap-glass.lv2 #btnJaina.top2{
-  background:radial-gradient(circle at 50% 56%,#0a2a63 0%,#123f8f 26%,#1f6fe8 58%,#2f82ff 78%,#1b63e6 100%)!important;
+  background:radial-gradient(circle at 50% 56%,#0d5a2c 0%,#138a42 30%,#25D366 64%,#3be37a 82%,#1fb855 100%)!important;
   box-shadow:0 4px 10px rgba(20,10,25,.22),inset 0 1px 1px rgba(255,255,255,.55),inset 0 0 0 .8px rgba(255,255,255,.3)!important}
-.lv2 #btnJaina.top2::before{background:radial-gradient(60% 45% at 32% 22%,rgba(190,225,255,.75),rgba(190,225,255,0) 70%)}
+.lv2 #btnJaina.top2::before{background:radial-gradient(60% 45% at 32% 22%,rgba(210,255,225,.75),rgba(210,255,225,0) 70%)}
 .lv2 #btnJaina.top2{--p:#fff!important}
 .ap-dark.lv2 #btnViaje.top2{--p:#8FA0FF}
-.lv2 #btnJaina.top2 svg.n2{width:74%!important;height:74%!important;filter:drop-shadow(0 0 2px #fff) drop-shadow(0 0 5px rgba(160,210,255,.9))}
+.ap-dark.lv2 #btnUser.top2{--p:#E5E5EA}
+.lv2 #btnJaina.top2 svg.n2{width:74%!important;height:74%!important;filter:drop-shadow(0 0 2px #fff) drop-shadow(0 0 5px rgba(190,255,215,.9))}
 </style>
 <div id="pz" role="region" aria-label="Propuesta de iconos">
   <b>VERSIÓN</b><div class="sg" data-k="lv"><button data-v="" aria-pressed="false">Actual</button><button data-v="lv1" aria-pressed="false">Nivel 1</button><button data-v="lv2" aria-pressed="true">Nivel 2</button></div>
@@ -2016,10 +2017,10 @@ document.querySelectorAll('#pz .sg').forEach(sg=>sg.addEventListener('click',e=>
  sg.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed',x===b));if(sg.dataset.k==='lv')lv=b.dataset.v;else ap=b.dataset.v;render();}));
 const bi=document.getElementById('buscaIr');const biO=bi&&bi.innerHTML;
 const _r=render;render=function(){_r();if(!bi)return;bi.innerHTML=lv==='lv2'?`<svg class="n2" viewBox="0 0 100 100" aria-hidden="true" style="width:92% !important;height:92% !important">${G['Asíncrona']}</svg>`:biO;};
-const TOP={btnJaina:['#3d8bff','#1b63e6',`<path class="ps" stroke-width="9" d="M34 22h28v38a20 20 0 0 1-37 10.5"/>`],
- btnNotif:['#5EE07A','#1EA846',`<path class="p" d="M50 14c-14 0-24 10.5-24 25v14l-8 11h64l-8-11V39c0-14.5-10-25-24-25Z"/><path class="s" d="M40 70a10 10 0 0 0 20 0Z"/><circle class="p" cx="50" cy="12" r="4"/>`],
- btnUser:['#D27BE6','#8E2CB8',`<circle class="p" cx="50" cy="35" r="15"/><path class="p" d="M22 84c0-17 12.5-27 28-27s28 10 28 27Z"/>`],
- btnViaje:['#4F63D6','#1B2577',`<g transform="rotate(45 50 50)"><path class="p" d="M50 10c4 0 6 5 6 10v22l32 18v8l-32-9v17l9 7v6l-15-4-15 4v-6l9-7V59l-32 9v-8l32-18V20c0-5 2-10 6-10Z" stroke="var(--p)" stroke-width="2" stroke-linejoin="round"/><rect class="c" x="47" y="18" width="6" height="8" rx="3" opacity=".45"/></g>`]};
+const TOP={btnJaina:['#5BEA8A','#1FB855',`<path class="ps" stroke-width="9" d="M34 22h28v38a20 20 0 0 1-37 10.5"/>`],
+ btnNotif:['#FF6B61','#E0241A',`<path class="p" d="M50 14c-14 0-24 10.5-24 25v14l-8 11h64l-8-11V39c0-14.5-10-25-24-25Z"/><path class="s" d="M40 70a10 10 0 0 0 20 0Z"/><circle class="p" cx="50" cy="12" r="4"/>`],
+ btnUser:['#4A4A4F','#111113',`<circle class="p" cx="50" cy="35" r="15"/><path class="p" d="M22 84c0-17 12.5-27 28-27s28 10 28 27Z"/>`],
+ btnViaje:['#2C4C9E','#0B1A4A',`<g transform="rotate(45 50 50)"><path class="p" d="M50 10c4 0 6 5 6 10v22l32 18v8l-32-9v17l9 7v6l-15-4-15 4v-6l9-7V59l-32 9v-8l32-18V20c0-5 2-10 6-10Z" stroke="var(--p)" stroke-width="2" stroke-linejoin="round"/><rect class="c" x="47" y="18" width="6" height="8" rx="3" opacity=".45"/></g>`]};
 const tops=Object.keys(TOP).map(id=>{const el=document.getElementById(id);if(!el)return null;el.style.setProperty('--c1',TOP[id][0]);el.style.setProperty('--c2',TOP[id][1]);return{el,id,o:el.innerHTML}}).filter(Boolean);
 const _r2=render;render=function(){_r2();tops.forEach(t=>{const on=lv==='lv2';t.el.classList.toggle('top2',on);t.el.innerHTML=on?`<svg class="n2" viewBox="0 0 100 100" aria-hidden="true">${TOP[t.id][2]}</svg>`:t.o;});};
 render();
