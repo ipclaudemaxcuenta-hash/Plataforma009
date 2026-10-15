@@ -1340,6 +1340,11 @@ body[data-tema="degradado"] .stage::after{background:none!important}
 .saludo-fila{display:flex;align-items:center;gap:18px}
 .marca-acc{display:flex;gap:10px}
 .marca{max-width:none!important}
+
+/* Íconos más grandes y más juntos: la grilla mide lo mismo que la barra de búsqueda */
+:root{--icon:84px!important}
+.pagina{grid-template-columns:repeat(5,var(--icon))!important;justify-content:start!important;column-gap:calc((734px - 5 * var(--icon)) / 4)!important;grid-auto-rows:134px!important}
+.chip-lbl{font-size:13.5px!important}
 </style>
 </head>
 <body data-tema="degradado">
