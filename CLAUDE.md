@@ -22,3 +22,5 @@ Medir en el navegador (lienzo 1920×1080, desde el borde visible de la pantalla)
 4. Mismo espacio entre todas las filas; nada se superpone (puntos, Dock, tarjetas) ni se corta (nombres de íconos).
 5. Mirar la captura: textos legibles sobre el fondo y nada encima de objetos de la foto.
 Reportar las medidas en la respuesta.
+6. Medir bordes VISIBLES (la imagen del ícono, no su contenedor): barra de búsqueda y Dock empiezan y terminan exactamente en el borde de la primera y última columna de íconos.
+7. La composición completa (saludo+widgets | barra+íconos+Dock) va centrada en el lienzo: margen izquierdo = derecho y superior = inferior. La barra comparte borde superior con el saludo y el Dock comparte borde inferior con el último widget.
