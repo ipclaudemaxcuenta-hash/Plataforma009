@@ -13,3 +13,12 @@ Skills instaladas en `.claude/skills/`, provenientes de:
 
 ## Decisiones pendientes para la plataforma (después del login)
 - Botón de cerrar ventanas estilo macOS ("semáforo": solo el círculo rojo, con la x al pasar el mouse). Se descartó en el login y se reserva para el interior de la plataforma.
+
+## Verificación obligatoria antes de entregar cualquier pantalla
+Medir en el navegador (lienzo 1920×1080, desde el borde visible de la pantalla) y no entregar si algo falla:
+1. Márgenes exteriores iguales en los 4 lados (izquierda = derecha = arriba = abajo).
+2. Espacios entre bloques iguales entre sí (borde → panel → íconos → borde).
+3. Bordes alineados: encabezado, barra, grilla y Dock comparten bordes o centro; los widgets empiezan y terminan en las filas de íconos.
+4. Mismo espacio entre todas las filas; nada se superpone (puntos, Dock, tarjetas) ni se corta (nombres de íconos).
+5. Mirar la captura: textos legibles sobre el fondo y nada encima de objetos de la foto.
+Reportar las medidas en la respuesta.
