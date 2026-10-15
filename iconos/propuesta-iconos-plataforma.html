@@ -1897,7 +1897,9 @@ window.addEventListener("storage",function(e){
 .lv1 .nav-chip svg{width:24px;height:24px;stroke:var(--p);stroke-width:2.5px}
 .lv1 .chip-ico svg[fill="#fff"],.lv1 .chip-ico svg [fill="#fff"],.lv1 .nav-chip svg [fill="#fff"]{fill:var(--p)}
 /* Nivel 2: glifos nuevos rellenos y por capas */
-.lv2 .chip-ico svg.n2,.lv2 .nav-chip svg.n2{width:100%;height:100%;stroke:none;filter:drop-shadow(0 1.2px 1.2px rgba(0,0,0,.16))}
+.lv2 .chip-ico svg.n2,.lv2 .nav-chip svg.n2{width:100%;height:100%;stroke:none;filter:url(#lg-glass)}
+.lv2 .chip-ico::before,.lv2 .nav-chip::before{background:radial-gradient(120% 70% at 30% 0%,rgba(255,255,255,.32),rgba(255,255,255,0) 60%)!important}
+.lv2 .chip-ico::after,.lv2 .nav-chip::after{box-shadow:inset 0 1.2px 0 rgba(255,255,255,.85),inset 0 0 0 .8px rgba(255,255,255,.28),inset 0 -1px 0 rgba(255,255,255,.25)!important}
 .n2 .p{fill:var(--p)}.n2 .s{fill:var(--p);opacity:var(--so)}.n2 .c{fill:var(--cut)}
 .n2 .ps{fill:none;stroke:var(--p);stroke-linecap:round;stroke-linejoin:round}
 .n2 .ss{fill:none;stroke:var(--p);opacity:var(--so);stroke-linecap:round;stroke-linejoin:round}
@@ -1935,6 +1937,15 @@ window.addEventListener("storage",function(e){
 .ap-dark.lv2 #btnUser.top2{--p:#E5E5EA}
 .lv2 #btnJaina.top2 svg.n2{width:74%!important;height:74%!important;filter:drop-shadow(0 0 2px #fff) drop-shadow(0 0 5px rgba(190,255,215,.9))}
 </style>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><filter id="lg-glass" x="-15%" y="-15%" width="130%" height="140%" color-interpolation-filters="sRGB">
+<feGaussianBlur in="SourceAlpha" stdDeviation="1.6" result="b"/>
+<feSpecularLighting in="b" surfaceScale="4" specularConstant=".85" specularExponent="20" lighting-color="#ffffff" result="sp"><feDistantLight azimuth="235" elevation="48"/></feSpecularLighting>
+<feComposite in="sp" in2="SourceAlpha" operator="in" result="sp2"/>
+<feColorMatrix in="SourceGraphic" type="saturate" values=".9" result="src"/>
+<feComposite in="src" in2="sp2" operator="arithmetic" k1="0" k2="1" k3=".5" k4="0" result="lit"/>
+<feGaussianBlur in="SourceAlpha" stdDeviation="2" result="sh"/><feOffset in="sh" dy="2" result="sho"/>
+<feComponentTransfer in="sho" result="sha"><feFuncA type="linear" slope=".28"/></feComponentTransfer>
+<feMerge><feMergeNode in="sha"/><feMergeNode in="lit"/></feMerge></filter></svg>
 <div id="pz" role="region" aria-label="Propuesta de iconos">
   <b>VERSIÓN</b><div class="sg" data-k="lv"><button data-v="" aria-pressed="false">Actual</button><button data-v="lv1" aria-pressed="false">Nivel 1</button><button data-v="lv2" aria-pressed="true">Nivel 2</button></div>
   <b>APARIENCIA</b><div class="sg" data-k="ap"><button data-v="" aria-pressed="true">Claro</button><button data-v="ap-dark" aria-pressed="false">Oscuro</button><button data-v="ap-glass" aria-pressed="false">Cristal</button></div>
