@@ -2243,5 +2243,10 @@ var p2=document.querySelector('.punto-pag[data-p="1"]');var esP2=p2&&p2.classLis
 lab('etqZona','Productos',document.querySelector('.buscador').getBoundingClientRect().left);}
 window.addEventListener('load',function(){setTimeout(pon,150)});window.addEventListener('resize',function(){setTimeout(pon,150)});
 document.addEventListener('click',function(){setTimeout(pon,700)});})();
-</script></body>
+</script><script id="puntos-arriba">(function(){function mv(){var p=document.querySelector('.puntos-pag'),z=document.getElementById('etqZona'),bar=document.querySelector('.buscador'),app=document.querySelector('.app');if(!p||!z||!bar)return;
+if(p.parentNode!==app)app.appendChild(p);var A=app.getBoundingClientRect(),k=A.width/app.offsetWidth||1;
+p.style.setProperty('position','absolute','important');p.style.setProperty('translate','none','important');p.style.setProperty('transform','none','important');p.style.setProperty('bottom','auto','important');p.style.setProperty('margin','0','important');p.style.setProperty('z-index','5','important');
+var q=p.getBoundingClientRect(),zr=z.getBoundingClientRect(),b=bar.getBoundingClientRect();
+p.style.setProperty('left',((b.right-A.left)/k-q.width/k-6)+'px','important');p.style.setProperty('top',(((zr.top+zr.bottom)/2-A.top)/k-q.height/2/k)+'px','important');}
+window.addEventListener('load',function(){setTimeout(mv,400)});window.addEventListener('resize',function(){setTimeout(mv,450)});})();</script></body>
 </html>
