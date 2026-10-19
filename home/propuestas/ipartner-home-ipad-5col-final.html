@@ -1387,7 +1387,7 @@ html body .puntos-pag .punto-pag{width:7px!important;height:7px!important;min-wi
 html body .puntos-pag .punto-pag.activo{background:rgba(70,45,60,.75)!important}
 html body .puntos-pag .punto-pag::before,html body .puntos-pag .punto-pag::after,html body .puntos-pag::before,html body .puntos-pag::after{display:none!important}
 </style><style id="etiquetas">
-.etiqueta-zona{position:absolute;z-index:3;pointer-events:none;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(70,40,62,.62);line-height:16px;white-space:nowrap}
+.etiqueta-zona{position:absolute;z-index:3;pointer-events:none;display:flex;align-items:center;gap:7px;font-size:15.5px;font-weight:650;letter-spacing:.06em;text-transform:uppercase;color:rgba(84,28,74,.88);line-height:20px;white-space:nowrap}.etiqueta-zona svg{width:18px;height:18px;flex:0 0 18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 </style></head>
 <body data-tema="degradado">
 
@@ -2182,12 +2182,12 @@ var pt=pts.style.translate.split(' ');pts.style.translate=pt[0]+' calc('+pt[1]+'
 var st=document.querySelector('.stage');if(st){st.style.setProperty('background-size','105% auto','important');st.style.setProperty('background-position','0% 50%','important');}}
 window.addEventListener('load',function(){setTimeout(arma,50)});window.addEventListener('resize',function(){setTimeout(arma,50)});})();
 </script><script id="etiquetas-js">
-(function(){function pon(){var app=document.querySelector('.app');if(!app)return;var A=app.getBoundingClientRect(),k=A.width/app.offsetWidth||1;
+(function(){var IC={"Gadgets": "<rect x=\"3\" y=\"3\" width=\"7.5\" height=\"7.5\" rx=\"2\"/><rect x=\"13.5\" y=\"3\" width=\"7.5\" height=\"7.5\" rx=\"2\"/><rect x=\"3\" y=\"13.5\" width=\"18\" height=\"7.5\" rx=\"2\"/>", "Procesos": "<circle cx=\"12\" cy=\"12\" r=\"3\"/><path d=\"M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z\"/>", "Productos": "<path d=\"M21 8 12 3 3 8v8l9 5 9-5z\"/><path d=\"M3 8l9 5 9-5\"/><path d=\"M12 13v8\"/>"};function pon(){var app=document.querySelector('.app');if(!app)return;var A=app.getBoundingClientRect(),k=A.width/app.offsetWidth||1;
 var w=document.querySelector('.card.reloj').getBoundingClientRect();
 var imgs=[].slice.call(document.querySelectorAll('.chip-app img')).map(function(i){return i.getBoundingClientRect()}).filter(function(q){return q.width>0&&q.left>A.left&&q.right<A.right});if(!imgs.length)return;
 var L=Math.min.apply(null,imgs.map(function(q){return q.left})),T=Math.min.apply(null,imgs.map(function(q){return q.top}));
 var top=Math.min(w.top,T);
-function lab(id,txt,x){var e=document.getElementById(id);if(!e){e=document.createElement('div');e.id=id;e.className='etiqueta-zona';app.appendChild(e)}e.textContent=txt;e.style.left=((x-A.left)/k)+'px';e.style.top=((top-A.top)/k-28)+'px'}
+function lab(id,txt,x){var e=document.getElementById(id);if(!e){e=document.createElement('div');e.id=id;e.className='etiqueta-zona';app.appendChild(e)}e.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true">'+IC[txt]+'</svg><span>'+txt+'</span>';e.style.left=((x-A.left)/k)+'px';e.style.top=((top-A.top)/k-32)+'px'}
 lab('etqGadgets','Gadgets',w.left);
 var p2=document.querySelector('.punto-pag[data-p="1"]');var esP2=p2&&p2.classList.contains('activo');
 lab('etqZona',esP2?'Productos':'Procesos',document.querySelector('.buscador').getBoundingClientRect().left);}
