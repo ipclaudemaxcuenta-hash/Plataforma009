@@ -1421,7 +1421,13 @@ html body[data-tema="atardecer"] .puntos-pag .punto-pag,html body[data-tema="con
 html body[data-tema="atardecer"] .puntos-pag .punto-pag.activo,html body[data-tema="confeti"] .puntos-pag .punto-pag.activo{background:#fff!important}
 html body[data-tema="atardecer"] .stage::after,html body[data-tema="confeti"] .stage::after{background:linear-gradient(180deg,rgba(0,0,0,.10),rgba(0,0,0,.18))!important}
 html body[data-tema="ondas"] .stage::after,html body[data-tema="degradado"] .stage::after{background:none!important}
-</style></head>
+</style><style id="dock-titulo">
+nav .dock-titulo{flex:0 0 auto;display:flex;align-items:center;gap:7px;padding:0 14px 0 8px;font-size:14px;font-weight:650;letter-spacing:.06em;text-transform:uppercase;color:rgba(84,28,74,.88);white-space:nowrap}
+nav .dock-titulo svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+nav .dock-sep{flex:0 0 1px;align-self:stretch;margin:10px 6px 10px 0;background:rgba(84,28,74,.18)}
+</style><script>window.addEventListener('load',function(){var n=document.querySelector('nav');if(!n||n.querySelector('.dock-titulo'))return;
+var t=document.createElement('div');t.className='dock-titulo';t.innerHTML='<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg><span>Procesos</span>';
+var d=document.createElement('div');d.className='dock-sep';n.insertBefore(d,n.firstChild);n.insertBefore(t,n.firstChild);});</script></head>
 <body data-tema="degradado">
 
 <div class="chasis"></div>
@@ -2223,10 +2229,7 @@ var top=Math.min(w.top,T);
 function lab(id,txt,x){var e=document.getElementById(id);if(!e){e=document.createElement('div');e.id=id;e.className='etiqueta-zona';app.appendChild(e)}e.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true">'+IC[txt]+'</svg><span>'+txt+'</span>';e.style.left=((x-A.left)/k)+'px';e.style.top=((top-A.top)/k-32)+'px'}
 lab('etqGadgets','Gadgets',w.left);
 var p2=document.querySelector('.punto-pag[data-p="1"]');var esP2=p2&&p2.classList.contains('activo');
-lab('etqZona','Productos',document.querySelector('.buscador').getBoundingClientRect().left);
-lab('etqProc','Procesos',0);var ez=document.getElementById('etqProc'),dk=document.querySelector('nav').getBoundingClientRect(),nt=document.querySelector('.card.noticiero').getBoundingClientRect();
-var er=ez.getBoundingClientRect(),pq=document.querySelector('.puntos-pag').getBoundingClientRect();
-ez.style.left=((dk.left-A.left)/k)+'px';ez.style.top=(((pq.top+pq.bottom)/2-A.top)/k-er.height/2/k)+'px';}
+lab('etqZona','Productos',document.querySelector('.buscador').getBoundingClientRect().left);}
 window.addEventListener('load',function(){setTimeout(pon,150)});window.addEventListener('resize',function(){setTimeout(pon,150)});
 document.addEventListener('click',function(){setTimeout(pon,700)});})();
 </script></body>
