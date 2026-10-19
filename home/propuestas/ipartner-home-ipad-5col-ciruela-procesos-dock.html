@@ -1427,7 +1427,12 @@ nav .dock-titulo svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke
 nav .dock-sep{flex:0 0 1px;align-self:stretch;margin:10px 6px 10px 0;background:rgba(84,28,74,.18)}
 </style><script>window.addEventListener('load',function(){var n=document.querySelector('nav');if(!n||n.querySelector('.dock-titulo'))return;
 var t=document.createElement('div');t.className='dock-titulo';t.innerHTML='<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg><span>Procesos</span>';
-var d=document.createElement('div');d.className='dock-sep';n.insertBefore(d,n.firstChild);n.insertBefore(t,n.firstChild);});</script></head>
+var d=document.createElement('div');d.className='dock-sep';n.insertBefore(d,n.firstChild);n.insertBefore(t,n.firstChild);});</script><style id="dock-nombres">
+html body nav .nav-item{height:70px!important;flex-direction:column!important;justify-content:center!important;gap:3px!important;padding:4px 2px!important;display:flex!important;align-items:center!important}
+html body nav .nav-chip{width:34px!important;height:34px!important;flex:0 0 34px!important}
+html body nav .nav-nombre{display:block;font-size:9.5px;line-height:1.1;font-weight:600;color:#3a1c3e;text-align:center;max-width:100%;overflow-wrap:anywhere}
+html body nav .nav-item[aria-current="page"]::before{display:none!important}
+</style><script>window.addEventListener('load',function(){document.querySelectorAll('nav .nav-item').forEach(function(b){if(b.querySelector('.nav-nombre'))return;var n=document.createElement('span');n.className='nav-nombre';n.textContent=b.getAttribute('aria-label');b.appendChild(n);});window.dispatchEvent(new Event('resize'));});</script></head>
 <body data-tema="degradado">
 
 <div class="chasis"></div>
@@ -2216,7 +2221,7 @@ var n=nav.getBoundingClientRect(),t=nt.getBoundingClientRect();
 nav.style.translate=((L-n.left)/k)+'px '+((t.bottom-n.bottom)/k)+'px';n=nav.getBoundingClientRect();
 var q=pts.getBoundingClientRect(),cx=(L+R)/2;
 /* centrar toda la composicion en el lienzo */
-var cL=m.left,dx=((A.left+A.right)/2-(cL+R)/2)/k;pts.style.translate=((cx-(q.left+q.right)/2)/k+dx)+'px '+((n.top-17*k-q.bottom)/k)+'px';var dy=((A.top+A.bottom)/2-(m.top+t.bottom)/2)/k;kids.forEach(function(e){e.style.transform='translate('+dx+'px,'+dy+'px)'});
+var cL=m.left,dx=((A.left+A.right)/2-(cL+R)/2)/k;pts.style.translate=((cx-(q.left+q.right)/2)/k+dx)+'px '+((n.top-12*k-q.bottom)/k)+'px';var dy=((A.top+A.bottom)/2-(m.top+t.bottom)/2)/k;kids.forEach(function(e){e.style.transform='translate('+dx+'px,'+dy+'px)'});
 var pt=pts.style.translate.split(' ');pts.style.translate=pt[0]+' calc('+pt[1]+' + '+dy+'px)';
 var st=document.querySelector('.stage');if(st){st.style.setProperty('background-size','105% auto','important');st.style.setProperty('background-position','0% 50%','important');}}
 window.addEventListener('load',function(){setTimeout(arma,50)});window.addEventListener('resize',function(){setTimeout(arma,50)});})();
