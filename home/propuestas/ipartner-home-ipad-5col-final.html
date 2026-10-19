@@ -1386,6 +1386,8 @@ html body .puntos-pag{background:none!important;box-shadow:none!important;border
 html body .puntos-pag .punto-pag{width:7px!important;height:7px!important;min-width:0!important;padding:0!important;border-radius:50%!important;border:0!important;background:rgba(70,45,60,.25)!important;box-shadow:none!important}
 html body .puntos-pag .punto-pag.activo{background:rgba(70,45,60,.75)!important}
 html body .puntos-pag .punto-pag::before,html body .puntos-pag .punto-pag::after,html body .puntos-pag::before,html body .puntos-pag::after{display:none!important}
+</style><style id="etiquetas">
+.etiqueta-zona{position:absolute;z-index:3;pointer-events:none;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(70,40,62,.62);line-height:16px;white-space:nowrap}
 </style></head>
 <body data-tema="degradado">
 
@@ -2179,5 +2181,17 @@ var cL=m.left,dx=((A.left+A.right)/2-(cL+R)/2)/k;pts.style.translate=((cx-(q.lef
 var pt=pts.style.translate.split(' ');pts.style.translate=pt[0]+' calc('+pt[1]+' + '+dy+'px)';
 var st=document.querySelector('.stage');if(st){st.style.setProperty('background-size','105% auto','important');st.style.setProperty('background-position','0% 50%','important');}}
 window.addEventListener('load',function(){setTimeout(arma,50)});window.addEventListener('resize',function(){setTimeout(arma,50)});})();
+</script><script id="etiquetas-js">
+(function(){function pon(){var app=document.querySelector('.app');if(!app)return;var A=app.getBoundingClientRect(),k=A.width/app.offsetWidth||1;
+var w=document.querySelector('.card.reloj').getBoundingClientRect();
+var imgs=[].slice.call(document.querySelectorAll('.chip-app img')).map(function(i){return i.getBoundingClientRect()}).filter(function(q){return q.width>0&&q.left>A.left&&q.right<A.right});if(!imgs.length)return;
+var L=Math.min.apply(null,imgs.map(function(q){return q.left})),T=Math.min.apply(null,imgs.map(function(q){return q.top}));
+var top=Math.min(w.top,T);
+function lab(id,txt,x){var e=document.getElementById(id);if(!e){e=document.createElement('div');e.id=id;e.className='etiqueta-zona';app.appendChild(e)}e.textContent=txt;e.style.left=((x-A.left)/k)+'px';e.style.top=((top-A.top)/k-28)+'px'}
+lab('etqGadgets','Gadgets',w.left);
+var p2=document.querySelector('.punto-pag[data-p="1"]');var esP2=p2&&p2.classList.contains('activo');
+lab('etqZona',esP2?'Productos':'Procesos',document.querySelector('.buscador').getBoundingClientRect().left);}
+window.addEventListener('load',function(){setTimeout(pon,150)});window.addEventListener('resize',function(){setTimeout(pon,150)});
+document.addEventListener('click',function(){setTimeout(pon,700)});})();
 </script></body>
 </html>
