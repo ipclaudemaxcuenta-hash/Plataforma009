@@ -2223,7 +2223,10 @@ var top=Math.min(w.top,T);
 function lab(id,txt,x){var e=document.getElementById(id);if(!e){e=document.createElement('div');e.id=id;e.className='etiqueta-zona';app.appendChild(e)}e.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true">'+IC[txt]+'</svg><span>'+txt+'</span>';e.style.left=((x-A.left)/k)+'px';e.style.top=((top-A.top)/k-32)+'px'}
 lab('etqGadgets','Gadgets',w.left);
 var p2=document.querySelector('.punto-pag[data-p="1"]');var esP2=p2&&p2.classList.contains('activo');
-lab('etqZona',esP2?'Productos':'Procesos',document.querySelector('.buscador').getBoundingClientRect().left);}
+lab('etqZona','Productos',document.querySelector('.buscador').getBoundingClientRect().left);
+lab('etqProc','Procesos',0);var ez=document.getElementById('etqProc'),dk=document.querySelector('nav').getBoundingClientRect(),nt=document.querySelector('.card.noticiero').getBoundingClientRect();
+ez.style.flexDirection='column';ez.style.gap='6px';ez.style.fontSize='13.5px';var er=ez.getBoundingClientRect();
+ez.style.left=(((nt.right+dk.left)/2-A.left)/k-er.width/2/k)+'px';ez.style.top=(((dk.top+dk.bottom)/2-A.top)/k-er.height/2/k)+'px';}
 window.addEventListener('load',function(){setTimeout(pon,150)});window.addEventListener('resize',function(){setTimeout(pon,150)});
 document.addEventListener('click',function(){setTimeout(pon,700)});})();
 </script></body>
