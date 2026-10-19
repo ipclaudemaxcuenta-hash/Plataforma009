@@ -1444,6 +1444,10 @@ html body .puntos-pag{gap:8px!important;display:flex!important;align-items:cente
 .flecha-pag{width:30px;height:30px;border-radius:50%;border:1px solid rgba(255,255,255,.8);background:rgba(255,255,255,.75);box-shadow:0 2px 6px rgba(60,30,60,.12);display:grid;place-items:center;cursor:pointer;padding:0;color:#3a1c3e;transition:opacity .2s}
 .flecha-pag svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
 .flecha-pag[disabled]{opacity:.35;cursor:default}
+</style><style id="aire-barras">
+html body nav{padding-top:5px!important;padding-bottom:5px!important}
+html body nav .nav-item{height:62px!important;gap:5px!important}
+html body nav .nav-chip{width:38px!important;height:38px!important;flex:0 0 38px!important}
 </style></head>
 <body data-tema="degradado">
 
@@ -2225,7 +2229,7 @@ var top0=Math.min.apply(null,imgs.map(function(q){return q.top}));var row=imgs.f
 var L=Math.min.apply(null,row.map(function(q){return q.left})),R=Math.max.apply(null,row.map(function(q){return q.right}));
 /* barra: mismo ancho que los iconos y misma altura que el bloque del saludo */
 var m=marca.getBoundingClientRect(),s0=sal.getBoundingClientRect();
-var b=bar.getBoundingClientRect();bar.style.setProperty('right','auto','important');bar.style.setProperty('width',((R-L)/k)+'px','important');bar.style.height=((m.bottom-s0.top)/k)+'px';
+var b=bar.getBoundingClientRect();bar.style.setProperty('right','auto','important');bar.style.setProperty('width',((R-L)/k)+'px','important');bar.style.height=((m.bottom-s0.top)/k-10)+'px';
 b=bar.getBoundingClientRect();bar.style.translate=('calc(53px + '+((L-b.left)/k)+'px) '+((s0.top-b.top)/k)+'px');
 /* dock: mismo ancho, base alineada con el Noticiero */
 nav.style.width=((R-L)/k)+'px';nav.style.boxSizing='border-box';
@@ -2254,10 +2258,10 @@ function mk(dir){var b=document.createElement('button');b.className='flecha-pag'
 b.addEventListener('click',function(){var a=document.querySelector('.punto-pag.activo'),n=+(a&&a.dataset.p||0)+dir,t=document.querySelector('.punto-pag[data-p="'+n+'"]');if(t)t.click();});return b;}
 var L=mk(-1),R=mk(1);c.appendChild(L);c.appendChild(R);
 function upd(){var a=document.querySelector('.punto-pag.activo'),n=+(a&&a.dataset.p||0),tot=document.querySelectorAll('.punto-pag').length;L.disabled=n<=0;R.disabled=n>=tot-1;}
-upd();new MutationObserver(upd).observe(c,{subtree:true,attributes:true,attributeFilter:['class']});});</script><script id="puntos-arriba">(function(){function mv(){var p=document.querySelector('.puntos-pag'),z=document.getElementById('etqZona'),bar=document.querySelector('.buscador'),app=document.querySelector('.app');if(!p||!z||!bar)return;
+upd();new MutationObserver(upd).observe(c,{subtree:true,attributes:true,attributeFilter:['class']});});</script><script id="puntos-arriba">(function(){function mv(){var p=document.querySelector('.puntos-pag'),nav=document.querySelector('nav'),app=document.querySelector('.app');if(!p||!nav)return;
 if(p.parentNode!==app)app.appendChild(p);var A=app.getBoundingClientRect(),k=A.width/app.offsetWidth||1;
-p.style.setProperty('position','absolute','important');p.style.setProperty('translate','none','important');p.style.setProperty('transform','none','important');p.style.setProperty('bottom','auto','important');p.style.setProperty('margin','0','important');p.style.setProperty('z-index','5','important');
-var q=p.getBoundingClientRect(),zr=z.getBoundingClientRect(),b=bar.getBoundingClientRect();
-p.style.setProperty('left',((b.right-A.left)/k-q.width/k-6)+'px','important');p.style.setProperty('top',(((zr.top+zr.bottom)/2-A.top)/k-q.height/2/k)+'px','important');}
-window.addEventListener('load',function(){setTimeout(mv,400)});window.addEventListener('resize',function(){setTimeout(mv,450)});})();</script></body>
+['position:absolute','translate:none','transform:none','bottom:auto','margin:0','z-index:5'].forEach(function(d){var x=d.split(':');p.style.setProperty(x[0],x[1],'important')});
+var q=p.getBoundingClientRect(),n=nav.getBoundingClientRect();
+p.style.setProperty('left',((n.right-A.left)/k-q.width/k)+'px','important');p.style.setProperty('top',((n.top-A.top)/k-q.height/k-10)+'px','important');}
+window.addEventListener('load',function(){setTimeout(mv,450)});window.addEventListener('resize',function(){setTimeout(mv,500)});})();</script></body>
 </html>
