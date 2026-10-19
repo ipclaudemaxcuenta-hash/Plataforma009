@@ -1446,8 +1446,8 @@ html body .puntos-pag{gap:8px!important;display:flex!important;align-items:cente
 .flecha-pag[disabled]{opacity:.35;cursor:default}
 </style><style id="aire-barras">
 html body nav{padding-top:5px!important;padding-bottom:5px!important}
-html body nav .nav-item{height:62px!important;gap:5px!important}
-html body nav .nav-chip{width:38px!important;height:38px!important;flex:0 0 38px!important}
+html body nav .nav-item{height:72px!important;gap:6px!important}
+html body nav .nav-chip{width:42px!important;height:42px!important;flex:0 0 42px!important}
 </style></head>
 <body data-tema="degradado">
 
@@ -2229,7 +2229,7 @@ var top0=Math.min.apply(null,imgs.map(function(q){return q.top}));var row=imgs.f
 var L=Math.min.apply(null,row.map(function(q){return q.left})),R=Math.max.apply(null,row.map(function(q){return q.right}));
 /* barra: mismo ancho que los iconos y misma altura que el bloque del saludo */
 var m=marca.getBoundingClientRect(),s0=sal.getBoundingClientRect();
-var b=bar.getBoundingClientRect();bar.style.setProperty('right','auto','important');bar.style.setProperty('width',((R-L)/k)+'px','important');bar.style.height=((m.bottom-s0.top)/k-10)+'px';
+var b=bar.getBoundingClientRect();bar.style.setProperty('right','auto','important');bar.style.setProperty('width',((R-L)/k)+'px','important');bar.style.height=((m.bottom-s0.top)/k-12.2)+'px';
 b=bar.getBoundingClientRect();bar.style.translate=('calc(53px + '+((L-b.left)/k)+'px) '+((s0.top-b.top)/k)+'px');
 /* dock: mismo ancho, base alineada con el Noticiero */
 nav.style.width=((R-L)/k)+'px';nav.style.boxSizing='border-box';
