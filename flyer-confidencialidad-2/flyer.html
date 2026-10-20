@@ -27,15 +27,15 @@
   .content{position:relative;z-index:1;display:flex;flex-direction:column;height:100%}
 
   header{display:flex;justify-content:space-between;align-items:flex-start}
-  header img{height:13mm;display:block}
+  header img{height:11mm;display:block}
   .kicker{font-family:Sora;font-weight:700;font-size:2.5mm;letter-spacing:.55mm;text-transform:uppercase;color:var(--ink-3);text-align:right;line-height:1.6;margin-top:1mm}
   .kicker b{color:var(--orange)}
 
-  .hero{width:112mm;margin-top:5mm}
-  h1{white-space:nowrap;font-family:Sora;font-weight:800;font-size:11.5mm;line-height:1.08;letter-spacing:-.5mm}
-  .hl{white-space:nowrap;display:inline-block;margin-top:2.6mm;line-height:1.12;background:var(--orange);color:var(--orange-ink);padding:0 2mm .4mm;border-radius:1.6mm}
+  .hero{width:112mm;margin-top:3mm}
+  h1{white-space:nowrap;font-family:Sora;font-weight:800;font-size:11mm;line-height:1.06;letter-spacing:-.5mm}
+  .hl{white-space:nowrap;display:inline-block;margin-top:1.8mm;line-height:1.12;background:var(--orange);color:var(--orange-ink);padding:0 2mm .4mm;border-radius:1.6mm}
   .msg{font-family:Sora;font-weight:600;font-size:4.6mm;line-height:1.3;margin-top:3.5mm}
-  .msg-sub{font-size:3.5mm;line-height:1.5;color:var(--ink-2);margin-top:2.4mm}
+  .msg-sub{font-size:3.4mm;line-height:1.45;color:var(--ink-2);margin-top:1.8mm}
 
   .eyebrow{font-family:Sora;font-weight:700;font-size:2.5mm;letter-spacing:.5mm;text-transform:uppercase;color:var(--ink-3)}
   .eyebrow .n{color:var(--orange);margin-right:1.6mm}
@@ -47,28 +47,28 @@
   .pill svg{flex:none;width:4mm;height:4mm;stroke:#C9B3FF;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 
   .card{border-radius:5mm;background:var(--glass);border:.3mm solid var(--glass-line);backdrop-filter:blur(3mm)}
-  .commit{margin-top:3.5mm;padding:3.6mm 12mm 3.6mm 5mm}
+  .commit{margin-top:3mm;padding:3.2mm 8mm}
   .commit ol{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:1.6mm 14mm;margin-top:2.2mm}
   .commit li{display:flex;gap:2.6mm}
   .commit .num{font-family:Sora;font-weight:800;font-size:3.6mm;color:var(--orange);line-height:1.25;flex:none;width:6mm}
   .commit b{display:block;font-family:Sora;font-weight:600;font-size:3.3mm;line-height:1.25}
   .commit p{font-size:2.8mm;line-height:1.38;color:var(--ink-2);margin-top:.6mm}
 
-  .law{margin-top:3.5mm}
+  .law{margin-top:3mm}
   .law-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2.4mm;margin-top:2.6mm}
   .law .card{padding:2.4mm 3mm}
   .law b{display:block;font-family:Sora;font-weight:700;font-size:3mm;line-height:1.25;color:var(--orange)}
   .law p{font-size:2.6mm;line-height:1.4;color:var(--ink-2);margin-top:1.2mm}
 
-  .cta{margin-top:3.5mm;display:grid;grid-template-columns:1fr auto;gap:6mm;align-items:center;border-radius:6mm;padding:3.5mm 3.5mm 3.5mm 6.5mm;
+  .cta{margin-top:3mm;margin-bottom:4.5mm;display:grid;grid-template-columns:1fr auto;gap:6mm;align-items:center;border-radius:6mm;padding:3mm 3mm 3mm 6.5mm;
     background:linear-gradient(120deg,rgba(107,43,217,.92),rgba(166,60,240,.8));border:.3mm solid rgba(255,255,255,.28);box-shadow:0 0 12mm rgba(166,60,240,.45)}
   .cta h2{font-family:Sora;font-weight:700;font-size:5.2mm;line-height:1.2}
   .cta p{font-size:3.3mm;color:#F1EAFF;margin-top:2.2mm}
   .qr{background:#fff;border-radius:3.5mm;padding:2.6mm;text-align:center}
   .qr img{width:20mm;height:20mm;display:block;margin:0 auto}
   .qr span{display:block;font-family:Sora;font-weight:700;font-size:2.4mm;color:#4A1466;margin-top:1.4mm;letter-spacing:.3mm}
-  footer{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:3mm;font-size:2.8mm;color:var(--ink-2)}
-  footer img{height:6mm}
+  footer{display:flex;justify-content:space-between;align-items:center;margin:auto -14mm -6mm;padding:4mm 14mm 5mm;font-size:3mm;font-weight:500;color:#fff;background:linear-gradient(90deg,#7A2EE6,#A040F0);border-top:.3mm solid rgba(255,255,255,.25)}
+  footer .brand{font-family:Inter;font-weight:600}
 </style>
 </head>
 <body>
@@ -129,7 +129,7 @@
     <div class="qr"><img src="qr.svg" alt="Código QR de la app iPartner"><span>ESCANEA LA APP</span></div>
   </section>
 
-  <footer><span>Consúltanos si tienes dudas sobre qué puedes compartir y con quién.</span><img src="logo-ipartner.webp" alt="ipartner"></footer>
+  <footer><span>Consúltanos si tienes dudas sobre qué puedes compartir y con quién.</span><span class="brand">iPartner · The first AI for HR</span></footer>
 </div></div>
 </body>
 </html>
