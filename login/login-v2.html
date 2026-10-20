@@ -418,6 +418,9 @@ body.intro-done .stage > *{animation:none!important}
 body{background:#14093a url(fondo.webp) right bottom/cover no-repeat fixed!important}
 body .horizon{display:none!important}
 #dust{opacity:.35}
+/* Modo contraseña: se mantiene el escáner Face ID (sin candado) */
+body.password .scan canvas{opacity:1!important}
+body.password .lock3d,body.password .lk-orb{display:none!important}
 /* Lienzo universal: 1920x1080 en computadora/tablet horizontal, 390x844 en celular (vertical): todo se escala proporcionalmente */
 html{background:#0f0730;overflow:hidden!important;height:100%}
 body{width:1920px!important;height:1080px!important;min-height:0!important;overflow:hidden!important;margin:0 auto!important;background-attachment:scroll!important;background-size:1920px 1080px!important}
@@ -802,7 +805,7 @@ function setTitle(text){
 }
 function setStep(n){[1,2,3].forEach(i=>{const el=document.getElementById('st'+i);el.className=i<n?'done':i===n?'on':'';});}
 function isPasswordMode(){ return body.classList.contains('password'); }
-function restMode(){ fxState.mode = isPasswordMode() ? 'password' : 'idle'; fxState.dimTarget = isPasswordMode() ? 1 : 0; }
+function restMode(){ fxState.mode = 'idle'; fxState.dimTarget = 0; } // Face ID (escáner) visible también en modo contraseña
 
 function fail(msg, field){
   status.classList.remove('ok');
