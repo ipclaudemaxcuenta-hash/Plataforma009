@@ -47,8 +47,9 @@
   .pill svg{flex:none;width:4mm;height:4mm;stroke:#C9B3FF;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 
   .card{border-radius:5mm;background:var(--glass);border:.3mm solid var(--glass-line);backdrop-filter:blur(3mm)}
-  .commit{margin-top:3mm;padding:3.2mm 8mm}
-  .commit ol{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:1.6mm 14mm;margin-top:2.2mm}
+  .commit-wrap{margin-top:4mm}
+  .commit{margin-top:2.6mm;padding:3.6mm 6mm}
+  .commit ol{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:1.8mm 12mm;margin-top:0}
   .commit li{display:flex;gap:2.6mm}
   .commit .num{font-family:Sora;font-weight:800;font-size:3.6mm;color:var(--orange);line-height:1.25;flex:none;width:6mm}
   .commit b{display:block;font-family:Sora;font-weight:600;font-size:3.3mm;line-height:1.25}
@@ -97,9 +98,10 @@
     </div>
   </section>
 
-  <section class="card commit">
+  <section class="commit-wrap">
     <div class="eyebrow"><span class="n">02</span>Tu parte</div>
     <div class="h3">Tus compromisos como cliente</div>
+    <div class="card commit">
     <ol>
       <li><span class="num">01</span><div><b>Uso limitado</b><p>Utilizar la información y los entregables solo para el fin del servicio contratado.</p></div></li>
       <li><span class="num">05</span><div><b>Datos personales</b><p>Tratar los datos de terceros que recibas conforme a la Ley N.° 29733 y su reglamento.</p></div></li>
@@ -109,6 +111,7 @@
       <li><span class="num">07</span><div><b>Vigencia</b><p>El deber suele continuar después de terminado el contrato. Revisa el plazo pactado en tu cláusula.</p></div></li>
       <li><span class="num">04</span><div><b>Canales seguros</b><p>Evitar enviarlos por chats personales, redes sociales o correos no corporativos.</p></div></li>
     </ol>
+    </div>
   </section>
 
   <section class="law">
