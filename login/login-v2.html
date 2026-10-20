@@ -163,7 +163,7 @@ body.password .pass-wrap{display:block;animation:fadeUp .35s ease}
 }
 .cancel:hover{border-color:var(--cyan);color:var(--cyan)}
 
-@media (max-width:420px){.scan{width:210px;height:210px}h1{font-size:19px}.cross,.hud{display:none}}
+html.movil .scan{width:210px;height:210px}html.movil h1{font-size:19px}html.movil .cross,html.movil .hud{display:none}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01ms!important}}
 
 /* ── v2: marca, pasos y botón principal ── */
@@ -192,7 +192,7 @@ body.waiting .primary{opacity:.6;cursor:progress}
 .links{font-size:12.5px!important;margin-top:8px!important}
 .linkish{font-size:12.5px!important}
 .status{font-size:14px!important}
-@media (max-width:420px){h1{font-size:22px}}
+html.movil h1{font-size:22px}
 
 /* v2: ventana de aprobación */
 .push-step{font-size:12px!important;font-weight:600;color:var(--cyan)!important;letter-spacing:.04em;margin:0 0 6px!important}
@@ -238,7 +238,7 @@ body.password .forgot-pass{display:inline}
 body.password .alt .ic-face{display:block}
 body.password .alt .ic-lock{display:none}
 body{height:auto!important;min-height:100%;overflow-y:auto!important}
-@media (max-height:880px){.scan{width:170px!important;height:170px!important}.stage h1{margin-top:8px}}
+html.movil .scan{width:170px!important;height:170px!important}html.movil .stage h1{margin-top:8px}
 .aux-sep{color:var(--cyan)!important;font-size:13px}
 .peek .eye-off{display:none}
 .peek.on .eye-on{display:none}
@@ -404,7 +404,7 @@ body.password .pass-wrap{animation:fadeIn .35s ease!important}
 .qr-steps b{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font:700 13px "Chakra Petch",sans-serif;color:#3ad7ff;border:1px solid rgba(58,215,255,.45);background:rgba(58,215,255,.08)}
 #modal h2{font-size:26px!important;margin-bottom:8px!important}
 #modal .qr-sub{font-size:15px!important}
-@media (max-width:540px){.qr-body{grid-template-columns:1fr;justify-items:center}.qr-steps{width:100%}}
+html.movil .qr-body{grid-template-columns:1fr;justify-items:center}html.movil .qr-steps{width:100%}
 /* Ventana QR: encabezado compacto alineado a la izquierda, junto a la X */
 #modal .modal-card{padding:26px 30px 30px!important}
 #modal h2,#modal .qr-sub{text-align:left!important;padding-right:44px}
@@ -421,10 +421,15 @@ body .horizon{display:none!important}
 /* Lienzo universal: 1920x1080 en computadora/tablet horizontal, 390x844 en celular (vertical): todo se escala proporcionalmente */
 html{background:#0f0730;overflow:hidden!important;height:100%}
 body{width:1920px!important;height:1080px!important;min-height:0!important;overflow:hidden!important;margin:0 auto!important;background-attachment:scroll!important;background-size:1920px 1080px!important}
-html.movil body{background-color:#170a40!important}
+html.movil body{background-color:#170a40!important;background-image:url(fondo-movil.webp)!important;position:relative}
+.fe-movil{display:none}
+html.movil .fe-movil{display:block;position:absolute;inset:0;pointer-events:none;z-index:0}
+.fe-movil img{position:absolute;left:266px;top:694px;width:54px;height:auto}
+.fe-movil p{position:absolute;left:0;right:0;top:784px;margin:0;text-align:center;font:400 12.5px/1 "Space Grotesk",sans-serif;letter-spacing:.06em;color:rgba(235,228,255,.85)}
 </style>
 </head>
 <body>
+<div class="fe-movil" aria-hidden="true"><img src="senor.webp" alt=""><p>Guíanos a encontrar el mejor talento, Señor.</p></div>
 
 <canvas id="dust" aria-hidden="true"></canvas>
 
@@ -1079,7 +1084,7 @@ function runPassAnim(done){
 }
 </script>
 <script>
-(function(){function fit(){var m=innerWidth<innerHeight,W=m?390:1920,H=m?844:1080,z=Math.min(innerWidth/W,innerHeight/H),b=document.body.style;document.documentElement.classList.toggle("movil",m);b.setProperty("width",W+"px","important");b.setProperty("height",H+"px","important");b.setProperty("background-size",m?"150% auto":"1920px 1080px","important");b.zoom=z;b.setProperty("margin-top",Math.max(0,(innerHeight-H*z)/2/z)+"px","important");}fit();addEventListener("resize",fit);})();
+(function(){function fit(){var m=innerWidth<innerHeight,W=m?390:1920,H=m?844:1080,z=Math.min(innerWidth/W,innerHeight/H),b=document.body.style;document.documentElement.classList.toggle("movil",m);b.setProperty("width",W+"px","important");b.setProperty("height",H+"px","important");b.setProperty("background-size",m?"390px 844px":"1920px 1080px","important");b.zoom=z;b.setProperty("margin-top",Math.max(0,(innerHeight-H*z)/2/z)+"px","important");}fit();addEventListener("resize",fit);})();
 </script>
 </body>
 </html>
