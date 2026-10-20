@@ -414,6 +414,13 @@ body.password .pass-wrap{animation:fadeIn .35s ease!important}
 body.measuring .pass-wrap{animation:none!important}
 body.intro-done .stage > *{animation:none!important}
 #stage{transition-property:none!important}
+/* Fondo nuevo (imagen oficial) */
+body{background:#14093a url(fondo.webp) right bottom/cover no-repeat fixed!important}
+body .horizon{display:none!important}
+#dust{opacity:.35}
+/* Lienzo universal 1920x1080: todo se escala proporcionalmente */
+html{background:#0f0730;overflow:hidden!important;height:100%}
+body{width:1920px!important;height:1080px!important;min-height:0!important;overflow:hidden!important;margin:0 auto!important;background-attachment:scroll!important;background-size:1920px 1080px!important}
 </style>
 </head>
 <body>
@@ -1069,6 +1076,9 @@ function runPassAnim(done){
   setTimeout(()=>{ el.className='fid s-ok'; txt.textContent='Ingreso validado'; },1600);
   setTimeout(done,2600);
 }
+</script>
+<script>
+(function(){function fit(){var z=Math.min(innerWidth/1920,innerHeight/1080);document.body.style.zoom=z;document.body.style.setProperty("margin-top",Math.max(0,(innerHeight-1080*z)/2/z)+"px","important");}fit();addEventListener("resize",fit);})();
 </script>
 </body>
 </html>
