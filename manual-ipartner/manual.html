@@ -1,0 +1,804 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manual de usuario iPartner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="manual.css">
+</head>
+<body>
+
+<!-- Íconos (trazo 1.8, estilo línea único en todo el manual) -->
+<svg width="0" height="0" style="position:absolute">
+ <defs>
+  <symbol id="search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7.5"/><path d="m21 21-4.6-4.6"/></symbol>
+  <symbol id="bulb" viewBox="0 0 24 24"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.3h6c0-1 .4-1.8 1-2.3A7 7 0 0 0 12 2z"/></symbol>
+  <symbol id="info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></symbol>
+  <symbol id="gem" viewBox="0 0 24 24"><path d="M6 3h12l4 6-10 13L2 9z"/><path d="M11 3 8 9l4 13 4-13-3-6M2 9h20"/></symbol>
+  <symbol id="trend" viewBox="0 0 24 24"><path d="m22 7-8.5 8.5-5-5L2 17"/><path d="M16 7h6v6"/></symbol>
+  <symbol id="cpu" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6" rx="1"/><path d="M15 2v2M15 20v2M2 15h2M2 9h2M20 15h2M20 9h2M9 2v2M9 20v2"/></symbol>
+  <symbol id="user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+  <symbol id="compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16.2 7.8-2.1 6.3-6.3 2.1 2.1-6.3z"/></symbol>
+  <symbol id="heart" viewBox="0 0 24 24"><path d="M19 14c1.5-1.5 3-3.2 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4 3 5.5l7 7z"/></symbol>
+  <symbol id="phone" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="3"/><path d="M11 18h2"/></symbol>
+  <symbol id="cloud" viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.7-9h1.8a4.5 4.5 0 1 1 0 9z"/></symbol>
+  <symbol id="bell" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/></symbol>
+  <symbol id="spark" viewBox="0 0 24 24"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></symbol>
+  <symbol id="shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="sliders" viewBox="0 0 24 24"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/></symbol>
+  <symbol id="msg" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 9h8M8 13h5"/></symbol>
+  <symbol id="lock" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="11" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+  <symbol id="finger" viewBox="0 0 24 24"><path d="M12 10a2 2 0 0 0-2 2c0 1.6-.2 4-1 6M14 13c0 2-.3 4.2-1 6M17.3 8A6 6 0 0 0 6 10c0 1.4-.2 3-.8 4.5M18 12c0 2.4-.3 4.5-1 6.5M8.6 4.3A8 8 0 0 1 20 10"/></symbol>
+  <symbol id="book" viewBox="0 0 24 24"><path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2z"/><path d="M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/></symbol>
+  <symbol id="copy" viewBox="0 0 24 24"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M4 16a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2"/></symbol>
+  <symbol id="hourglass" viewBox="0 0 24 24"><path d="M5 22h14M5 2h14M17 22v-4.2a2 2 0 0 0-.6-1.4L12 12l-4.4 4.4a2 2 0 0 0-.6 1.4V22M7 2v4.2a2 2 0 0 0 .6 1.4L12 12l4.4-4.4a2 2 0 0 0 .6-1.4V2"/></symbol>
+  <symbol id="file" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7z"/><path d="M14 2v5h6M8 13h8M8 17h5"/></symbol>
+  <symbol id="files" viewBox="0 0 24 24"><path d="M16 6H8a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2z"/><path d="M10 2h8a2 2 0 0 1 2 2v12M10 12h4M10 16h4"/></symbol>
+  <symbol id="clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+  <symbol id="download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></symbol>
+  <symbol id="upload" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></symbol>
+  <symbol id="mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></symbol>
+  <symbol id="userx" viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0M17 8l5 5M22 8l-5 5"/></symbol>
+  <symbol id="home" viewBox="0 0 24 24"><path d="M3 10 12 3l9 7v10a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
+  <symbol id="refresh" viewBox="0 0 24 24"><path d="M21 12a9 9 0 0 1-15 6.7L3 16M3 12a9 9 0 0 1 15-6.7L21 8M21 3v5h-5M3 21v-5h5"/></symbol>
+  <symbol id="x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+  <symbol id="chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="cal" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
+  <symbol id="star" viewBox="0 0 24 24"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></symbol>
+  <symbol id="globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20"/></symbol>
+  <symbol id="box" viewBox="0 0 24 24"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/></symbol>
+  <symbol id="bars" viewBox="0 0 24 24"><path d="M6 20v-6M12 20V8M18 20V4"/></symbol>
+  <symbol id="monitor" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></symbol>
+  <symbol id="building" viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4M8 6h.01M16 6h.01M12 6h.01M12 10h.01M12 14h.01M16 10h.01M16 14h.01M8 10h.01M8 14h.01"/></symbol>
+  <symbol id="check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="list" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></symbol>
+  <!-- flecha de señalización (relleno) -->
+  <symbol id="arrow" viewBox="0 0 24 24"><path d="M3 21V9.5l3.6 3.6L16.2 3.5l4.3 4.3-9.6 9.6 3.6 3.6z"/></symbol>
+  <symbol id="pin" viewBox="0 0 20 24"><path d="M10 23s8-7.5 8-13a8 8 0 0 0-16 0c0 5.5 8 13 8 13z" fill="#fff" stroke="#c9c7d4" stroke-width="1.4"/></symbol>
+  <symbol id="flagr" viewBox="0 0 22 26"><path d="M3 25V2" stroke="#555" stroke-width="1.6"/><path d="M4 2h16l-5 6 5 6H4z" fill="#e53935"/></symbol>
+  <symbol id="flagg" viewBox="0 0 22 26"><path d="M3 25V2" stroke="#555" stroke-width="1.6"/><path d="M4 2h16l-5 6 5 6H4z" fill="#19a463"/></symbol>
+ </defs>
+</svg>
+
+<!-- ============ 01 PORTADA ============ -->
+<section class="page" style="padding:0">
+  <svg viewBox="0 0 794 1123" style="position:absolute;inset:0;width:100%;height:100%" aria-hidden="true">
+    <defs>
+      <linearGradient id="wv1" x1="0" x2="1"><stop offset="0" stop-color="#FF953A"/><stop offset=".35" stop-color="#E6299C"/><stop offset=".7" stop-color="#85207b"/><stop offset="1" stop-color="#07F3F4"/></linearGradient>
+      <linearGradient id="wv2" x1="0" x2="1"><stop offset="0" stop-color="#3a2781"/><stop offset=".5" stop-color="#85207b"/><stop offset="1" stop-color="#0797A9"/></linearGradient>
+      <radialGradient id="glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#E6299C" stop-opacity=".22"/><stop offset="1" stop-color="#E6299C" stop-opacity="0"/></radialGradient>
+    </defs>
+    <circle cx="690" cy="120" r="260" fill="url(#glow)"/>
+    <circle cx="80" cy="980" r="300" fill="url(#glow)" opacity=".7"/>
+    <g fill="none" stroke-linecap="round">
+      <path d="M-40 840 C 160 700, 300 980, 480 860 S 760 700, 860 780" stroke="url(#wv1)" stroke-width="3"/>
+      <path d="M-40 860 C 170 730, 300 1000, 490 885 S 770 730, 860 805" stroke="url(#wv1)" stroke-width="1.6" opacity=".7"/>
+      <path d="M-40 880 C 180 760, 310 1020, 500 910 S 780 760, 860 830" stroke="url(#wv1)" stroke-width="1.2" opacity=".5"/>
+      <path d="M-40 900 C 190 790, 320 1040, 510 935 S 790 790, 860 855" stroke="url(#wv2)" stroke-width="1" opacity=".45"/>
+      <path d="M-40 920 C 200 820, 330 1060, 520 960 S 800 820, 860 880" stroke="url(#wv2)" stroke-width="1" opacity=".35"/>
+      <path d="M-40 940 C 210 850, 340 1080, 530 985 S 810 850, 860 905" stroke="url(#wv2)" stroke-width="1" opacity=".25"/>
+    </g>
+  </svg>
+  <div style="flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;padding-top:190px">
+    <img src="assets/logo-color.png" alt="ipartner — The first AI for HR" style="width:300px">
+    <div class="bar" style="margin:44px auto 0;width:72px"></div>
+    <div class="eyebrow" style="margin:36px 0 14px;justify-content:center">Edición 2026</div>
+    <h1 style="font-size:58px">Manual de usuario<br><span class="gr">Grupo iPartner</span></h1>
+    <p class="lead" style="text-align:center;margin:20px auto 0;max-width:470px">Todo lo que necesitas para aprovechar la plataforma: accesos, algoritmos de postulación, códigos y consultas masivas.</p>
+  </div>
+  <div style="position:absolute;right:56px;top:640px;display:flex;flex-direction:column;gap:12px;align-items:flex-end">
+  </div>
+  <div class="ft" style="margin:0 52px;border-top:1px solid rgba(231,226,243,.9)">
+    <span>Soluciones inteligentes para un mejor futuro</span><span>Grupo iPartner</span>
+  </div>
+</section>
+
+<!-- ============ 02 VISIÓN GENERAL ============ -->
+<section class="page">
+  <div class="hd"><img class="logo" src="assets/logo-color.png" alt="ipartner"><div class="sec"><b>Manual de usuario</b>Quiénes somos</div></div>
+  <div class="eyebrow">Datos · Tecnología · Resultados</div>
+  <h1 style="font-size:52px">Visión<br><span class="gr">general</span></h1>
+  <div class="bar"></div>
+  <p class="lead">Conoce los pilares que nos impulsan y nos posicionan como el aliado estratégico en la evolución de la gestión de personas.</p>
+
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:44px">
+    <div class="card" style="padding:26px 22px">
+      <div class="ibadge warm"><svg class="ic"><use href="#gem"/></svg></div>
+      <div style="font-family:Sora;font-weight:700;color:var(--lav2);font-size:30px;margin:18px 0 2px">01</div>
+      <h3>Experiencia</h3>
+      <p style="margin-top:10px"><b>15 años en el mercado</b> que nos diferencian, brindando un servicio de vanguardia y experiencias únicas.</p>
+    </div>
+    <div class="card" style="padding:26px 22px">
+      <div class="ibadge"><svg class="ic"><use href="#trend"/></svg></div>
+      <div style="font-family:Sora;font-weight:700;color:var(--lav2);font-size:30px;margin:18px 0 2px">02</div>
+      <h3>Líder en el mercado</h3>
+      <p style="margin-top:10px">Más de <b>mil clientes corporativos</b>:</p>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px">
+        <span class="chip">Bancos</span><span class="chip">Agrícolas</span><span class="chip">Consultoras</span><span class="chip">Mineras</span><span class="chip">Retail</span><span class="chip">Universidades</span>
+      </div>
+    </div>
+    <div class="card" style="padding:26px 22px">
+      <div class="ibadge teal"><svg class="ic"><use href="#cpu"/></svg></div>
+      <div style="font-family:Sora;font-weight:700;color:var(--lav2);font-size:30px;margin:18px 0 2px">03</div>
+      <h3>Tecnología</h3>
+      <p style="margin-top:10px">Impulsamos la innovación a través de un enfoque de <b>transformación digital</b> y el uso de herramientas tecnológicas.</p>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:28px;padding:26px 30px;display:grid;grid-template-columns:repeat(3,1fr);text-align:center;background:linear-gradient(135deg,#3a2781,#85207b);border:0;color:#fff">
+    <div><div style="font-family:Sora;font-weight:800;font-size:34px">15+</div><div style="font-size:11px;opacity:.8;letter-spacing:.08em;text-transform:uppercase">años de experiencia</div></div>
+    <div style="border-left:1px solid rgba(255,255,255,.2);border-right:1px solid rgba(255,255,255,.2)"><div style="font-family:Sora;font-weight:800;font-size:34px">+1 000</div><div style="font-size:11px;opacity:.8;letter-spacing:.08em;text-transform:uppercase">clientes corporativos</div></div>
+    <div><div style="font-family:Sora;font-weight:800;font-size:34px">IA</div><div style="font-size:11px;opacity:.8;letter-spacing:.08em;text-transform:uppercase">que impulsa resultados</div></div>
+  </div>
+  <div class="ft"><span>Soluciones inteligentes para un mejor futuro</span><span class="r">Grupo iPartner<span class="pn">2</span></span></div>
+</section>
+
+<!-- ============ 03 HOLA, SOY JAINA ============ -->
+<section class="page">
+  <div class="halo" style="width:640px;height:640px;right:-170px;top:180px"></div>
+  <img class="jaina" src="assets/jaina-p3.jpg" alt="Jaina, asistente virtual de iPartner" style="right:-30px;bottom:60px;width:420px;height:900px;object-position:top right">
+  <div class="hd"><img class="logo" src="assets/logo-color.png" alt="ipartner"><div class="sec"><b>Manual de usuario</b>Tu asistente</div></div>
+  <div style="max-width:345px">
+    <div class="eyebrow">IA que impulsa personas</div>
+    <h1 style="font-size:60px">Hola,<br>soy <span class="gw">Jaina</span></h1>
+    <p style="font-family:Sora;font-weight:600;color:var(--indigo);font-size:18px;margin-top:10px">tu asistente virtual de iPartner.</p>
+    <div class="bar"></div>
+    <p class="lead">A partir de ahora te acompañaré durante todo este recorrido para ayudarte a conocer nuestra plataforma, desde tus primeros pasos hasta el uso de cada una de sus funcionalidades.</p>
+    <div class="bubble" style="margin-top:30px;font-size:15px;font-family:Sora;font-weight:600">Estoy aquí para hacer tu experiencia más simple, rápida y eficiente.</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:40px">
+      <div class="tip" style="background:#fff;box-shadow:var(--shadow)"><svg class="ic"><use href="#user"/></svg><b>Aprende</b></div>
+      <div class="tip" style="background:#fff;box-shadow:var(--shadow)"><svg class="ic"><use href="#compass"/></svg><b>Explora</b></div>
+      <div class="tip" style="background:#fff;box-shadow:var(--shadow)"><svg class="ic"><use href="#trend"/></svg><b>Crece</b></div>
+      <div class="tip" style="background:#fff;box-shadow:var(--shadow)"><svg class="ic"><use href="#heart"/></svg><b>Cuenta conmigo</b></div>
+    </div>
+  </div>
+  <div class="ft"><span>Soluciones inteligentes para un mejor futuro</span><span class="r">Grupo iPartner<span class="pn">3</span></span></div>
+</section>
+
+<!-- ============ 04 APP MÓVIL ============ -->
+<section class="page">
+  <div class="halo" style="width:600px;height:600px;right:-140px;top:160px"></div>
+  <img class="jaina" src="assets/jaina-p4.jpg" alt="Jaina mostrando la app iPartner en su celular" style="right:-20px;top:150px;width:460px;height:640px;object-position:top">
+  <div class="hd"><img class="logo" src="assets/logo-color.png" alt="ipartner"><div class="sec"><b>Manual de usuario</b>App móvil</div></div>
+  <div style="max-width:340px">
+    <div class="eyebrow">¡Llévala contigo siempre!</div>
+    <h1>Tu app móvil<br><span class="gr">ya está disponible</span></h1>
+    <div class="bar"></div>
+    <p class="lead">Descarga el aplicativo móvil de <b>iPartner</b> y lleva la información de tu plataforma siempre contigo, de forma <b>rápida, segura y sencilla</b>.</p>
+  </div>
+  <div style="display:flex;gap:18px;align-items:center;margin-top:34px">
+    <div class="card" style="padding:16px;text-align:center;width:172px">
+      <img src="assets/qr.svg" alt="Código QR de descarga de la app" style="width:140px;height:140px;display:block">
+      <div style="font-family:Sora;font-weight:600;color:var(--ink);font-size:12px;margin-top:10px">Escanea y descárgala</div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div class="store"><svg viewBox="0 0 24 24" width="22" height="22"><path d="M4 2.5v19l10-9.5z" fill="#00d3ff"/><path d="M4 2.5 17.5 10 14 12z" fill="#00f076"/><path d="M4 21.5 17.5 14 14 12z" fill="#ff3a44"/><path d="M17.5 10 21 12l-3.5 2L14 12z" fill="#ffd400"/></svg><span><small>Disponible en</small>Google Play</span></div>
+      <div class="store"><svg viewBox="0 0 24 24" width="22" height="22" fill="#fff"><path d="M16.4 12.6c0-2.4 2-3.5 2-3.6-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.2-2.8.9-3.5.9-.7 0-1.8-.8-3-.8-1.5 0-3 .9-3.8 2.3-1.6 2.8-.4 7 1.2 9.3.8 1.1 1.7 2.4 2.9 2.3 1.2 0 1.6-.7 3-.7s1.8.7 3 .7c1.3 0 2.1-1.1 2.8-2.3.9-1.3 1.3-2.6 1.3-2.6s-2.5-1-2.5-3.7zM14.2 5.6c.6-.8 1.1-1.9 1-3-.9 0-2.1.6-2.7 1.4-.6.7-1.1 1.8-1 2.9 1 .1 2.1-.5 2.7-1.3z"/></svg><span><small>Descárgala en el</small>App Store</span></div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:auto;margin-bottom:22px;padding:20px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+    <div style="display:flex;gap:12px;align-items:center"><div class="ibadge" style="width:44px;height:44px;border-radius:13px"><svg class="ic"><use href="#phone"/></svg></div><div><h3 style="font-size:13px">Acceso rápido</h3><span style="font-size:11.5px">y seguro</span></div></div>
+    <div style="display:flex;gap:12px;align-items:center"><div class="ibadge warm" style="width:44px;height:44px;border-radius:13px"><svg class="ic"><use href="#cloud"/></svg></div><div><h3 style="font-size:13px">Consulta</h3><span style="font-size:11.5px">tu información</span></div></div>
+    <div style="display:flex;gap:12px;align-items:center"><div class="ibadge teal" style="width:44px;height:44px;border-radius:13px"><svg class="ic"><use href="#bell"/></svg></div><div><h3 style="font-size:13px">Recibe</h3><span style="font-size:11.5px">notificaciones</span></div></div>
+  </div>
+  <div class="ft" style="margin-top:0"><span>Soluciones inteligentes para un mejor futuro</span><span class="r">Grupo iPartner<span class="pn">4</span></span></div>
+</section>
+
+<!-- ============ 05 BIOMETRÍA 1-2 ============ -->
+<section class="page">
+  <div class="hd"><img class="logo" src="assets/logo-color.png" alt="ipartner"><div class="sec"><b>Manual de usuario</b>Ingreso con biometría</div></div>
+  <div class="eyebrow">Acceso seguro</div>
+  <h1>Ingreso con <span class="gr">biometría</span></h1>
+  <p class="lead">Accede a la plataforma de manera rápida y segura validando tu identidad desde el aplicativo móvil.</p>
+  <div class="stack" style="margin-top:22px;gap:12px">
+    <div class="card split" style="grid-template-columns:1.25fr 1fr;padding:16px 24px">
+      <div class="txt"><div class="num">01</div><h3>Ingresa al aplicativo móvil</h3>
+        <p>Abre tu aplicativo móvil iPartner y, en la pantalla de inicio, selecciona la opción <span class="q">“Iniciar sesión con biometría”</span> para comenzar el proceso.</p></div>
+      <div class="phone" style="width:190px"><div class="dark-login" style="height:340px;padding:40px 14px 0"><span class="island"></span>
+        <div class="t">INICIA SESIÓN</div><div class="s">Ingresa al futuro de la inteligencia de datos.</div>
+        <div class="flabel">Usuario</div><div class="field"><svg class="ic"><use href="#user"/></svg>Escribe tu usuario</div>
+        <div class="flabel">Contraseña</div><div class="field"><svg class="ic"><use href="#lock"/></svg>Escribe tu contraseña</div>
+        <div style="text-align:right;margin:8px 0" class="link">¿Olvidaste tu usuario?<br>¿Olvidaste tu contraseña?</div>
+        <div class="btn" style="background:#1747b8">Ingresar</div>
+        <div class="hl-o" style="margin-top:14px;border-radius:9px;padding:7px;display:flex;gap:6px;align-items:center;justify-content:center;color:#f39bea;font-weight:600;font-size:8.5px"><svg class="ic" style="width:13px;height:13px"><use href="#finger"/></svg>INICIAR SESIÓN CON BIOMETRÍA</div>
+      </div></div>
+    </div>
+    <div class="card split" style="grid-template-columns:1.25fr 1fr;padding:16px 24px">
+      <div class="txt"><div class="num">02</div><h3>Valida tu identidad</h3>
+        <p>Al activar la biometría, el sistema mostrará las opciones disponibles en tu dispositivo, como <b>huella digital</b> o <b>reconocimiento facial</b>. Selecciona el método configurado para continuar.</p>
+        <div class="tip" style="margin-top:16px"><svg class="ic"><use href="#bulb"/></svg><span>Utiliza el método biométrico que tengas habilitado en tu dispositivo móvil.</span></div></div>
+      <div class="phone" style="width:190px"><div class="dark-login" style="height:300px;padding:40px 14px 0"><span class="island"></span>
+        <div class="t">INICIA SESIÓN</div><div class="s">Ingresa al futuro de la inteligencia de datos.</div>
+        <div style="background:#2b2a33;border-radius:16px;margin-top:22px;padding:12px">
+          <div style="display:flex;background:#45444f;border-radius:999px;padding:2px;font-size:8.5px"><span style="flex:1;background:#f2a6c8;color:#3a1830;border-radius:999px;padding:4px">Huella digital</span><span style="flex:1;padding:4px">Rostro</span></div>
+          <div style="margin-top:10px;font-weight:600;font-size:9px">ipartner</div>
+          <div style="margin-top:6px;font-size:10px;font-weight:600">Autenticación requerida</div>
+          <div style="font-size:8px;color:#bbb">Usa tu huella o rostro</div>
+          <div style="margin-top:10px;font-size:10px">Cancelar</div>
+        </div>
+        <div style="width:46px;height:46px;border-radius:50%;background:#3a3946;margin:22px auto 0;display:grid;place-items:center"><svg class="ic" style="width:26px;height:26px"><use href="#finger"/></svg></div>
+      </div></div>
+    </div>
+  </div>
+  <div class="ft"><span>Soluciones inteligentes para un mejor futuro</span><span class="r">Grupo iPartner<span class="pn">5</span></span></div>
+</section>
+
+<!-- ============ 06 BIOMETRÍA 3-5 ============ -->
+<section class="page">
+  <div class="hd"><img class="logo" src="assets/logo-color.png" alt="ipartner"><div class="sec"><b>Manual de usuario</b>Ingreso con biometría</div></div>
+  <div class="eyebrow">Acceso desde la web</div>
+  <h1>Ingreso con <span class="gr">biometría</span></h1>
+  <p class="lead">Continúa el acceso desde la plataforma web y valida tu identidad desde el aplicativo móvil.</p>
+  <div class="stack" style="margin-top:24px;gap:14px">
+    <div class="card split" style="padding:18px 22px">
+      <div class="txt"><div class="num">03</div><h3>Accede desde la web</h3>
+        <p>Ingresa a la plataforma web y, en la pantalla de acceso, haz clic en el <b>ícono del candado</b> para habilitar el inicio de sesión desde la app.</p></div>
+      <div class="laptop"><div class="scr"><div class="dark-login" style="height:150px;padding-top:26px">
+        <div class="hl-o" style="width:52px;height:52px;border-radius:50%;margin:0 auto;display:grid;place-items:center;background:rgba(255,255,255,.12)"><svg class="ic" style="width:24px;height:24px"><use href="#lock"/></svg></div>
+        <div style="font-size:13px;margin-top:12px;font-weight:600">Valida tu ingreso desde la APP</div>
+        <div class="s" style="letter-spacing:.15em;font-size:7px">PULSA EL CANDADO PARA ENTRAR</div></div></div><div class="base"></div></div>
+    </div>
+    <div class="card split" style="padding:18px 22px">
+      <div class="txt"><div class="num">04</div><h3>Ingresa tu usuario</h3>
+        <p>Una vez habilitada la opción de acceso, escribe tu usuario en el campo correspondiente y presiona la tecla <span class="q">Enter</span> para continuar.</p></div>
+      <div class="laptop"><div class="scr"><div class="dark-login" style="height:150px;padding:20px 34px 0">
+        <div style="font-size:13px;font-weight:600">Valida tu ingreso desde la APP</div>
+        <div class="s" style="letter-spacing:.15em;font-size:7px">PULSA EL CANDADO PARA ENTRAR</div>
+        <div class="field hl-o" style="margin-top:14px;border-color:#5ff0f1;border-radius:999px">Usuario <span style="opacity:.6">|</span></div>
+        <div style="display:flex;justify-content:space-around;margin-top:10px" class="link"><span>¿No tienes la app?</span><span>Ingresar con contraseña</span></div></div></div><div class="base"></div></div>
+    </div>
+    <div class="card split" style="padding:18px 22px">
+      <div class="txt"><div class="num">05</div><h3>Recibe el código de validación</h3>
+        <p>Después de ingresar tu usuario, la plataforma mostrará un <b>código temporal</b> en pantalla. Este código deberá validarse desde el aplicativo móvil para completar el acceso.</p></div>
+      <div class="laptop"><div class="scr"><div class="dark-login" style="height:150px;padding:12px 60px 0">
+        <div style="border:1px solid rgba(255,255,255,.3);border-radius:10px;padding:8px;background:rgba(10,12,40,.6)">
+          <div style="font-weight:700;font-size:10px">INICIAR SESIÓN</div>
+          <div style="font-size:7px;color:#c9c6e6">Se ha enviado una notificación a la APP. Confirma tu identidad seleccionando este código.</div>
+          <div style="width:52px;height:52px;border-radius:50%;margin:6px auto;border:4px solid #7b5cf0;border-top-color:#5ff0f1;display:grid;place-items:center;font-family:Sora;font-weight:700;font-size:18px;color:#5ff0f1">55</div>
+          <div style="font-size:7px">Tiempo restante: 1:29</div></div></div></div><div class="base"></div></div>
+    </div>
+  </div>
+  <div class="ft"><span>Soluciones inteligentes para un mejor futuro</span><span class="r">Grupo iPartner<span class="pn">6</span></span></div>
+</section>
+
+<!-- ============ 07 BIOMETRÍA 6-7 ============ -->
+<section class="page">
+  <div class="hd"><img class="logo" src="assets/logo-color.png" alt="ipartner"><div class="sec"><b>Manual de usuario</b>Ingreso con biometría</div></div>
+  <div class="eyebrow">Confirmación</div>
+  <h1>Ingreso con <span class="gr">biometría</span></h1>
+  <p class="lead">Confirma tu identidad desde el aplicativo móvil y finaliza tu acceso a la plataforma.</p>
+  <div class="stack" style="margin-top:24px">
+    <div class="card split" style="grid-template-columns:1.25fr 1fr">
+      <div class="txt"><div class="num">06</div><h3>Confirma tu ingreso</h3>
+        <p>Abre el aplicativo móvil y revisa la notificación de acceso desde la web. Si el intento es tuyo, selecciona en la app <b>el mismo código</b> que aparece en la plataforma para autorizar el ingreso.</p></div>
+      <div class="phone" style="width:180px"><div style="height:300px;background:linear-gradient(#1c2350,#0d1030);padding:40px 12px 0;font-size:8px"><span class="island"></span>
+        <div style="background:#fff;border-radius:14px;padding:12px;color:#1d1b2b">
+          <div style="font-weight:700;font-size:10px;text-align:center">¿Estás intentando iniciar sesión desde la web?</div>
+          <div style="margin-top:8px;line-height:1.55"><b>IP:</b> Desconocido<br><b>Lugar:</b> Lima, Perú<br><b>Sistema operativo:</b> Windows<br><b>Navegador:</b> Chrome<br><b>Fecha:</b> Desconocida</div>
+          <div style="text-align:center;font-weight:600;margin-top:8px">Si eres tú, selecciona el código correcto</div>
+          <div style="display:flex;justify-content:center;gap:8px;margin-top:8px">
+            <span style="width:34px;height:34px;border-radius:50%;border:1.6px solid #2f6be0;display:grid;place-items:center;color:#2f6be0;font-weight:600">35</span>
+            <span class="hl-o" style="width:34px;height:34px;border-radius:50%;border:1.6px solid #2f6be0;display:grid;place-items:center;color:#fff;background:#2f6be0;font-weight:700">55</span>
+            <span style="width:34px;height:34px;border-radius:50%;border:1.6px solid #2f6be0;display:grid;place-items:center;color:#2f6be0;font-weight:600">66</span></div>
+          <div style="background:#1e6cf0;color:#fff;border-radius:999px;text-align:center;padding:7px;margin-top:10px;font-weight:600">No soy yo, reportar</div>
+        </div></div></div>
+    </div>
+    <div class="card" style="padding:22px 24px">
+      <div style="display:grid;grid-template-columns:52px 1fr;gap:16px;align-items:start">
+        <div class="num">07</div>
+        <div><h3>¡Acceso completado!</h3><p style="margin-top:5px">Una vez confirmada la solicitud en tu aplicativo móvil, ingresarás a la <b>nueva interfaz</b> de la plataforma y podrás realizar tus consultas de forma rápida y segura.</p></div>
+      </div>
+      <div class="tablet" style="margin:12px auto 0;width:76%"><div class="home">
+        <div class="wcol">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><div class="w"><div class="big">15:56</div>Lima, 26 de febrero</div><div class="w wx"><div style="font-size:7px">Lima, Perú</div><div class="big" style="color:#fff">22 °C</div></div></div>
+          <div class="w"><b>Novedades de la plataforma</b><div class="ln"></div><div class="ln" style="width:70%"></div></div>
+          <div class="w"><b>Noticias relevantes</b><div class="ln"></div><div class="ln"></div><div class="ln" style="width:60%"></div></div>
+        </div>
+        <div><div class="search"><svg class="ic"><use href="#search"/></svg>Buscar DNI</div>
+          <div class="apps">
+            <div class="app"><i class="a-or"><svg class="ic"><use href="#star"/></svg></i>ZETA</div><div class="app"><i class="a-or"><svg class="ic"><use href="#star"/></svg></i>Z. Básico</div><div class="app"><i class="a-or"><svg class="ic"><use href="#star"/></svg></i>Z. Básico Plus</div><div class="app"><i class="a-bl"><svg class="ic"><use href="#gem"/></svg></i>Z. Premium</div><div class="app"><i class="a-or"><svg class="ic"><use href="#star"/></svg></i>Z. VIP</div>
+            <div class="app"><i class="a-vi"><svg class="ic"><use href="#shield"/></svg></i>Prevención</div><div class="app"><i class="a-or"><svg class="ic"><use href="#user"/></svg></i>Talento</div><div class="app"><i class="a-bl"><svg class="ic"><use href="#bars"/></svg></i>Desempeño</div><div class="app"><i class="a-tl"><svg class="ic"><use href="#list"/></svg></i>Planilla</div><div class="app"><i class="a-gr"><svg class="ic"><use href="#trend"/></svg></i>Rendimiento</div>
+            <div class="app"><i class="a-gr"><svg class="ic"><use href="#building"/></svg></i>Empresarial</div><div class="app"><i class="a-tl"><svg class="ic"><use href="#globe"/></svg></i>Extranjero</div><div class="app"><i class="a-or"><svg class="ic"><use href="#file"/></svg></i>RUC</div><div class="app"><i class="a-vi"><svg class="ic"><use href="#book"/></svg></i>Diccionario</div><div class="app"><i class="a-bl"><svg class="ic"><use href="#search"/></svg></i>Reclutamiento</div>
+          </div></div>
+        <div class="dock"><i class="a-or"><svg class="ic"><use href="#home"/></svg></i><i class="a-vi"><svg class="ic"><use href="#shield"/></svg></i><i class="a-pk"><svg class="ic"><use href="#hourglass"/></svg></i><i class="a-bl"><svg class="ic"><use href="#monitor"/></svg></i><i class="a-gr"><svg class="ic"><use href="#bars"/></svg></i><i class="a-tl"><svg class="ic"><use href="#trend"/></svg></i></div>
+      </div></div>
+      <div class="tip" style="margin-top:16px"><svg class="ic"><use href="#bulb"/></svg><span><b>Recuerda:</b> si cambias de equipo móvil, deberás configurar nuevamente tu acceso biométrico.</span></div>
+    </div>
+  </div>
+  <div class="ft"><span>Soluciones inteligentes para un mejor futuro</span><span class="r">Grupo iPartner<span class="pn">7</span></span></div>
+</section>
+
+<!-- ============ 08 ALGORITMOS ============ -->
+<section class="page">
+  <div class="halo" style="width:560px;height:560px;left:-180px;top:330px"></div>
+  <img class="jaina" src="assets/jaina-p8.jpg" alt="Jaina presentando los algoritmos de IA" style="left:-10px;top:440px;width:370px;height:400px;object-position:top">
+  <div class="hd"><img class="logo" src="assets/logo-color.png" alt="ipartner"><div class="sec"><b>Manual de usuario</b>Algoritmos</div></div>
+  <div class="eyebrow">Inteligencia aplicada</div>
+  <h1>Nuestros algoritmos<br><span class="gw">de postulación</span></h1>
+  <div class="bar"></div>
+  <p class="lead" style="max-width:330px">Inteligencia aplicada para transformar tus procesos de selección.</p>
+  <div class="bubble" style="position:absolute;left:52px;top:330px;width:300px">En iPartner hemos desarrollado <b>algoritmos inteligentes</b> que hacen <b>más eficiente la evaluación</b> de postulantes, permitiendo tomar decisiones más rápidas sin necesidad de validar anexos.</div>
+  <div class="stack" style="position:absolute;right:52px;top:250px;width:340px;gap:14px">
+    <div class="card" style="padding:20px 22px"><div style="display:flex;align-items:center;gap:14px"><div class="ibadge warm" style="width:44px;height:44px"><svg class="ic"><use href="#spark"/></svg></div><div><div style="font-family:Sora;font-weight:700;color:var(--orange);font-size:12px">01</div><h3 style="font-size:15px">Evaluación inteligente</h3></div></div>
+      <p style="margin-top:10px">Nuestros algoritmos analizan la información del postulante y generan una evaluación más rápida y precisa para apoyar tus procesos de contratación.</p></div>
+    <div class="card" style="padding:20px 22px"><div style="display:flex;align-items:center;gap:14px"><div class="ibadge" style="width:44px;height:44px"><svg class="ic"><use href="#shield"/></svg></div><div><div style="font-family:Sora;font-weight:700;color:var(--orange);font-size:12px">02</div><h3 style="font-size:15px">Clasificación de observaciones</h3></div></div>
+      <p style="margin-top:10px">Junto con expertos, identificamos y clasificamos las observaciones según su <b>nivel de gravedad</b>, entregando resultados más claros, confiables y estructurados.</p></div>
+    <div class="card" style="padding:20px 22px"><div style="display:flex;align-items:center;gap:14px"><div class="ibadge teal" style="width:44px;height:44px"><svg class="ic"><use href="#sliders"/></svg></div><div><div style="font-family:Sora;font-weight:700;color:var(--orange);font-size:12px">03</div><h3 style="font-size:15px">Adaptable a tu empresa</h3></div></div>
+      <p style="margin-top:10px">Cada organización tiene necesidades diferentes. Por ello, nuestra codificación es <b>personalizable</b> y se adapta a los criterios de evaluación definidos por cada cliente.</p></div>
+  </div>
+  <div class="card" style="margin-top:auto;margin-bottom:22px;padding:20px 24px;display:flex;gap:18px;align-items:center;background:linear-gradient(135deg,#17122b,#3a2781);border:0;color:#fff">
+    <div class="ibadge warm"><svg class="ic"><use href="#msg"/></svg></div>
+    <div style="flex:1"><h3 style="color:#fff">¿Quieres conocer más?</h3><p style="font-size:12px;opacity:.85;margin-top:3px">Nuestro equipo puede ayudarte a desarrollar una solución acorde a tus necesidades.</p></div>
+    <div style="border-left:1px solid rgba(255,255,255,.2);padding-left:18px;font-family:Sora;font-weight:600;font-size:12.5px;max-width:200px">Comunícate con tu sectorista asignado para recibir más información.</div>
+  </div>
+  <div class="ft" style="margin-top:0"><span>Soluciones inteligentes para un mejor futuro</span><span class="r">Grupo iPartner<span class="pn">8</span></span></div>
+</section>
+
+<!-- ============ 09 DÓNDE ENCUENTRO EL ALGORITMO ============ -->
+<section class="page">
+  <div class="hd"><img class="logo" src="assets/logo-color.png" alt="ipartner"><div class="sec"><b>Manual de usuario</b>Algoritmo</div></div>
+  <div class="eyebrow">Algoritmo</div>
+  <h1>Tipos de <span class="gw">postulación</span></h1>
+  <p class="lead">Esta mejora forma parte de nuestra iniciativa continua de desarrollo en Inteligencia Artificial, con el propósito de ofrecerles un servicio más claro y efectivo.</p>
+  <div style="margin-top:30px"><span class="pill"><svg class="ic"><use href="#search"/></svg>¿Dónde encuentro este algoritmo?</span></div>
+  <p style="margin-top:16px;font-size:13.5px">Este algoritmo se encuentra en la <b>parte superior derecha</b> de nuestro reporte.</p>
+  <div class="laptop" style="margin-top:26px;position:relative"><div class="scr"><div class="report">
+    <div class="rp"><div class="h">IDENTIDAD</div><div class="ident"><div class="age">28<small>años</small></div><div class="vbar">F. Nac.: 23/02/1998</div><div class="chips"><span></span><span>QUISPE QUISPE</span><span>DNI: 28••••••</span></div></div></div>
+    <div class="rp hl-o" style="border-radius:10px"><div class="h">TIPO DE POSTULACIÓN IA <svg class="ic" style="color:#8a2be2;width:16px;height:16px"><use href="#spark"/></svg></div>
+      <div class="scale"><svg class="pin" style="left:10%"><use href="#pin"/></svg><div class="s1">1</div><div class="s2">2</div><div class="s3">3</div><div class="sh">H</div><div class="spm">PM</div></div>
+      <svg class="flag" style="top:46px"><use href="#flagg"/></svg>
+      <div class="legend"><span><i style="background:#14b08a"></i>Masiva</span><span><i style="background:#5a1d86"></i>Interna</span><span><i style="background:#ff8a1f"></i>Mixta</span><span><i style="background:#c9c9cf"></i>Ejecutiva</span><span><i style="background:#1e2fe6"></i>Especial</span></div>
+      <div style="text-align:center;font-size:9px;margin:10px 0 12px;font-weight:600">Código de postulación IA: SR20260720</div></div>
+    <div class="ghost"><div class="row"><span class="av"></span><span class="ln"></span><span class="ln"></span><span class="ln"></span><span class="ln"></span></div><div class="row"><span class="av"></span><span class="ln"></span><span class="ln"></span><span class="ln"></span><span class="ln"></span></div></div>
+  </div></div><div class="base"></div>
+  <span class="arrow" style="right:-6px;top:-30px;transform:rotate(0deg)"><svg><use href="#arrow"/></svg></span></div>
+  <div class="ft"><span>Soluciones inteligentes para un mejor futuro</span><span class="r">Grupo iPartner<span class="pn">9</span></span></div>
+</section>
+
+<!-- ============ 10 QUÉ SIGNIFICA MI ALGORITMO ============ -->
+<section class="page">
+  <div class="hd"><img class="logo" src="assets/logo-color.png" alt="ipartner"><div class="sec"><b>Manual de usuario</b>Algoritmo</div></div>
+  <div class="eyebrow">Algoritmo</div>
+  <h1>Tipos de <span class="gw">postulación</span></h1>
+  <div style="margin-top:26px"><span class="pill"><svg class="ic"><use href="#info"/></svg>¿Qué significa mi algoritmo?</span></div>
+  <p style="margin-top:14px;font-size:13.5px">Cada nivel que muestra el indicador tiene el siguiente significado:</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px">
+    <div class="card lvl"><div class="lh"><span class="lb" style="background:#14b08a">1</span><h3 style="color:#0f8a6c">Masiva</h3></div><div class="lbody" style="background:#e8f7f2"><b style="color:#0f6b55">Sin observaciones</b></div></div>
+    <div class="card lvl"><div class="lh"><span class="lb" style="background:#5a1d86">2</span><h3 style="color:#5a1d86">Interna</h3></div><div class="lbody" style="background:#f3ecfa"><b style="color:#5a1d86">Observaciones preliminares</b><ul><li><b>2A:</b> nivel de gravedad alta</li><li><b>2B:</b> nivel de gravedad baja</li></ul></div></div>
+    <div class="card lvl"><div class="lh"><span class="lb" style="background:#ff8a1f">3</span><h3 style="color:#d96a00">Mixta</h3></div><div class="lbody" style="background:#fff3e6"><b style="color:#b85800">Observaciones formalizadas</b><ul><li><b>3A:</b> nivel de gravedad alta</li><li><b>3M:</b> nivel de gravedad media</li><li><b>3B:</b> nivel de gravedad baja</li></ul></div></div>
+    <div class="card lvl"><div class="lh"><span class="lb" style="background:#8d8b99">H</span><h3 style="color:#55536a">Ejecutiva</h3></div><div class="lbody" style="background:#f1f0f4"><b style="color:#45435a">Solicitar descarte de homonimia</b></div></div>
+    <div class="card lvl" style="grid-column:1/-1"><div class="lh"><span class="lb" style="background:#1e2fe6;font-size:13px">PM</span><h3 style="color:#1e2fe6">Especial</h3></div><div class="lbody" style="background:#eef0fe"><b style="color:#1a27b8">Página en mantenimiento</b><ul><li>Realice la consulta nuevamente en 5 minutos. Si el problema persiste, comuníquese con su sectorista para recibir el apoyo correspondiente.</li></ul></div></div>
+  </div>
+  <div class="ft"><span>Soluciones inteligentes para un mejor futuro</span><span class="r">Grupo iPartner<span class="pn">10</span></span></div>
+</section>
+
+<!-- ============ 11 CÓDIGO DE POSTULACIÓN ============ -->
+<section class="page">
+  <div class="hd"><img class="logo" src="assets/logo-color.png" alt="ipartner"><div class="sec"><b>Manual de usuario</b>Algoritmo</div></div>
+  <div class="eyebrow">Algoritmo</div>
+  <h1>Código de <span class="gw">postulación</span></h1>
+  <div style="margin-top:28px"><span class="pill"><svg class="ic"><use href="#search"/></svg>¿Dónde encuentro nuestro código de postulación?</span></div>
+  <p style="margin-top:16px;font-size:13.5px">Debajo del indicador de <b>Tipo de postulación IA</b>, en la parte superior derecha del reporte.</p>
+  <div class="laptop" style="margin-top:26px;position:relative"><div class="scr"><div class="report">
+    <div class="rp"><div class="h">IDENTIDAD</div><div class="ident"><div class="age">28<small>años</small></div><div class="vbar">F. Nac.: 23/02/1998</div><div class="chips"><span></span><span>QUISPE QUISPE</span><span>DNI: 28••••••</span></div></div></div>
+    <div class="rp"><div class="h">TIPO DE POSTULACIÓN IA <svg class="ic" style="color:#8a2be2;width:16px;height:16px"><use href="#spark"/></svg></div>
+      <div class="scale"><svg class="pin" style="left:10%"><use href="#pin"/></svg><div class="s1">1</div><div class="s2">2</div><div class="s3">3</div><div class="sh">H</div><div class="spm">PM</div></div>
+      <svg class="flag" style="top:46px"><use href="#flagr"/></svg>
+      <div class="legend"><span><i style="background:#14b08a"></i>Masiva</span><span><i style="background:#5a1d86"></i>Interna</span><span><i style="background:#ff8a1f"></i>Mixta</span><span><i style="background:#c9c9cf"></i>Ejecutiva</span><span><i style="background:#1e2fe6"></i>Especial</span></div>
+      <div class="code hl-o"><span><span class="c">(3A)</span> Código de postulación IA: AF20160F-PRO/12016-VS</span></div></div>
+    <div class="ghost"><div class="row"><span class="av"></span><span class="ln"></span><span class="ln"></span><span class="ln"></span><span class="ln"></span></div><div class="row"><span class="av"></span><span class="ln"></span><span class="ln"></span><span class="ln"></span><span class="ln"></span></div></div>
+  </div></div><div class="base"></div>
+  <span class="arrow" style="right:-14px;top:206px;transform:rotate(-90deg)"><svg><use href="#arrow"/></svg></span></div>
+  <div class="tip" style="margin-top:34px"><svg class="ic"><use href="#bulb"/></svg><span>El código resume en una sola línea la <b>observación más importante</b> del evaluado. En las siguientes páginas te explicamos cómo interpretarlo.</span></div>
+  <div class="ft"><span>Soluciones inteligentes para un mejor futuro</span><span class="r">Grupo iPartner<span class="pn">11</span></span></div>
+</section>
+
+<!-- ============ 12 QUÉ SIGNIFICA MI CÓDIGO 1-2 (UI nueva) ============ -->
+<section class="page">
+  <div class="hd"><img class="logo" src="assets/logo-color.png" alt="ipartner"><div class="sec"><b>Manual de usuario</b>Código de postulación</div></div>
+  <div class="eyebrow">Interpretación del código de postulación</div>
+  <h1>¿Qué significa mi <span class="gw">código?</span></h1>
+  <p class="lead">Sigue estos pasos para interpretar tu código de postulación y comprender el significado de la observación mostrada en el reporte.</p>
+  <div class="stack" style="margin-top:24px">
+    <div class="card step">
+      <div class="num">01</div><div><h3>Copia tu código de postulación</h3><p>Ubica el código en tu reporte y cópialo <b>exactamente como aparece</b> con el botón de copiar. Este es el código que consultaremos en el Diccionario Legal.</p></div>
+      <div class="full" style="background:#f3f2f8;border-radius:14px;padding:16px 20px;position:relative">
+        <div class="scale" style="margin:22px 0 6px"><svg class="pin" style="left:10%"><use href="#pin"/></svg><div class="s1">1</div><div class="s2">2</div><div class="s3">3</div><div class="sh">H</div><div class="spm">PM</div></div>
+        <div class="legend" style="padding:0"><span><i style="background:#14b08a"></i>Masiva</span><span><i style="background:#5a1d86"></i>Interna</span><span><i style="background:#ff8a1f"></i>Mixta</span><span><i style="background:#c9c9cf"></i>Ejecutiva</span><span><i style="background:#1e2fe6"></i>Especial</span></div>
+        <div class="code" style="margin:12px 0 0;background:#fff;font-size:11px;padding:10px 12px"><span><span class="c">(3A)</span> Código de postulación IA: AF20160F-PRO/12016-VS</span><svg class="ic hl-o" style="color:#4a3ccf;border-radius:5px;padding:2px;width:22px;height:22px"><use href="#copy"/></svg></div>
+        <span class="tag" style="right:20px;top:-12px">Copia el código</span>
+      </div>
+    </div>
+    <div class="card step">
+      <div class="num">02</div><div><h3>Ingresa al Diccionario Legal</h3><p>En la pantalla de inicio, selecciona el ícono <span class="q">“Diccionario Legal”</span> para consultar el significado de tu código.</p></div>
+      <div class="full" style="border-radius:14px;overflow:hidden;position:relative"><div class="home wood" style="grid-template-columns:.8fr 1.7fr;padding:14px 16px">
+        <div class="wcol"><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><div class="w"><div class="big">12:27</div>Lunes, 12 de octubre</div><div class="w wx" style="background:#2d4a73"><div style="font-size:7px">Lima, Perú</div><div class="big" style="color:#fff">25 °C</div></div></div>
+          <div class="w"><b>Novedades de la plataforma</b><div style="color:#999;text-align:center;margin:8px 0">No hay comunicados vigentes.</div></div></div>
+        <div><div class="search"><svg class="ic"><use href="#search"/></svg>Buscar DNI</div>
+          <div class="apps">
+            <div class="app"><i class="a-or"><svg class="ic"><use href="#star"/></svg></i>ZETA</div><div class="app"><i class="a-or"><svg class="ic"><use href="#star"/></svg></i>Z. Básico</div><div class="app"><i class="a-or"><svg class="ic"><use href="#star"/></svg></i>Z. Básico Plus</div><div class="app"><i class="a-bl"><svg class="ic"><use href="#book"/></svg></i>Z. Premium</div><div class="app"><i class="a-or"><svg class="ic"><use href="#star"/></svg></i>Z. VIP</div>
+            <div class="app"><i class="a-gr"><svg class="ic"><use href="#building"/></svg></i>Empresarial</div><div class="app"><i class="a-tl"><svg class="ic"><use href="#globe"/></svg></i>Extranjero</div><div class="app"><i class="a-or"><svg class="ic"><use href="#file"/></svg></i>RUC</div>
+            <div class="app"><i class="a-vi hl-o"><svg class="ic"><use href="#book"/></svg></i><b>Diccionario Legal</b></div><div class="app"><i class="a-bl"><svg class="ic"><use href="#search"/></svg></i>Reclutamiento</div>
+          </div></div>
+      </div><span class="arrow" style="right:120px;bottom:36px;width:36px;height:36px;transform:rotate(90deg)"><svg><use href="#arrow"/></svg></span></div>
+    </div>
+  </div>
+  <div class="ft"><span>Soluciones inteligentes para un mejor futuro</span><span class="r">Grupo iPartner<span class="pn">12</span></span></div>
+</section>
+
+<!-- ============ 13 QUÉ SIGNIFICA MI CÓDIGO 3-4 (UI nueva) ============ -->
+<section class="page">
+  <div class="hd"><img class="logo" src="assets/logo-color.png" alt="ipartner"><div class="sec"><b>Manual de usuario</b>Código de postulación</div></div>
+  <div class="eyebrow">Interpretación del código de postulación</div>
+  <h1>¿Qué significa mi <span class="gw">código?</span></h1>
+  <p class="lead">Continúa con estos pasos para consultar el significado de tu código de postulación.</p>
+  <div class="stack" style="margin-top:24px">
+    <div class="card step">
+      <div class="num">03</div><div><h3>Selecciona “Código de postulación”</h3><p>Dentro del Diccionario Legal, elige la pestaña <span class="q">“Código de postulación”</span>. Esta opción te permitirá buscar la interpretación exacta del código mostrado en tu reporte.</p></div>
+      <div class="full" style="border:1px solid var(--line);border-radius:14px;overflow:hidden;position:relative"><div class="modal">
+        <div class="mh"><span class="mi"><svg class="ic"><use href="#book"/></svg></span><div><b>Diccionario Legal</b><small>Consulta procesos, partes, estados y códigos usados en los reportes.</small></div><div class="x"><span><svg class="ic"><use href="#x"/></svg></span></div></div>
+        <div class="tabs"><span>Proceso</span><span>Tipo de parte</span><span>Estado</span><span class="on-d hl-o">Código de postulación</span><span>Código AX</span></div>
+        <div style="display:flex;gap:10px;align-items:center;margin-top:12px"><div class="inp" style="flex:1;padding:11px 10px"><span class="fl">Ingrese código de postulación</span>&nbsp;</div><span class="pbtn" style="padding:10px 22px"><svg class="ic"><use href="#search"/></svg>Buscar</span></div>
+      </div><span class="arrow" style="right:150px;top:56px;width:34px;height:34px;transform:rotate(-90deg)"><svg><use href="#arrow"/></svg></span></div>
+    </div>
+    <div class="card step">
+      <div class="num">04</div><div><h3>Ingresa el código y haz clic en Buscar</h3><p>Pega el código completo en el campo correspondiente y luego selecciona el botón <span class="q">“Buscar”</span> para visualizar su significado.</p></div>
+      <div class="full" style="border:1px solid var(--line);border-radius:14px;overflow:hidden;position:relative"><div class="modal">
+        <div class="mh"><span class="mi"><svg class="ic"><use href="#book"/></svg></span><div><b>Diccionario Legal</b><small>Consulta procesos, partes, estados y códigos usados en los reportes.</small></div><div class="x"><span><svg class="ic"><use href="#x"/></svg></span></div></div>
+        <div class="tabs"><span>Proceso</span><span>Tipo de parte</span><span>Estado</span><span class="on-d">Código de postulación</span><span>Código AX</span></div>
+        <div style="display:flex;gap:10px;align-items:center;margin-top:12px"><div class="inp hl-o" style="flex:1;padding:11px 10px;color:#2b2840;font-weight:600;font-size:10.5px"><span class="fl">Ingrese código de postulación</span>AF20160F-PRO/12016-VS</div><span class="pbtn hl-o" style="padding:10px 22px"><svg class="ic"><use href="#search"/></svg>Buscar</span></div>
+      </div></div>
+    </div>
+  </div>
+  <div class="ft"><span>Soluciones inteligentes para un mejor futuro</span><span class="r">Grupo iPartner<span class="pn">13</span></span></div>
+</section>
+
+<!-- ============ 14 INTERPRETA TU CÓDIGO ============ -->
+<section class="page">
+  <div class="hd"><img class="logo" src="assets/logo-color.png" alt="ipartner"><div class="sec"><b>Manual de usuario</b>Código de postulación</div></div>
+  <div class="eyebrow">Interpretación del código de postulación</div>
+  <h1>¿Qué significa mi <span class="gw">código?</span></h1>
+  <p class="lead">Finalmente, el sistema mostrará el significado de cada segmento del código consultado.</p>
+  <div class="card step" style="margin-top:24px">
+    <div class="num">05</div><div><h3>Interpreta el significado de tu código</h3><p>La plataforma mostrará el detalle de cada segmento. Esta interpretación te ayudará a identificar la <b>observación más relevante</b> del evaluado.</p></div>
+    <div class="full">
+      <div class="codeline"><span>A</span><span>F</span><span>2016</span><span>0F</span><span>PRO</span><span>1</span><span>2016</span><span>VS</span></div>
+      <table class="mt">
+        <thead><tr><th>Código</th><th>Significado</th></tr></thead>
+        <tbody>
+          <tr><td>A</td><td>Observación con nivel de gravedad alta</td></tr>
+          <tr><td>F</td><td>Tipo de referencia de familia</td></tr>
+          <tr><td>2016</td><td>Registro de la observación con mayor gravedad del último año</td></tr>
+          <tr><td>0F</td><td>No presenta registros negativos en flagrancia</td></tr>
+          <tr><td>PRO</td><td>Presenta estado en proceso</td></tr>
+          <tr><td>1</td><td>Total de registros observados en cualquier tipo de especialidad</td></tr>
+          <tr><td>2016</td><td>Último año que presenta registro negativo</td></tr>
+          <tr><td>VS</td><td>Violación a la libertad sexual</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="tip" style="margin-top:18px"><svg class="ic"><use href="#bulb"/></svg><span>La interpretación del código resume la <b>observación más importante</b> identificada en el evaluado.</span></div>
+  <div class="ft"><span>Soluciones inteligentes para un mejor futuro</span><span class="r">Grupo iPartner<span class="pn">14</span></span></div>
+</section>
+
+<!-- ============ 15 CÓDIGO AX ============ -->
+<section class="page">
+  <div class="hd"><img class="logo" src="assets/logo-color.png" alt="ipartner"><div class="sec"><b>Manual de usuario</b>Código AX</div></div>
+  <div class="eyebrow">Nuevo</div>
+  <h1>Código <span class="gw">AX</span></h1>
+  <p class="lead">Cuando el evaluado presenta más de una observación, el reporte muestra además un <b>código AX</b> que reúne toda la información en un solo código.</p>
+  <div style="margin-top:28px"><span class="pill"><svg class="ic"><use href="#search"/></svg>Tipo de postulación IA · Código AX</span></div>
+  <div class="laptop" style="margin-top:30px;position:relative"><div class="scr"><div class="report">
+    <div class="rp"><div class="h">IDENTIDAD</div><div class="ident"><div class="age">28<small>años</small></div><div class="vbar">F. Nac.: 22/07/1998</div><div class="chips"><span></span><span>QUISPE QUISPE</span><span>DNI: 28••••••</span></div></div></div>
+    <div class="rp"><div class="h">TIPO DE POSTULACIÓN IA · CÓDIGO AX <svg class="ic" style="color:#8a2be2;width:16px;height:16px"><use href="#spark"/></svg></div>
+      <div class="scale"><svg class="pin" style="left:10%"><use href="#pin"/></svg><div class="s1">1</div><div class="s2">2</div><div class="s3">3</div><div class="sh">H</div><div class="spm">PM</div></div>
+      <svg class="flag" style="top:46px"><use href="#flagr"/></svg>
+      <div class="legend"><span><i style="background:#14b08a"></i>Masiva</span><span><i style="background:#5a1d86"></i>Interna</span><span><i style="background:#ff8a1f"></i>Mixta</span><span><i style="background:#c9c9cf"></i>Ejecutiva</span><span><i style="background:#1e2fe6"></i>Especial</span></div>
+      <div class="code hl-o"><span>Código AX: AGQTBKZ2QN72VNRRNP5CNGRGFI</span><svg class="ic" style="color:#4a3ccf;width:14px;height:14px"><use href="#copy"/></svg></div></div>
+    <div class="ghost"><div class="row"><span class="av"></span><span class="ln"></span><span class="ln"></span><span class="ln"></span><span class="ln"></span></div><div class="row"><span class="av"></span><span class="ln"></span><span class="ln"></span><span class="ln"></span><span class="ln"></span></div></div>
+  </div></div><div class="base"></div>
+  <span class="arrow" style="right:-14px;top:206px;transform:rotate(-90deg)"><svg><use href="#arrow"/></svg></span></div>
+  <div class="ft"><span>Soluciones inteligentes para un mejor futuro</span><span class="r">Grupo iPartner<span class="pn">15</span></span></div>
+</section>
+
+<!-- ============ 16 AX 01-02 ============ -->
+<section class="page">
+  <div class="hd"><img class="logo" src="assets/logo-color.png" alt="ipartner"><div class="sec"><b>Manual de usuario</b>Código AX</div></div>
+  <div class="eyebrow">Interpretación del código AX</div>
+  <h1>¿Qué significa mi código <span class="gw">AX?</span></h1>
+  <p class="lead">Sigue estos pasos para interpretar tu código AX y comprender el significado de las observaciones mostradas en el reporte.</p>
+  <div class="stack" style="margin-top:24px">
+    <div class="card step">
+      <div class="num">01</div><div><h3>Copia tu código AX</h3><p>Ubica el código AX en tu reporte y cópialo <b>exactamente como aparece</b>. Este es el código que consultaremos en el Diccionario Legal.</p></div>
+      <div class="full" style="background:#f3f2f8;border-radius:14px;padding:16px 20px;position:relative">
+        <div class="scale" style="margin:22px 0 6px"><svg class="pin" style="left:50%;margin-left:-10px"><use href="#pin"/></svg><div class="s1">1</div><div class="s2">2A</div><div class="s3">3M</div><div class="sh">H</div><div class="spm">PM</div></div>
+        <div class="legend" style="padding:0"><span><i style="background:#14b08a"></i>Masiva</span><span><i style="background:#5a1d86"></i>Interna</span><span><i style="background:#ff8a1f"></i>Mixta</span><span><i style="background:#c9c9cf"></i>Ejecutiva</span><span><i style="background:#1e2fe6"></i>Especial</span></div>
+        <div style="font-size:10.5px;margin-top:12px;line-height:1.7;color:#2b2840">(2A) Código IA: ADEN20230R-2/2023<br>(3M) Código IA: MP20170E-PRO/120171-S</div>
+        <div class="code" style="margin:8px 0 0;background:#fff;font-size:11px;padding:10px 12px"><span>Código AX: AGQTBKZ2QN72VNRRNP5CNGRGFI</span><svg class="ic hl-o" style="color:#4a3ccf;border-radius:5px;padding:2px;width:22px;height:22px"><use href="#copy"/></svg></div>
+        <span class="tag" style="right:20px;top:-12px">Copia el código</span>
+      </div>
+    </div>
+    <div class="card step">
+      <div class="num">02</div><div><h3>Ingresa al Diccionario Legal</h3><p>En la pantalla de inicio, selecciona el ícono <span class="q">“Diccionario Legal”</span> para consultar el significado de tu código AX.</p></div>
+      <div class="full" style="border-radius:14px;overflow:hidden;position:relative"><div class="home wood" style="grid-template-columns:.8fr 1.7fr;padding:14px 16px">
+        <div class="wcol"><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><div class="w"><div class="big">12:27</div>Lunes, 12 de octubre</div><div class="w wx" style="background:#2d4a73"><div style="font-size:7px">Lima, Perú</div><div class="big" style="color:#fff">25 °C</div></div></div>
+          <div class="w"><b>Novedades de la plataforma</b><div style="color:#999;text-align:center;margin:8px 0">No hay comunicados vigentes.</div></div></div>
+        <div><div class="search"><svg class="ic"><use href="#search"/></svg>Buscar DNI</div>
+          <div class="apps">
+            <div class="app"><i class="a-or"><svg class="ic"><use href="#star"/></svg></i>ZETA</div><div class="app"><i class="a-or"><svg class="ic"><use href="#star"/></svg></i>Clásico</div><div class="app"><i class="a-vi"><svg class="ic"><use href="#book"/></svg></i>Premium IA</div><div class="app"><i class="a-or"><svg class="ic"><use href="#star"/></svg></i>Básico Plus</div><div class="app"><i class="a-or"><svg class="ic"><use href="#star"/></svg></i>VIP</div>
+            <div class="app"><i class="a-gr"><svg class="ic"><use href="#building"/></svg></i>Empresarial</div><div class="app"><i class="a-tl"><svg class="ic"><use href="#globe"/></svg></i>Extranjero</div><div class="app"><i class="a-or"><svg class="ic"><use href="#file"/></svg></i>RUC</div>
+            <div class="app"><i class="a-vi hl-o"><svg class="ic"><use href="#book"/></svg></i><b>Diccionario Legal</b></div><div class="app"><i class="a-bl"><svg class="ic"><use href="#search"/></svg></i>Reclutamiento</div>
+          </div></div>
+      </div><span class="arrow" style="right:120px;bottom:36px;width:36px;height:36px;transform:rotate(90deg)"><svg><use href="#arrow"/></svg></span></div>
+    </div>
+  </div>
+  <div class="ft"><span>Soluciones inteligentes para un mejor futuro</span><span class="r">Grupo iPartner<span class="pn">16</span></span></div>
+</section>
+
+<!-- ============ 17 AX 03-04 ============ -->
+<section class="page">
+  <div class="hd"><img class="logo" src="assets/logo-color.png" alt="ipartner"><div class="sec"><b>Manual de usuario</b>Código AX</div></div>
+  <div class="eyebrow">Interpretación del código AX</div>
+  <h1>¿Qué significa mi código <span class="gw">AX?</span></h1>
+  <p class="lead">Continúa con estos pasos para consultar el significado de tu código AX.</p>
+  <div class="stack" style="margin-top:24px">
+    <div class="card step">
+      <div class="num">03</div><div><h3>Selecciona “Código AX”</h3><p>Dentro del Diccionario Legal, elige la pestaña <span class="q">“Código AX”</span>. Esta opción te permitirá buscar la interpretación exacta del código mostrado en tu reporte.</p></div>
+      <div class="full" style="border:1px solid var(--line);border-radius:14px;overflow:hidden;position:relative"><div class="modal">
+        <div class="mh"><span class="mi"><svg class="ic"><use href="#book"/></svg></span><div><b>Diccionario Legal</b><small>Consulta procesos, partes, estados y códigos usados en los reportes.</small></div><div class="x"><span><svg class="ic"><use href="#x"/></svg></span></div></div>
+        <div class="tabs"><span>Proceso</span><span>Tipo de parte</span><span>Estado</span><span>Código de postulación</span><span class="on-d hl-o">Código AX</span></div>
+        <div style="display:flex;gap:10px;align-items:center;margin-top:12px"><div class="inp" style="flex:1;padding:11px 10px"><span class="fl">Ingrese código AX</span>&nbsp;</div><span class="pbtn" style="padding:10px 22px"><svg class="ic"><use href="#search"/></svg>Buscar</span></div>
+      </div><span class="arrow" style="right:40px;top:56px;width:34px;height:34px;transform:rotate(-90deg)"><svg><use href="#arrow"/></svg></span></div>
+    </div>
+    <div class="card step">
+      <div class="num">04</div><div><h3>Ingresa el código y haz clic en Buscar</h3><p>Pega el código completo en el campo correspondiente y luego selecciona el botón <span class="q">“Buscar”</span> para visualizar su significado.</p></div>
+      <div class="full" style="border:1px solid var(--line);border-radius:14px;overflow:hidden"><div class="modal">
+        <div class="mh"><span class="mi"><svg class="ic"><use href="#book"/></svg></span><div><b>Diccionario Legal</b><small>Consulta procesos, partes, estados y códigos usados en los reportes.</small></div><div class="x"><span><svg class="ic"><use href="#x"/></svg></span></div></div>
+        <div class="tabs"><span>Proceso</span><span>Tipo de parte</span><span>Estado</span><span>Código de postulación</span><span class="on-d">Código AX</span></div>
+        <div style="display:flex;gap:10px;align-items:center;margin-top:12px"><div class="inp hl-o" style="flex:1;padding:11px 10px;color:#2b2840;font-weight:600;font-size:10.5px"><span class="fl">Ingrese código AX</span>AGQTBKZ2QN72VNRRNP5CNGRGFI</div><span class="pbtn hl-o" style="padding:10px 22px"><svg class="ic"><use href="#search"/></svg>Buscar</span></div>
+      </div></div>
+    </div>
+  </div>
+  <div class="ft"><span>Soluciones inteligentes para un mejor futuro</span><span class="r">Grupo iPartner<span class="pn">17</span></span></div>
+</section>
+
+<!-- ============ 18 AX 05-06 ============ -->
+<section class="page">
+  <div class="hd"><img class="logo" src="assets/logo-color.png" alt="ipartner"><div class="sec"><b>Manual de usuario</b>Código AX</div></div>
+  <div class="eyebrow">Interpretación del código AX</div>
+  <h1>¿Qué significa mi código <span class="gw">AX?</span></h1>
+  <p class="lead">Finalmente, el sistema mostrará el significado de cada segmento del código AX.</p>
+  <div class="stack" style="margin-top:24px">
+    <div class="card step">
+      <div class="num">05</div><div><h3>Visualiza la información del código AX</h3><p>Luego de realizar la búsqueda, la plataforma mostrará el resumen de cada segmento del código. Esta interpretación te ayudará a identificar la observación más relevante del evaluado.</p></div>
+      <div class="full" style="background:#f7f6fb;border-radius:14px;padding:18px">
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;text-align:center">
+          <div><div class="badge" style="color:#e07a00;border-color:#ffb066">CONFIDENCIAL</div><small class="bn"><svg class="ic"><use href="#lock"/></svg>Si lo comparte puede ser despedido.</small></div>
+          <div><div class="badge" style="color:#6a3fd0;border-color:#a98af0">NO IMPRIMIR</div><small class="bn"><svg class="ic"><use href="#lock"/></svg>Si lo imprime recibirá un memo.</small></div>
+          <div><div class="badge" style="color:#e0204f;border-color:#f58aa4">NO VÁLIDO</div><small class="bn"><svg class="ic"><use href="#lock"/></svg>Debe solicitar Certiadulto del titular.</small></div>
+        </div>
+        <div class="kpis"><div><b>3</b>Total</div><div><b>0</b>DP</div><div><b>0</b>R</div><div><b>1</b>RP</div><div><b>0</b>RC</div><div><b>0</b>RF</div><div><b>0</b>I</div><div><b>0</b>DJ</div><div><b>2</b>Detalle 1</div></div>
+        <div style="font-size:10.5px;margin-top:12px;color:#4b4763">Código AX consultado (anexo preliminar): <b style="color:#17122b">AGQTBKZ2QN72VNRRNP5CNGRGFI</b></div>
+      </div>
+    </div>
+    <div class="card step">
+      <div class="num">06</div><div><h3>Revisa el detalle de cada segmento</h3><p>En la parte inferior, el sistema mostrará el detalle de cada segmento del código AX con su <b>descripción, fecha, tipificación y lugar del hecho</b>.</p></div>
+    </div>
+  </div>
+  <div class="tip" style="margin-top:18px"><svg class="ic"><use href="#bulb"/></svg><span>La interpretación del código AX resume la <b>observación más importante</b> identificada en el evaluado.</span></div>
+  <div class="ft"><span>Soluciones inteligentes para un mejor futuro</span><span class="r">Grupo iPartner<span class="pn">18</span></span></div>
+</section>
+
+<!-- ============ 19 CONSULTAS ASÍNCRONAS (intro) ============ -->
+<section class="page">
+  <div class="halo" style="width:560px;height:560px;right:-160px;top:60px"></div>
+  <img class="jaina" src="assets/jaina-p20.jpg" alt="Jaina presentando las consultas asíncronas" style="right:-10px;top:120px;width:320px;height:420px;object-position:70% top">
+  <div class="hd"><img class="logo" src="assets/logo-color.png" alt="ipartner"><div class="sec"><b>Manual de usuario</b>Consultas asíncronas</div></div>
+  <div style="max-width:390px">
+    <div class="eyebrow">Consultas masivas</div>
+    <h1 style="font-size:46px">Consultas<br><span class="gr">asíncronas</span></h1>
+    <div class="bar"></div>
+    <p class="lead">Realiza consultas masivas de forma ágil, ordenada y sin interrumpir tu trabajo en la plataforma.</p>
+    <div class="card" style="padding:20px 22px;margin-top:24px"><p style="font-size:13px">Las <b>consultas asíncronas</b> te permiten procesar grandes volúmenes de información de manera masiva. Puedes enviar <b>bloques de hasta 500 consultas</b> y dejar que el sistema las procese en segundo plano, mientras sigues navegando o realizando otras acciones dentro de la plataforma.</p></div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px">
+    <div class="card" style="padding:22px 20px"><div class="num">01</div><h3 style="margin-top:14px">Hasta 500 consultas por bloque</h3><p style="margin-top:6px">Agrupa tus consultas en un solo bloque para ejecutar procesos masivos de forma más rápida y organizada.</p>
+      <div class="stat"><svg class="ic"><use href="#files"/></svg><span><b>500</b> consultas</span></div></div>
+    <div class="card" style="padding:22px 20px"><div class="num">02</div><h3 style="margin-top:14px">Procesamiento en segundo plano</h3><p style="margin-top:6px">Una vez iniciada la ejecución, la plataforma seguirá procesando sin detener tu navegación ni tus demás consultas.</p>
+      <div class="stat"><svg class="ic"><use href="#refresh"/></svg><span><b>Segundo</b> plano</span></div></div>
+    <div class="card" style="padding:22px 20px"><div class="num">03</div><h3 style="margin-top:14px">Resultados listos para descargar</h3><p style="margin-top:6px">Al finalizar, obtendrás <b>2 archivos ZIP</b> de resultados y <b>1 Excel</b> resumen, listos para su descarga y revisión.</p>
+      <div class="stat"><svg class="ic"><use href="#download"/></svg><span><b>2 ZIP</b> + 1 Excel</span></div></div>
+  </div>
+  <div class="tip" style="margin-top:18px;background:#fff;box-shadow:var(--shadow)"><svg class="ic" style="background:var(--g-badge);color:#fff"><use href="#list"/></svg><span><b>A continuación</b>, veremos paso a paso cómo realizar tus consultas asíncronas.</span></div>
+  <div class="ft"><span>Soluciones inteligentes para un mejor futuro</span><span class="r">Grupo iPartner<span class="pn">19</span></span></div>
+</section>
+
+<!-- ============ 20 CÓMO ACCEDO ============ -->
+<section class="page">
+  <div class="hd"><img class="logo" src="assets/logo-color.png" alt="ipartner"><div class="sec"><b>Manual de usuario</b>Consultas asíncronas</div></div>
+  <div class="eyebrow">Consultas asíncronas</div>
+  <h1>¿Cómo accedo a <span class="gr">esta función?</span></h1>
+  <p class="lead">Sigue estos pasos para ubicar la función de consultas asíncronas e iniciar tus consultas masivas de forma rápida y sencilla.</p>
+  <div class="stack" style="margin-top:24px">
+    <div class="card step">
+      <div class="num">01</div><div><h3>Ubica la pantalla de inicio</h3><p>Al ingresar verás la nueva interfaz principal. Aquí encontrarás los <b>servicios que tienes contratados</b> y, si corresponde, los servicios de nuestro ecosistema digital activados para tu cuenta.</p></div>
+      <div class="full"><div class="laptop" style="width:88%;margin:0 auto"><div class="scr"><div class="home blue">
+        <div class="wcol"><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><div class="w"><div class="big">8:58</div>Mié, 15 de enero</div><div class="w wx"><div style="font-size:7px">Lima, Perú</div><div class="big" style="color:#fff">23 °C</div></div></div>
+          <div class="w"><b>Novedades de la plataforma</b><div class="ln"></div></div><div class="w"><b>Noticias relevantes</b><div class="ln"></div><div class="ln" style="width:70%"></div></div></div>
+        <div><div class="search"><svg class="ic"><use href="#search"/></svg>Buscar DNI</div><div class="apps">
+          <div class="app"><i class="a-or"><svg class="ic"><use href="#star"/></svg></i>ZETA</div><div class="app"><i class="a-or"><svg class="ic"><use href="#star"/></svg></i>Z. Básico</div><div class="app"><i class="a-or"><svg class="ic"><use href="#star"/></svg></i>Z. Básico Plus</div><div class="app"><i class="a-bl"><svg class="ic"><use href="#gem"/></svg></i>Z. Premium</div><div class="app"><i class="a-or"><svg class="ic"><use href="#star"/></svg></i>Z. VIP</div>
+          <div class="app"><i class="a-gr"><svg class="ic"><use href="#building"/></svg></i>Empresarial</div><div class="app"><i class="a-tl"><svg class="ic"><use href="#globe"/></svg></i>Extranjero</div><div class="app"><i class="a-or"><svg class="ic"><use href="#file"/></svg></i>RUC</div><div class="app"><i class="a-vi"><svg class="ic"><use href="#clock"/></svg></i>Historial</div><div class="app"><i class="a-bl"><svg class="ic"><use href="#hourglass"/></svg></i>Asíncrona</div></div></div>
+        <div class="dock"><i class="a-or"><svg class="ic"><use href="#home"/></svg></i><i class="a-vi"><svg class="ic"><use href="#shield"/></svg></i><i class="a-pk"><svg class="ic"><use href="#hourglass"/></svg></i><i class="a-bl"><svg class="ic"><use href="#monitor"/></svg></i><i class="a-gr"><svg class="ic"><use href="#bars"/></svg></i><i class="a-tl"><svg class="ic"><use href="#trend"/></svg></i></div>
+      </div></div><div class="base"></div></div></div>
+    </div>
+    <div class="card step">
+      <div class="num">02</div><div><h3>Encuentra la opción Asíncrona</h3><p>Puedes ingresar de dos maneras: desde el <b>módulo principal</b> de la pantalla de inicio o desde la <b>barra de accesos rápidos</b> ubicada en la parte inferior. Ambas opciones te llevan a la misma funcionalidad.</p></div>
+      <div class="full" style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+        <div style="background:linear-gradient(160deg,#1b2a6b,#26389c);border-radius:14px;padding:18px;position:relative"><div class="apps" style="grid-template-columns:repeat(3,1fr)"><div class="app"><i class="a-vi"><svg class="ic"><use href="#clock"/></svg></i>Historial</div><div class="app"><i class="a-bl hl-o" style="width:40px;height:40px"><svg class="ic"><use href="#hourglass"/></svg></i><b>Asíncrona</b></div><div class="app"><i class="a-tl"><svg class="ic"><use href="#box"/></svg></i>Mis paquetes</div></div>
+          <span class="tag" style="position:static;display:inline-block;margin-top:12px;background:#fff;color:var(--indigo)">Desde el módulo principal</span></div>
+        <div style="background:linear-gradient(160deg,#1b2a6b,#26389c);border-radius:14px;padding:18px;display:flex;flex-direction:column;align-items:center;justify-content:center"><div class="dock" style="gap:8px;padding:7px 10px"><i class="a-or"><svg class="ic"><use href="#home"/></svg></i><i class="a-vi"><svg class="ic"><use href="#shield"/></svg></i><i class="a-pk hl-o"><svg class="ic"><use href="#hourglass"/></svg></i><i class="a-bl"><svg class="ic"><use href="#monitor"/></svg></i><i class="a-gr"><svg class="ic"><use href="#bars"/></svg></i></div>
+          <span class="tag" style="position:static;display:inline-block;margin-top:14px;background:#fff;color:var(--indigo)">Desde la barra de accesos rápidos</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="ft"><span>Soluciones inteligentes para un mejor futuro</span><span class="r">Grupo iPartner<span class="pn">20</span></span></div>
+</section>
+
+<!-- ============ 21 CONFIGURA TU SOLICITUD ============ -->
+<section class="page">
+  <div class="hd"><img class="logo" src="assets/logo-color.png" alt="ipartner"><div class="sec"><b>Manual de usuario</b>Consultas asíncronas</div></div>
+  <div class="eyebrow">Consultas asíncronas</div>
+  <h1>Configura tu <span class="gr">solicitud</span></h1>
+  <p class="lead">Una vez dentro de Asíncrona, selecciona tu servicio y prepara el archivo para iniciar tus consultas masivas.</p>
+  <div class="stack" style="margin-top:24px">
+    <div class="card step">
+      <div class="num">01</div><div><h3>Identifica tu servicio contratado</h3><p>La plataforma te mostrará la pantalla principal de carga masiva. En el <b>Paso 1</b>, selecciona el servicio que tienes habilitado. En este listado solo aparecerá el servicio contratado para tu cuenta.</p></div>
+      <div class="full" style="border:1px solid var(--line);border-radius:14px;overflow:hidden"><div class="modal" style="padding:16px 18px">
+        <div class="mh"><span class="mi"><svg class="ic"><use href="#hourglass"/></svg></span><div><b>Asíncrona</b><small>Consulta masiva</small></div><div class="x"><span><svg class="ic"><use href="#refresh"/></svg></span><span><svg class="ic"><use href="#x"/></svg></span></div></div>
+        <div class="tabs"><span class="on"><svg class="ic"><use href="#upload"/></svg>Nueva consulta masiva</span><span><svg class="ic"><use href="#hourglass"/></svg>Historial de consultas</span></div>
+        <div class="sect">Consulta masiva de personas asíncronas</div><div class="sub">Realiza los siguientes pasos para el envío masivo de tus consultas.</div>
+        <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:16px;align-items:end">
+          <div class="hl-o" style="padding:4px 8px 8px;border-radius:9px"><div class="lbl">PASO 1: Selecciona el servicio</div><div class="inp" style="color:#2b2840">Reporte ZETA<svg class="ic"><use href="#chev"/></svg></div></div>
+          <div><div class="lbl">PASO 2: Descarga la plantilla</div><span class="dl"><svg class="ic"><use href="#download"/></svg>Descargar plantilla Excel</span></div>
+        </div>
+        <div class="lbl">Datos de la solicitud</div><div class="inp" style="width:45%"><span class="fl">Centro de costo</span>Escribe para buscar<svg class="ic"><use href="#chev"/></svg></div>
+        <div class="lbl">PASO 3: Sube el archivo completado</div><div class="drop" style="padding:10px"><div class="u"><svg class="ic"><use href="#upload"/></svg></div>Subir archivo<small>Selecciona o arrastra un archivo .xls o .xlsx</small></div>
+        <div style="text-align:center;margin-top:10px"><span class="pbtn">Solicitar</span></div>
+      </div></div>
+    </div>
+    <div class="card step">
+      <div class="num">02</div><div><h3>Descarga la plantilla si la necesitas</h3><p>Si aún no cuentas con la plantilla, utiliza la opción del <b>Paso 2</b>: <span class="q">“Descargar plantilla Excel”</span>. Luego, completa el archivo con la información que vas a enviar.</p></div>
+      <div class="full tip"><svg class="ic"><use href="#info"/></svg><span>Si tu organización trabaja con <b>centro de costos</b>, deberás completar este campo dentro de “Datos de la solicitud”. Si no aplica para tu cuenta, esta opción no aparecerá.</span></div>
+    </div>
+  </div>
+  <div class="ft"><span>Soluciones inteligentes para un mejor futuro</span><span class="r">Grupo iPartner<span class="pn">21</span></span></div>
+</section>
+
+<!-- ============ 22 CARGA Y ENVÍA ============ -->
+<section class="page">
+  <div class="hd"><img class="logo" src="assets/logo-color.png" alt="ipartner"><div class="sec"><b>Manual de usuario</b>Consultas asíncronas</div></div>
+  <div class="eyebrow">Consultas asíncronas</div>
+  <h1>Carga y envía tu <span class="gr">archivo</span></h1>
+  <p class="lead">Completa la plantilla, súbela a la plataforma y solicita el procesamiento de tu consulta masiva.</p>
+  <div class="stack" style="margin-top:24px">
+    <div class="card split" style="grid-template-columns:1fr 1.15fr">
+      <div class="txt"><div class="num">03</div><h3>Sube la plantilla completada</h3>
+        <p>Carga el archivo en el <b>Paso 3</b>, arrastrándolo al recuadro o con la opción <span class="q">“Subir archivo”</span>. La plataforma admite archivos en formato <b>.xls o .xlsx</b>.</p></div>
+      <div style="border:1px solid var(--line);border-radius:14px;overflow:hidden"><div class="modal">
+        <div class="mh"><span class="mi"><svg class="ic"><use href="#hourglass"/></svg></span><div><b>Asíncrona</b><small>Consulta masiva</small></div><div class="x"><span><svg class="ic"><use href="#refresh"/></svg></span><span><svg class="ic"><use href="#x"/></svg></span></div></div>
+        <div class="lbl">Datos de la solicitud</div><div class="inp"><span class="fl">Centro de costo</span>Escribe para buscar<svg class="ic"><use href="#chev"/></svg></div>
+        <div class="hl-o" style="border-radius:10px;padding:2px 8px 8px;margin-top:8px"><div class="lbl">PASO 3: Sube el archivo completado</div><div class="drop"><div class="u"><svg class="ic"><use href="#upload"/></svg></div>Subir archivo<small>Selecciona o arrastra un archivo .xls o .xlsx</small></div></div>
+        <div style="text-align:center;margin-top:12px"><span class="pbtn">Solicitar</span></div></div></div>
+    </div>
+    <div class="card split" style="grid-template-columns:1fr 1.15fr">
+      <div class="txt"><div class="num">04</div><h3>Haz clic en Solicitar</h3>
+        <p>Con el archivo cargado, presiona <span class="q">“Solicitar”</span> para iniciar el proceso. Desde ese momento, la consulta se ejecutará <b>en segundo plano</b> y podrás seguir usando la plataforma mientras se generan los resultados.</p></div>
+      <div style="border:1px solid var(--line);border-radius:14px;overflow:hidden"><div class="modal">
+        <div class="lbl" style="margin-top:0">PASO 3: Sube el archivo completado</div>
+        <div class="drop" style="border-style:solid;border-color:#14A88A;color:#138a55"><div class="u" style="background:#e3f6ec"><svg class="ic"><use href="#check"/></svg></div>consulta_masiva.xlsx<small>Archivo listo para enviar</small></div>
+        <div style="text-align:center;margin-top:14px"><span class="pbtn hl-o" style="padding:10px 34px;font-size:11px">Solicitar</span></div></div></div>
+    </div>
+  </div>
+  <div class="tip" style="margin-top:18px"><svg class="ic"><use href="#info"/></svg><span><b>Recuerda:</b> si tu organización utiliza centro de costos, este dato debe completarse antes de enviar la solicitud.</span></div>
+  <div class="ft"><span>Soluciones inteligentes para un mejor futuro</span><span class="r">Grupo iPartner<span class="pn">22</span></span></div>
+</section>
+
+<!-- ============ 23 HISTORIAL ============ -->
+<section class="page">
+  <div class="hd"><img class="logo" src="assets/logo-color.png" alt="ipartner"><div class="sec"><b>Manual de usuario</b>Consultas asíncronas</div></div>
+  <div class="eyebrow">Consultas asíncronas</div>
+  <h1>¿Dónde veo las consultas <span class="gr">que he realizado?</span></h1>
+  <p class="lead">Desde el <b>Historial de consultas</b> podrás revisar tus envíos masivos, validar su estado y acceder a los archivos generados cuando el proceso haya finalizado.</p>
+  <div class="stack" style="margin-top:22px">
+    <div class="card step">
+      <div class="num">05</div><div><h3>Ingresa al historial de consultas</h3><p>Dentro del módulo <b>Asíncrona</b>, haz clic en la pestaña <span class="q">“Historial de consultas”</span> para ver el registro de tus solicitudes masivas.</p></div>
+      <div class="full" style="border:1px solid var(--line);border-radius:14px;overflow:hidden"><div class="modal">
+        <div class="mh"><span class="mi"><svg class="ic"><use href="#hourglass"/></svg></span><div><b>Asíncrona</b><small>Consulta masiva</small></div><div class="x"><span><svg class="ic"><use href="#refresh"/></svg></span><span><svg class="ic"><use href="#x"/></svg></span></div></div>
+        <div class="tabs" style="margin-bottom:0"><span class="on"><svg class="ic"><use href="#upload"/></svg>Nueva consulta masiva</span><span class="hl-o"><svg class="ic"><use href="#hourglass"/></svg>Historial de consultas</span></div>
+      </div></div>
+    </div>
+    <div class="card step">
+      <div class="num">06</div><div><h3>Revisa tus consultas realizadas</h3><p>Por defecto verás las búsquedas del día. Para revisar consultas anteriores, selecciona el <b>rango de fechas</b> y haz clic en <span class="q">“Buscar”</span>.</p></div>
+      <div class="full" style="border:1px solid var(--line);border-radius:14px;overflow:hidden"><div class="modal">
+        <div class="sect">Historial de consultas asíncronas</div><div class="sub">Lista en detalle del historial de consultas asíncronas.</div>
+        <div class="hl-o" style="display:inline-flex;gap:8px;align-items:center;padding:8px;border-radius:9px;margin-top:10px">
+          <div class="inp" style="width:120px"><span class="fl">Fecha desde</span>13/10/2026<svg class="ic"><use href="#cal"/></svg></div>
+          <div class="inp" style="width:120px"><span class="fl">Fecha hasta</span>13/10/2026<svg class="ic"><use href="#cal"/></svg></div>
+          <span class="pbtn"><svg class="ic"><use href="#search"/></svg>Buscar</span></div>
+        <table class="ht"><thead><tr><th>N.°</th><th>Servicio</th><th>Archivo</th><th>Registros</th><th>Estado</th><th>Fecha</th><th>Acciones</th></tr></thead>
+          <tbody><tr><td>1</td><td>Consulta ZETA</td><td>FBI.xlsx</td><td>5 / 5</td><td><span class="ok">Completado</span></td><td>Hoy, 09:40</td><td><div class="acts"><span><svg class="ic"><use href="#download"/></svg></span><span><svg class="ic"><use href="#mail"/></svg></span><span><svg class="ic"><use href="#file"/></svg></span></div></td></tr>
+          <tr><td>2</td><td>Verificación Empresarial</td><td>FBI.xlsx</td><td>3 / 3</td><td><span class="ok">Completado</span></td><td>Hoy, 08:51</td><td><div class="acts"><span><svg class="ic"><use href="#download"/></svg></span><span><svg class="ic"><use href="#mail"/></svg></span><span><svg class="ic"><use href="#file"/></svg></span></div></td></tr></tbody></table>
+      </div></div>
+    </div>
+  </div>
+  <div class="tip" style="margin-top:16px"><svg class="ic"><use href="#bulb"/></svg><span><b>Tip:</b> utiliza el filtro de fechas para ubicar consultas anteriores de forma rápida.</span></div>
+  <div class="ft"><span>Soluciones inteligentes para un mejor futuro</span><span class="r">Grupo iPartner<span class="pn">23</span></span></div>
+</section>
+
+<!-- ============ 24 ACCIONES ============ -->
+<section class="page">
+  <div class="hd"><img class="logo" src="assets/logo-color.png" alt="ipartner"><div class="sec"><b>Manual de usuario</b>Consultas asíncronas</div></div>
+  <div class="eyebrow">Consultas asíncronas</div>
+  <h1>¿Qué encuentro en la <span class="gr">columna Acciones?</span></h1>
+  <p class="lead">Cuando tu consulta haya finalizado, en el historial podrás revisar su estado y acceder a los archivos generados desde la columna <span class="q">“Acciones”</span>.</p>
+  <div class="stack" style="margin-top:22px">
+    <div class="card step">
+      <div class="num">07</div><div><h3>Ubica tus resultados</h3><p>En el historial, identifica la fila del proceso completado. A la derecha, en la columna <span class="q">“Acciones”</span>, encontrarás los accesos para descargar y revisar la información generada.</p></div>
+      <div class="full" style="border:1px solid var(--line);border-radius:14px;overflow:hidden"><div class="modal">
+        <table class="ht" style="margin-top:0"><thead><tr><th>N.°</th><th>Servicio</th><th>Archivo</th><th>Registros</th><th>Estado</th><th>Fecha</th><th>Acciones</th></tr></thead>
+          <tbody><tr><td>1</td><td>Consulta ZETA</td><td>FBI.xlsx</td><td>5 / 5</td><td><span class="ok">Completado</span></td><td>Hoy, 09:40</td><td><div class="acts hl-o" style="border-radius:7px;padding:2px"><span><svg class="ic"><use href="#download"/></svg></span><span><svg class="ic"><use href="#mail"/></svg></span><span><svg class="ic"><use href="#file"/></svg></span></div></td></tr>
+          <tr><td>2</td><td>Verificación Empresarial</td><td>FBI.xlsx</td><td>3 / 3</td><td><span class="ok">Completado</span></td><td>Hoy, 08:51</td><td><div class="acts hl-o" style="border-radius:7px;padding:2px"><span><svg class="ic"><use href="#download"/></svg></span><span><svg class="ic"><use href="#mail"/></svg></span><span><svg class="ic"><use href="#file"/></svg></span><span class="hm"><svg class="ic"><use href="#userx"/></svg></span></div></td></tr></tbody></table>
+      </div></div>
+    </div>
+    <div class="card step">
+      <div class="num">08</div><div><h3>Identifica cada archivo generado</h3><p>Al finalizar la consulta se habilitan tres accesos principales: <b>dos archivos ZIP</b> de resultados y <b>un Excel resumen</b>. Si el sistema detecta una homonimia, aparecerá además un cuarto botón para realizar el descarte.</p></div>
+      <div class="full" style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div class="act"><span><svg class="ic"><use href="#download"/></svg></span><div><h3>Descarga de reportes</h3><p>Descarga los reportes generados en formato ZIP.</p></div></div>
+        <div class="act"><span><svg class="ic"><use href="#mail"/></svg></span><div><h3>Envío de anexos</h3><p>Remite los anexos al correo electrónico asociado a la cuenta.</p></div></div>
+        <div class="act"><span><svg class="ic"><use href="#file"/></svg></span><div><h3>Excel resumen</h3><p>Descarga el archivo consolidado con el resumen de la consulta.</p></div></div>
+        <div class="act hm"><span><svg class="ic"><use href="#userx"/></svg></span><div><h3>Descarte de homonimia</h3><p>Solo aparece si se detecta una homonimia y permite gestionar su descarte.</p></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="tip" style="margin-top:16px"><svg class="ic"><use href="#bulb"/></svg><span><b>Importante:</b> revisa siempre el estado de la consulta antes de descargar los archivos, para asegurarte de que el proceso haya finalizado correctamente.</span></div>
+  <div class="ft"><span>Soluciones inteligentes para un mejor futuro</span><span class="r">Grupo iPartner<span class="pn">24</span></span></div>
+</section>
+
+<!-- ============ 25 RECORDATORIO ============ -->
+<section class="page">
+  <div class="halo" style="width:560px;height:560px;left:-180px;top:330px"></div>
+  <img class="jaina" src="assets/jaina-p26.jpg" alt="Jaina con recordatorios para las consultas asíncronas" style="left:-10px;top:440px;width:380px;height:440px;object-position:top">
+  <div class="hd"><img class="logo" src="assets/logo-color.png" alt="ipartner"><div class="sec"><b>Manual de usuario</b>Consultas asíncronas</div></div>
+  <div class="eyebrow">Consejos para tus consultas asíncronas</div>
+  <h1>Recordatorio<br><span class="gw">importante</span></h1>
+  <div class="bar"></div>
+  <p class="lead" style="max-width:330px">Antes, durante y después de enviar tus consultas masivas, toma en cuenta estas recomendaciones para trabajar de forma correcta, ágil y sin contratiempos.</p>
+  <div class="bubble" style="position:absolute;left:52px;top:376px;width:250px;font-family:Sora;font-weight:600;font-size:14px"><span style="color:#ffc58f">Jaina</span> te recuerda estos puntos muy importantes:</div>
+  <div class="stack" style="position:absolute;right:52px;top:250px;width:350px;gap:12px">
+    <div class="card" style="padding:18px 20px;display:flex;gap:14px"><div class="ibadge warm" style="width:42px;height:42px;flex:none"><svg class="ic"><use href="#file"/></svg></div><div><h3 style="font-size:14.5px">01 · Verifica tu plantilla</h3><p style="margin-top:4px">Completa correctamente el archivo Excel y evita modificar la estructura de la plantilla descargada.</p></div></div>
+    <div class="card" style="padding:18px 20px;display:flex;gap:14px"><div class="ibadge" style="width:42px;height:42px;flex:none"><svg class="ic"><use href="#sliders"/></svg></div><div><h3 style="font-size:14.5px">02 · Selecciona el servicio correcto</h3><p style="margin-top:4px">Antes de enviar la solicitud, asegúrate de elegir el servicio contratado y, si aplica, el centro de costos correspondiente.</p></div></div>
+    <div class="card" style="padding:18px 20px;display:flex;gap:14px"><div class="ibadge teal" style="width:42px;height:42px;flex:none"><svg class="ic"><use href="#clock"/></svg></div><div><h3 style="font-size:14.5px">03 · Se procesa en segundo plano</h3><p style="margin-top:4px">Mientras las consultas se ejecutan, puedes seguir navegando y realizar otras gestiones sin interrumpir el proceso.</p></div></div>
+    <div class="card" style="padding:18px 20px;display:flex;gap:14px"><div class="ibadge warm" style="width:42px;height:42px;flex:none"><svg class="ic"><use href="#bars"/></svg></div><div><h3 style="font-size:14.5px">04 · Revisa tus resultados</h3><p style="margin-top:4px">Al finalizar, encontrarás 2 archivos ZIP y 1 Excel resumen. Si aparece una homonimia, usa la opción de descarte o comunícate con tu sectorista.</p></div></div>
+  </div>
+  <div class="card" style="margin-top:auto;margin-bottom:22px;padding:20px 24px;display:flex;gap:18px;align-items:center;background:linear-gradient(135deg,#17122b,#3a2781);border:0;color:#fff">
+    <div class="ibadge warm"><svg class="ic"><use href="#bulb"/></svg></div>
+    <div><h3 style="color:#fff">Recuerda</h3><p style="font-size:12.5px;opacity:.85;margin-top:3px">Una buena carga de información te ayudará a obtener resultados más ordenados y oportunos.</p></div>
+  </div>
+  <div class="ft" style="margin-top:0"><span>Soluciones inteligentes para un mejor futuro</span><span class="r">Grupo iPartner<span class="pn">25</span></span></div>
+</section>
+
+<!-- ============ 26 CONTRAPORTADA ============ -->
+<section class="page" style="background:linear-gradient(160deg,#17122b 0%,#3a2781 55%,#85207b 100%);color:#fff;justify-content:center;align-items:center;text-align:center">
+  <img src="assets/logo-white.png" alt="ipartner" style="width:280px;filter:brightness(0) invert(1)">
+  <div class="bar" style="margin:40px auto 0;width:72px"></div>
+  <h1 style="color:#fff;font-size:38px;margin-top:36px">¿Tienes dudas?</h1>
+  <p class="lead" style="color:rgba(255,255,255,.82);text-align:center;margin:14px auto 0;max-width:430px">Comunícate con tu sectorista asignado. Estaremos encantados de ayudarte a sacar el máximo provecho de la plataforma.</p>
+  <div style="margin-top:34px;display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:10px 20px;font-family:Sora;font-weight:600;font-size:14px"><svg class="ic"><use href="#globe"/></svg>rrhh-pe.net</div>
+  <div style="position:absolute;bottom:34px;left:0;right:0;font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.6)">Soluciones inteligentes para un mejor futuro · Grupo iPartner</div>
+</section>
+
+</body>
+</html>
