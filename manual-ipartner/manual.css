@@ -233,3 +233,5 @@ table.mt{width:100%;border-collapse:separate;border-spacing:0;border-radius:12px
 .scale div:first-of-type{border-radius:8px 0 0 8px}.scale div:last-child{border-radius:0 8px 8px 0}
 .arrow{display:none}
 .jaina{-webkit-mask-image:radial-gradient(ellipse 72% 78% at 55% 38%,#000 62%,transparent 100%);mask-image:radial-gradient(ellipse 72% 78% at 55% 38%,#000 62%,transparent 100%)}
+.jaina{-webkit-mask-image:radial-gradient(ellipse 95% 92% at 55% 42%,#000 68%,transparent 100%);mask-image:radial-gradient(ellipse 95% 92% at 55% 42%,#000 68%,transparent 100%)}
+.jaina{-webkit-mask-image:linear-gradient(to bottom,#000 82%,transparent 100%);mask-image:linear-gradient(to bottom,#000 82%,transparent 100%);filter:drop-shadow(0 20px 30px rgba(58,39,129,.18))}
