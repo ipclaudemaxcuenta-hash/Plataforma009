@@ -1448,7 +1448,7 @@ html body .puntos-pag{gap:8px!important;display:flex!important;align-items:cente
 html body nav{padding-top:5px!important;padding-bottom:5px!important}
 html body nav .nav-item{height:72px!important;gap:6px!important}
 html body nav .nav-chip{width:42px!important;height:42px!important;flex:0 0 42px!important}
-</style><style id="marco-acciones">html body .marca-acc{box-sizing:border-box!important;padding:5px 10px!important;border-radius:999px!important;border:1px solid rgba(255,255,255,.9)!important;background:rgba(255,255,255,.28)!important;box-shadow:0 0 0 .5px rgba(84,28,74,.12),0 6px 16px rgba(60,30,40,.08)!important;backdrop-filter:blur(12px)!important;-webkit-backdrop-filter:blur(12px)!important}</style><style id="robot-plano">html body header .buscador #buscaIr{width:44px!important;height:44px!important;min-width:0!important;flex:0 0 44px!important}html body header .buscador #buscaIr .busca-ir-img{width:100%!important;height:100%!important}</style></head>
+</style><style id="marco-acciones">html body .marca-acc{box-sizing:border-box!important;padding:5px 10px!important;border-radius:999px!important;border:1px solid rgba(255,255,255,.9)!important;background:rgba(255,255,255,.28)!important;box-shadow:0 0 0 .5px rgba(84,28,74,.12),0 6px 16px rgba(60,30,40,.08)!important;backdrop-filter:blur(12px)!important;-webkit-backdrop-filter:blur(12px)!important}</style><style id="robot-plano">html body header .buscador #buscaIr{width:44px!important;height:44px!important;min-width:0!important;flex:0 0 44px!important}html body header .buscador #buscaIr .busca-ir-img{width:100%!important;height:100%!important}</style><style id="cabecera-alineada">html body .saludo-top{line-height:1.08!important}html body .saludo-sub{margin-top:0!important}</style></head>
 <body data-tema="degradado">
 
 <div class="chasis"></div>
@@ -2263,5 +2263,9 @@ if(p.parentNode!==app)app.appendChild(p);var A=app.getBoundingClientRect(),k=A.w
 ['position:absolute','translate:none','transform:none','bottom:auto','margin:0','z-index:5'].forEach(function(d){var x=d.split(':');p.style.setProperty(x[0],x[1],'important')});
 var q=p.getBoundingClientRect(),n=nav.getBoundingClientRect();
 p.style.setProperty('left',((n.right-A.left)/k-q.width/k)+'px','important');p.style.setProperty('top',((n.top-A.top)/k-q.height/k-10)+'px','important');}
-window.addEventListener('load',function(){setTimeout(mv,450)});window.addEventListener('resize',function(){setTimeout(mv,500)});})();</script></body>
+window.addEventListener('load',function(){setTimeout(mv,450)});window.addEventListener('resize',function(){setTimeout(mv,500)});})();</script><script id="cabecera-alineada-js">(function(){function al(){var app=document.querySelector('.app'),bar=document.querySelector('.buscador'),t=document.querySelector('.saludo-top'),sub=document.querySelector('.saludo-sub'),acc=document.querySelector('.marca-acc');if(!bar||!t||!sub||!acc)return;
+[t,sub,acc].forEach(function(e){e.style.translate=''});var A=app.getBoundingClientRect(),k=A.width/app.offsetWidth||1,b=bar.getBoundingClientRect(),z=document.getElementById('etqZona');if(z){var zt=z.getBoundingClientRect().top;bar.style.setProperty('height',((zt-34.6-b.top)/k)+'px','important');b=bar.getBoundingClientRect();}
+acc.style.setProperty('height',(b.height/k)+'px','important');acc.style.setProperty('box-sizing','border-box','important');var a=acc.getBoundingClientRect();acc.style.translate='0 '+((b.top-a.top)/k)+'px';
+var tr=t.getBoundingClientRect(),sr=sub.getBoundingClientRect(),h=sr.bottom-tr.top,off=((b.top+b.bottom)/2-h/2-tr.top)/k;t.style.translate='0 '+off+'px';sub.style.translate='0 '+(off-((sr.top-tr.bottom)/k)+3)+'px';}
+window.addEventListener('load',function(){setTimeout(al,300)});window.addEventListener('resize',function(){setTimeout(al,350)});})();</script></body>
 </html>
