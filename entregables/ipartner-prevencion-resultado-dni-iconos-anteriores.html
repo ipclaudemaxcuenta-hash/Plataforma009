@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>iPartner · Prevención · Consulta Combo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* ---- Marco y escritorio ---- */
+  --marco:#1B1B1E;
+  --fondo-1:#F7DACE;   /* durazno  */
+  --fondo-2:#F7D0DD;   /* rosa     */
+  --fondo-3:#F6CBE9;   /* fucsia   */
+  --fondo-4:#E2B9DB;   /* lavanda  */
+  --fondo-5:#E3D7E1;   /* gris liláceo */
+
+  /* ---- Ventana ---- */
+  --ventana:#F6F6F6;
+  --linea:#E6E2E6;
+  --campo:#FFFFFF;
+  --campo-borde:#E3DCE6;
+  --caret-bg:#F2F5F9;
+
+  /* ---- Marca iPartner ---- */
+  --morado-900:#17122B;
+  --morado-800:#3A2781;
+  --morado-700:#4A267F;
+  --morado-600:#85207B;
+  --vino:#562854;        /* botón Buscar */
+  --vino-alto:#6B3369;
+  --texto:#552653;
+  --texto-2:#5B5B5F;
+  --texto-3:#8A8A8E;
+  --naranja:#EF801C;
+  --naranja-dock:#E3A153;
+  --celeste:#0797A9;
+
+  /* ---- Acentos de módulo (dock) ---- */
+  --m-home-a:#E3A153;    --m-home-b:#D98D41;
+  --m-prev-a:#946ABC;    --m-prev-b:#7E50A5;
+  --m-proc-a:#B482C7;    --m-proc-b:#9D67B5;
+  --m-dash-a:#7B6EC5;    --m-dash-b:#6458B1;
+  --m-rep-a:#6CB59F;     --m-rep-b:#5AA38D;
+  --m-prog-a:#92CBD9;    --m-prog-b:#7EB4C5;
+  --dni-a:#73BED9;       --dni-b:#61AED0;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  font-family:'Inter Tight','Helvetica Neue',Arial,sans-serif;
+  font-size:14px;
+  color:var(--texto-2);
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:28px 20px;
+  background:
+    radial-gradient(130% 110% at 0% 0%,   var(--fondo-1) 0%, transparent 55%),
+    radial-gradient(120% 120% at 100% 0%, var(--fondo-3) 0%, transparent 60%),
+    radial-gradient(130% 120% at 0% 100%, var(--fondo-4) 0%, transparent 60%),
+    linear-gradient(145deg, var(--fondo-2) 0%, var(--fondo-4) 55%, var(--fondo-5) 100%);
+  background-attachment:fixed;
+}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+input{font:inherit;color:inherit}
+button:focus-visible,input:focus-visible{outline:2px solid var(--morado-700);outline-offset:2px}
+[hidden]{display:none !important}
+
+/* ============ ESCENA: iPad + elementos flotantes ============ */
+.escena{position:relative;width:100%;max-width:1300px}
+
+/* Botones flotantes sobre el marco (chat + perfil) */
+.flotantes{
+  position:absolute;top:-16px;right:6px;z-index:40;
+  display:flex;align-items:center;gap:14px;
+}
+.burbuja{
+  position:relative;width:46px;height:46px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  border:3px solid rgba(255,255,255,.82);
+  box-shadow:0 6px 18px rgba(60,20,60,.22);
+  transition:transform .18s ease, box-shadow .18s ease;
+}
+.burbuja:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(60,20,60,.28)}
+.burbuja.chat{background:linear-gradient(160deg,#6FB8A1,#57A08A)}
+.burbuja.perfil{background:linear-gradient(160deg,#9B3C95,#883083)}
+.burbuja .punto{
+  position:absolute;top:-2px;right:-2px;width:14px;height:14px;border-radius:50%;
+  background:var(--naranja);border:2.5px solid #fff;
+}
+
+/* Marco del iPad */
+.ipad{
+  position:relative;
+  background:var(--marco);
+  border-radius:40px;
+  padding:22px;
+  box-shadow:
+    0 2px 0 rgba(255,255,255,.14) inset,
+    0 30px 70px rgba(40,10,45,.34),
+    0 6px 18px rgba(40,10,45,.18);
+}
+.pantalla{
+  position:relative;
+  background:var(--ventana);
+  border-radius:22px;
+  overflow:hidden;
+  height:min(760px, calc(100vh - 150px));
+  min-height:520px;
+  display:flex;
+  flex-direction:column;
+}
+
+/* ============ VENTANA / MÓDULO ============ */
+.modulo{
+  display:flex;flex-direction:column;
+  flex:1 1 auto;min-height:0;
+  background:var(--ventana);
+}
+
+/* Tirador superior */
+.grabber{
+  flex:0 0 auto;display:flex;justify-content:center;padding:10px 0 2px;
+}
+.grabber span{width:38px;height:4px;border-radius:4px;background:#DED7DE}
+
+/* --- Encabezado --- */
+.cabecera{
+  flex:0 0 auto;
+  display:flex;align-items:flex-start;gap:14px;
+  padding:10px 30px 18px;
+}
+.ficha{
+  width:38px;height:38px;flex:0 0 auto;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(160deg,var(--m-prev-a),var(--m-prev-b));
+  box-shadow:0 4px 10px rgba(90,40,110,.26);
+  transition:background .25s ease;
+}
+.titulos{flex:1 1 auto;min-width:0;line-height:1.3}
+.titulos h1{
+  font-size:19px;font-weight:500;color:var(--texto);letter-spacing:.1px;
+}
+.titulos p{font-size:14px;color:var(--texto-2);margin-top:2px}
+.cerrar{
+  width:34px;height:34px;flex:0 0 auto;border-radius:50%;
+  background:#EAE8EA;display:flex;align-items:center;justify-content:center;
+  color:var(--texto);transition:background .18s ease;
+}
+.cerrar:hover{background:#DFDADF}
+
+.separador{height:1px;background:var(--linea);margin:0 30px;flex:0 0 auto}
+
+/* --- Fila de búsqueda --- */
+.fila-busqueda{
+  flex:0 0 auto;
+  display:flex;align-items:flex-end;gap:14px;
+  padding:20px 30px;flex-wrap:wrap;
+}
+.tile-doc{
+  width:40px;height:40px;flex:0 0 auto;border-radius:11px;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(160deg,var(--dni-a),var(--dni-b));
+  box-shadow:0 4px 10px rgba(40,120,160,.26);
+}
+.campo-doc{flex:0 1 420px;min-width:220px}
+.campo-doc > label{
+  display:block;font-size:12px;color:var(--texto-3);
+  margin:0 0 5px 12px;
+}
+.caja-doc{
+  display:flex;align-items:center;gap:10px;
+  height:42px;padding:0 14px;
+  background:var(--campo);
+  border:1px solid var(--campo-borde);
+  border-radius:9px;
+  transition:border-color .18s ease, box-shadow .18s ease;
+}
+.caja-doc:focus-within{
+  border-color:var(--m-prev-b);
+  box-shadow:0 0 0 3px rgba(126,80,165,.13);
+}
+.caja-doc svg{flex:0 0 auto;color:var(--texto)}
+.caja-doc input{
+  flex:1 1 auto;min-width:0;border:0;background:none;
+  font-size:15px;color:#2E2A30;
+}
+.caja-doc input::placeholder{color:#B4AEB6}
+.btn-buscar{
+  flex:0 0 auto;
+  display:flex;align-items:center;gap:9px;
+  height:42px;padding:0 24px;border-radius:9px;
+  background:var(--vino);color:#fff;font-size:15px;
+  box-shadow:0 4px 12px rgba(86,40,84,.3);
+  transition:background .18s ease, transform .12s ease;
+}
+.btn-buscar:hover{background:var(--vino-alto)}
+.btn-buscar:active{transform:translateY(1px)}
+
+/* --- Centro de costo (campo con etiqueta en muesca) --- */
+.fila-centro{flex:0 0 auto;padding:18px 30px 6px}
+.combo{position:relative;width:340px;max-width:100%}
+.combo-caja{
+  display:flex;align-items:stretch;
+  height:50px;
+  border:1px solid #CFD9E6;border-radius:7px;
+  background:var(--campo);overflow:hidden;
+  transition:border-color .18s ease, box-shadow .18s ease;
+}
+.combo.abierto .combo-caja,
+.combo-caja:focus-within{
+  border-color:var(--morado-800);
+  box-shadow:0 0 0 3px rgba(58,39,129,.11);
+}
+.combo-caja input{
+  flex:1 1 auto;min-width:0;border:0;background:none;
+  padding:0 14px;font-size:16px;color:#2E2A30;
+}
+.combo-caja input::placeholder{color:#8C93A3}
+.combo-caret{
+  flex:0 0 46px;display:flex;align-items:center;justify-content:center;
+  background:var(--caret-bg);border-left:1px solid #E4EAF2;color:#5C6472;
+}
+.combo-caret svg{transition:transform .22s ease}
+.combo.abierto .combo-caret svg{transform:rotate(180deg)}
+.combo > label{
+  position:absolute;top:-8px;left:11px;
+  padding:0 5px;background:var(--ventana);
+  font-size:12px;color:var(--morado-800);
+  pointer-events:none;
+}
+.combo-lista{
+  position:absolute;top:calc(100% + 6px);left:0;right:0;z-index:30;
+  background:#fff;border:1px solid #E1E6EF;border-radius:9px;
+  box-shadow:0 14px 30px rgba(40,20,60,.16);
+  max-height:230px;overflow-y:auto;padding:5px;
+}
+.combo-lista button{
+  display:block;width:100%;text-align:left;
+  padding:10px 12px;border-radius:6px;font-size:14px;color:#3A3540;
+}
+.combo-lista button:hover,.combo-lista button.marcado{background:#F3EEF8;color:var(--morado-700)}
+.combo-lista .sin-resultado{padding:14px 12px;font-size:13px;color:var(--texto-3);text-align:center}
+
+/* --- Cuerpo con scroll interno --- */
+.cuerpo{
+  flex:1 1 auto;min-height:0;overflow-y:auto;
+  padding:0 30px;
+  display:flex;flex-direction:column;
+}
+.cuerpo::-webkit-scrollbar{width:9px}
+.cuerpo::-webkit-scrollbar-thumb{background:#DCD5DD;border-radius:9px}
+
+.vacio{
+  flex:1 1 auto;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;gap:7px;padding:50px 16px;
+}
+.vacio h2{font-size:17px;font-weight:500;color:var(--texto)}
+.vacio p{font-size:13.5px;color:var(--texto-3)}
+
+/* --- Resultado --- */
+.resultado{padding:14px 0 26px}
+.tarjeta{
+  background:#fff;border:1px solid #EDE7EF;border-radius:13px;
+  padding:20px 22px;box-shadow:0 2px 10px rgba(60,30,70,.06);
+}
+.tarjeta-top{
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  padding-bottom:16px;border-bottom:1px solid var(--linea);
+}
+.avatar-res{
+  width:44px;height:44px;border-radius:50%;flex:0 0 auto;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(160deg,var(--m-prev-a),var(--m-prev-b));color:#fff;
+}
+.tarjeta-top .quien{flex:1 1 220px;min-width:0}
+.tarjeta-top .quien b{display:block;font-size:15px;font-weight:600;color:#2E2A30}
+.tarjeta-top .quien span{font-size:12.5px;color:var(--texto-3)}
+.chip{
+  flex:0 0 auto;display:inline-flex;align-items:center;gap:7px;
+  padding:7px 14px;border-radius:20px;font-size:12.5px;font-weight:500;
+  background:#EAF6EF;color:#1F7A4D;
+}
+.chip i{width:7px;height:7px;border-radius:50%;background:#2E9B63}
+.datos{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:12px;margin-top:18px;
+}
+.datos div{background:#FAF8FB;border:1px solid #F0EAF2;border-radius:9px;padding:10px 13px}
+.datos small{display:block;font-size:11px;color:var(--texto-3);margin-bottom:3px}
+.datos span{font-size:13.5px;color:#2E2A30}
+.nota-demo{
+  margin-top:14px;font-size:11.5px;color:var(--texto-3);
+  text-align:center;font-style:italic;
+}
+
+/* --- Consultas recientes --- */
+.recientes{flex:0 0 auto;border-top:1px solid var(--linea);margin:0 30px;padding:16px 0 86px}
+.recientes-tit{
+  display:flex;align-items:center;gap:10px;
+  font-size:14px;color:var(--texto);
+}
+.recientes-hint{text-align:center;font-size:13px;color:var(--texto-3);padding:24px 10px 4px}
+.lista-rec{list-style:none;margin-top:12px;display:flex;flex-direction:column;gap:7px}
+.lista-rec li{
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+  background:#fff;border:1px solid #EDE7EF;border-radius:9px;padding:10px 14px;font-size:13px;
+}
+.lista-rec b{font-weight:600;color:#2E2A30}
+.lista-rec .cc{color:var(--texto-3);flex:1 1 auto}
+.lista-rec time{color:var(--texto-3);font-size:12px}
+
+/* ============ DOCK ============ */
+.dock-zona{
+  position:absolute;left:0;right:0;bottom:16px;z-index:35;
+  display:flex;justify-content:center;pointer-events:none;
+}
+.dock{
+  pointer-events:auto;
+  display:flex;align-items:center;gap:10px;
+  padding:11px 13px;border-radius:22px;
+  background:rgba(252,251,252,.86);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border:1px solid rgba(255,255,255,.75);
+  box-shadow:0 12px 34px rgba(50,20,55,.2);
+}
+.app{
+  position:relative;width:44px;height:44px;border-radius:13px;
+  display:flex;align-items:center;justify-content:center;color:#fff;
+  box-shadow:0 4px 10px rgba(60,30,70,.22);
+  transition:transform .18s cubic-bezier(.34,1.56,.64,1);
+}
+.app:hover{transform:translateY(-7px) scale(1.06)}
+.app .activo-punto{
+  position:absolute;bottom:-9px;left:50%;transform:translateX(-50%);
+  width:5px;height:5px;border-radius:50%;background:var(--naranja);
+  opacity:0;transition:opacity .2s ease;
+}
+.app[aria-current="true"] .activo-punto{opacity:1}
+.app[data-app="home"]{background:linear-gradient(160deg,var(--m-home-a),var(--m-home-b))}
+.app[data-app="prevencion"]{background:linear-gradient(160deg,var(--m-prev-a),var(--m-prev-b))}
+.app[data-app="procesos"]{background:linear-gradient(160deg,var(--m-proc-a),var(--m-proc-b))}
+.app[data-app="dashboard"]{background:linear-gradient(160deg,var(--m-dash-a),var(--m-dash-b))}
+.app[data-app="reportes"]{background:linear-gradient(160deg,var(--m-rep-a),var(--m-rep-b))}
+.app[data-app="progresion"]{background:linear-gradient(160deg,var(--m-prog-a),var(--m-prog-b))}
+
+/* Escritorio (cuando se cierra la ventana) */
+.escritorio{
+  flex:1 1 auto;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:16px;text-align:center;padding:40px;
+  background:
+    radial-gradient(90% 80% at 50% 0%, #FBF5FA 0%, transparent 70%),
+    var(--ventana);
+}
+.escritorio .wordmark{font-size:38px;font-weight:600;letter-spacing:-.5px}
+.escritorio .wordmark .n{color:var(--naranja)}
+.escritorio .wordmark .m{color:#89037B}
+.escritorio .eslogan{
+  font-size:11px;letter-spacing:3px;font-weight:500;color:var(--morado-700);
+}
+.escritorio .eslogan .f{color:var(--celeste)}
+.escritorio p{font-size:13.5px;color:var(--texto-3);margin-top:6px}
+
+/* Aviso flotante */
+.aviso{
+  position:absolute;left:50%;bottom:122px;transform:translate(-50%,10px);
+  background:#2F2A33;color:#fff;font-size:13px;
+  padding:11px 20px;border-radius:9px;
+  opacity:0;pointer-events:none;transition:opacity .25s ease, transform .25s ease;
+  z-index:45;box-shadow:0 10px 24px rgba(0,0,0,.26);
+}
+.aviso.ver{opacity:1;transform:translate(-50%,0)}
+
+@media (max-width:820px){
+  .ipad{border-radius:28px;padding:14px}
+  .pantalla{border-radius:16px;height:min(700px, calc(100vh - 110px))}
+  .cabecera,.fila-busqueda,.fila-centro,.cuerpo{padding-left:18px;padding-right:18px}
+  .separador,.recientes{margin-left:18px;margin-right:18px}
+  .combo{width:100%}
+  .campo-doc{flex:1 1 100%}
+  .btn-buscar{flex:1 1 100%;justify-content:center}
+  .dock{gap:6px;padding:9px}
+  .app{width:40px;height:40px}
+  .flotantes{top:-12px;right:2px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none !important}}
+</style>
+<style id="lienzo-1920">
+/* Lienzo fijo 1920x1080 escalado entero + Dock de la home */
+html,body{margin:0!important;padding:0!important;width:100%;height:100%;overflow:hidden;background:#000!important;display:block!important;min-height:0!important}
+#lienzo{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0;display:flex;align-items:center;justify-content:center;padding:28px 20px;box-sizing:border-box;overflow:hidden;
+  background:radial-gradient(130% 110% at 0% 0%,var(--fondo-1) 0%,transparent 55%),radial-gradient(120% 120% at 100% 0%,var(--fondo-3) 0%,transparent 60%),radial-gradient(130% 120% at 0% 100%,var(--fondo-4) 0%,transparent 60%),linear-gradient(145deg,var(--fondo-2) 0%,var(--fondo-4) 55%,var(--fondo-5) 100%)}
+#lienzo .pantalla{height:760px}
+
+#dockHome{position:absolute!important;left:50%!important;right:auto!important;top:auto!important;justify-self:auto!important;align-self:auto!important;bottom:171.98px!important;transform:translateX(-50%)!important;z-index:50;margin:0!important}
+</style>
+<style id="resultado-dni">
+#lienzo .fila-centro,#lienzo .cuerpo,#lienzo .recientes{display:none}
+#lienzo .fila-busqueda{padding-bottom:8px}
+.cerrar-grupo{display:flex;gap:10px}
+.btn-ref{width:34px;height:34px;border-radius:50%;background:#EAE8EA;display:flex;align-items:center;justify-content:center;color:var(--morado-800)}
+.rs{flex:1 1 auto;min-height:0;overflow:hidden;padding:0 30px 120px;display:flex;flex-direction:column}
+.rs>*{flex-shrink:0}
+.rs-dest{font-size:12px;color:var(--texto-3);margin:0 0 10px}.rs-dest b{font-weight:500;color:var(--morado-800)}.rs-dest a{color:var(--morado-800);margin-left:8px}
+.rs-tabla{background:#fff;border:1px solid #EDE7EF;border-radius:11px;overflow:hidden}
+.rs-fila{display:grid;grid-template-columns:48px 1.1fr 2fr 1.1fr .6fr;padding:9px 16px;font-size:13.5px;color:var(--morado-800)}
+.rs-fila.cab{background:#F4F1F6;font-size:11px;letter-spacing:.03em;color:#6A6290;padding:9px 16px;border-bottom:1px solid #EDE7EF}
+.rs-fila span:first-child{color:var(--texto-3)}
+.rs-serv{display:flex;align-items:stretch;margin-top:12px;background:#fff;border:1px solid #EDE7EF;border-radius:16px;box-shadow:0 6px 18px rgba(60,30,70,.06);padding:10px 26px 10px}
+.grp{display:flex;flex-direction:column;gap:6px}
+.grp:first-child{align-items:center}
+.grp-tit{display:flex;align-items:center;gap:8px;height:28px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#6A6290}
+.grp-tit .pill{text-transform:none;letter-spacing:0;font-size:11px;font-weight:500;padding:3px 9px;border-radius:20px;background:#EFE6F7;color:var(--morado-800)}
+.rs-msg{text-transform:none;letter-spacing:0;padding:5px 14px;border-radius:999px;background:linear-gradient(90deg,#F6EEFB,#FCEFF3);border:1px solid #EADCF2;font-size:13px;font-weight:500;color:var(--texto)}
+.fila-ic{display:flex;gap:14px}
+.ap{width:96px;display:flex;flex-direction:column;align-items:center;gap:7px;font-size:12.5px;color:#3A3540;padding:7px 0 6px;border-radius:12px}
+.tile{width:60px;height:60px;border-radius:17px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 14px rgba(60,30,70,.22)}
+.ap img{width:60px;height:60px;object-fit:contain;filter:drop-shadow(0 5px 9px rgba(30,15,40,.18))}
+.ap.core{background:#F6F0FB;box-shadow:inset 0 0 0 1.5px #D9C4EE;color:var(--morado-800);font-weight:500}
+.ico-w{position:relative;display:block;line-height:0}
+.badge{position:absolute;top:-7px;right:-11px;height:20px;min-width:28px;padding:0 6px;border-radius:999px;background:#fff;color:#3D2439;font-size:11px;font-weight:700;line-height:20px;text-align:center;box-shadow:0 2px 6px rgba(61,36,57,.25),0 0 0 1px rgba(61,36,57,.06)}
+.div2{display:flex;gap:4px;margin:4px 28px}.div2 span{width:1px;background:#E2D9E4}
+.rec{border-top:1px solid var(--linea);margin-top:8px;padding-top:6px}
+.rec-tit{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--texto);padding-bottom:8px;border-bottom:1px solid var(--linea)}
+.rec-tit a{margin-left:auto;color:var(--morado-800);font-size:13.5px}
+.rec ul{list-style:none;margin:8px 14px 0;border:1px solid #EDE7EF;border-radius:10px;overflow:hidden}
+.rec li{display:flex;align-items:center;gap:12px;padding:4px 14px;background:#fff}
+.rec li:nth-child(even){background:#FBF1F5}
+.rec .av{width:28px;height:28px;border-radius:50%;background:linear-gradient(160deg,#B57BE0,#8C4FC4);color:#fff;font-size:10.5px;display:flex;align-items:center;justify-content:center}
+.rec .nm{flex:1;line-height:1.25}.rec .nm b{display:block;font-weight:500;font-size:12.5px;color:#2E2A30}.rec .nm small{font-size:11px;color:var(--texto-3);letter-spacing:.04em}
+.rec .tg{font-size:10.5px;padding:3px 8px;border-radius:20px;background:#EFE9F1;color:#4A3F55}
+.rec time{font-size:11px;color:var(--texto-3);width:68px;text-align:right}
+</style>
+</head>
+<body>
+
+<div id="lienzo">
+<div class="escena">
+
+  <!-- Botones flotantes -->
+  <div class="flotantes">
+    <button class="burbuja chat" id="btnChat" aria-label="Abrir chat con Jaina">
+      <span class="punto" aria-hidden="true"></span>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M20 13.5c0 3.6-3.6 6.5-8 6.5-.9 0-1.8-.1-2.6-.35L4.5 21l1.2-3.4C4.6 16.5 4 15.1 4 13.5 4 9.9 7.6 7 12 7s8 2.9 8 6.5z"/>
+        <circle cx="9" cy="13.5" r=".9" fill="#fff" stroke="none"/>
+        <circle cx="12" cy="13.5" r=".9" fill="#fff" stroke="none"/>
+        <circle cx="15" cy="13.5" r=".9" fill="#fff" stroke="none"/>
+      </svg>
+    </button>
+    <button class="burbuja perfil" id="btnPerfil" aria-label="Mi perfil">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9" stroke-linecap="round" aria-hidden="true">
+        <circle cx="12" cy="8.5" r="3.4"/>
+        <path d="M5.2 19.2c1-3.4 3.7-5.2 6.8-5.2s5.8 1.8 6.8 5.2"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Marco iPad -->
+  <div class="ipad">
+    <div class="pantalla">
+
+      <!-- ============ MÓDULO ============ -->
+      <section class="modulo" id="modulo">
+
+        <div class="grabber"><span></span></div>
+
+        <header class="cabecera">
+          <div class="ficha" id="fichaIcono">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 3.2l7 2.6v5.4c0 4.3-2.9 7.9-7 9.6-4.1-1.7-7-5.3-7-9.6V5.8z"/>
+              <line x1="12" y1="9.6" x2="12" y2="13.2" stroke-linecap="round"/>
+              <circle cx="12" cy="15.8" r=".85" fill="#fff" stroke="none"/>
+            </svg>
+          </div>
+          <div class="titulos">
+            <h1 id="moduloTitulo">Prevención</h1>
+            <p id="moduloSub">Consulta Combo</p>
+          </div>
+          <div class="cerrar-grupo"><button class="btn-ref" aria-label="Actualizar"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 0 0-14.6-4.5L4 8"/><path d="M4 4v4h4"/><path d="M4 13a8 8 0 0 0 14.6 4.5L20 16"/><path d="M20 20v-4h-4"/></svg></button><button class="cerrar" id="btnCerrar" aria-label="Cerrar módulo">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+              <line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/>
+            </svg>
+          </button></div>
+        </header>
+
+        <div class="separador"></div>
+
+        <!-- Búsqueda de documento -->
+        <div class="fila-busqueda">
+          <div class="tile-doc" aria-hidden="true">
+            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round">
+              <rect x="2.6" y="5" width="18.8" height="14" rx="2.4"/>
+              <circle cx="8.6" cy="11" r="2"/>
+              <path d="M5.4 16c.5-1.7 1.8-2.5 3.2-2.5S11.3 14.3 11.8 16"/>
+              <line x1="14.6" y1="10" x2="19" y2="10"/>
+              <line x1="14.6" y1="13.4" x2="19" y2="13.4"/>
+            </svg>
+          </div>
+
+          <div class="campo-doc">
+            <label for="doc">Ingresa el documento</label>
+            <div class="caja-doc">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                <circle cx="10.5" cy="10.5" r="6.4"/><line x1="15.3" y1="15.3" x2="20" y2="20"/>
+              </svg>
+              <input id="doc" inputmode="numeric" maxlength="12" value="48219736" placeholder="DNI, CE o RUC" autocomplete="off">
+            </div>
+          </div>
+
+          <button class="btn-buscar" id="btnBuscar">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+              <circle cx="10.5" cy="10.5" r="6.4"/><line x1="15.3" y1="15.3" x2="20" y2="20"/>
+            </svg>
+            Buscar
+          </button>
+        </div>
+
+        <div class="separador"></div>
+
+<!-- Resultado de la consulta (mockup) -->
+<div class="rs">
+  <p class="rs-dest">Las próximas consultas se cargarán a: <b>DD › DDAS › FFFF</b><a href="#">Cambiar</a></p>
+  <div class="rs-tabla">
+    <div class="rs-fila cab"><span>Nº</span><span>NUM. DOCUMENTO</span><span>NOMBRES Y APELLIDOS</span><span>F. NACIMIENTO</span><span>EDAD</span></div>
+    <div class="rs-fila"><span>1</span><span>48219736</span><span>VALERIA SOFÍA MENDOZA RÍOS</span><span>14/07/1998</span><span>28</span></div>
+  </div>
+  <div class="rs-serv">
+    <div class="grp">
+      <p class="grp-tit">Producto CORE contratado</p>
+      <div class="fila-ic"><div class="ap core"><span class="tile" style="background:linear-gradient(160deg,#946ABC,#7E50A5)"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 4h11l3.5 5-9 11L3 9z"/><path d="M3 9h18M9.5 4 12 9l2.5-5M12 9v11"/></svg></span><span>IA Plus</span></div></div>
+    </div>
+    <div class="div2" aria-hidden="true"><span></span><span></span></div>
+    <div class="grp">
+      <p class="grp-tit"><span class="rs-msg">🎉 Ahora puedes usar estos servicios y descontarlos de tu paquete 🎉</span></p>
+      <div class="fila-ic"><div class="ap"><span class="ico-w"><span class="tile" style="background:linear-gradient(160deg,#6CB59F,#5AA38D)"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="6.6" y1="19" x2="6.6" y2="12.4"/><line x1="12" y1="19" x2="12" y2="5.6"/><line x1="17.4" y1="19" x2="17.4" y2="9.6"/></svg></span><span class="badge" aria-label="3 disponibles">×3</span></span><span>Income</span></div><div class="ap"><span class="ico-w"><span class="tile" style="background:linear-gradient(160deg,#7B6EC5,#6458B1)"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3.6" width="14" height="16.8" rx="1.6"/><path d="M9 7.5h1.5M13.5 7.5H15M9 11h1.5M13.5 11H15M10.2 20.4v-4h3.6v4"/></svg></span><span class="badge" aria-label="2 disponibles">×2</span></span><span>Empresarial</span></div><div class="ap"><span class="ico-w"><span class="tile" style="background:linear-gradient(160deg,#E3A153,#D98D41)"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.8" y="5.4" width="18.4" height="13.2" rx="2.2"/><line x1="2.8" y1="9.6" x2="21.2" y2="9.6"/><line x1="6.4" y1="14.6" x2="10.4" y2="14.6"/></svg></span><span class="badge" aria-label="2 disponibles">×2</span></span><span>Credit Pro</span></div><div class="ap"><span class="ico-w"><span class="tile" style="background:linear-gradient(160deg,#73BED9,#61AED0)"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.6" y="5" width="18.8" height="14" rx="2.4"/><circle cx="8.6" cy="11" r="2"/><path d="M5.4 16c.5-1.7 1.8-2.5 3.2-2.5S11.3 14.3 11.8 16"/><line x1="14.6" y1="10" x2="19" y2="10"/><line x1="14.6" y1="13.4" x2="19" y2="13.4"/></svg></span><span class="badge" aria-label="1 disponibles">×1</span></span><span>Ficha ID</span></div><div class="ap"><span class="ico-w"><span class="tile" style="background:linear-gradient(160deg,#B482C7,#9D67B5)"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.2l7 2.6v5.4c0 4.3-2.9 7.9-7 9.6-4.1-1.7-7-5.3-7-9.6V5.8z"/><path d="M14 9.6c-.4-.7-1.1-1-2-1-1.2 0-2 .6-2 1.5 0 2 4 1 4 3 0 .9-.9 1.5-2 1.5-.9 0-1.7-.4-2-1.1M12 7.6v1M12 15.6v1"/></svg></span><span class="badge" aria-label="1 disponibles">×1</span></span><span>Splaft</span></div></div>
+    </div>
+  </div>
+  <div class="rec">
+    <div class="rec-tit"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="8.6"/><polyline points="12 7.4 12 12 15.2 13.8"/></svg>Consultas recientes<a href="#">Ver todo</a></div>
+    <ul><li><span class="av">VM</span><span class="nm"><b>VALERIA SOFÍA MENDOZA RÍOS</b><small>DNI 48219736</small></span><span class="tg">IA Plus</span><time>Ahora</time><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#3A3540" stroke-width="2.2" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg></li><li><span class="av">VM</span><span class="nm"><b>VALERIA SOFÍA MENDOZA RÍOS</b><small>DNI 48219736</small></span><span class="tg">IA Plus</span><time>14 oct. 2026</time><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#3A3540" stroke-width="2.2" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg></li><li><span class="av">VM</span><span class="nm"><b>VALERIA SOFÍA MENDOZA RÍOS</b><small>DNI 48219736</small></span><span class="tg">IA Plus</span><time>13 ago. 2026</time><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#3A3540" stroke-width="2.2" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg></li><li><span class="av">VM</span><span class="nm"><b>VALERIA SOFÍA MENDOZA RÍOS</b><small>DNI 48219736</small></span><span class="tg">IA Plus</span><time>12 ago. 2026</time><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#3A3540" stroke-width="2.2" stroke-linecap="round"><polyline points="9 6 15 12 9 18"/></svg></li></ul>
+  </div>
+</div>
+        <!-- Centro de costo -->
+        <div class="fila-centro">
+          <div class="combo" id="combo">
+            <label for="cc">Centro de costo</label>
+            <div class="combo-caja">
+              <input id="cc" placeholder="Escribe para buscar" autocomplete="off"
+                     role="combobox" aria-expanded="false" aria-controls="ccLista">
+              <button class="combo-caret" id="ccCaret" aria-label="Desplegar centros de costo" tabindex="-1">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polyline points="6 9.5 12 15.5 18 9.5"/>
+                </svg>
+              </button>
+            </div>
+            <div class="combo-lista" id="ccLista" role="listbox" hidden></div>
+          </div>
+        </div>
+
+        <!-- Cuerpo con scroll -->
+        <div class="cuerpo" id="cuerpo">
+          <div class="vacio" id="estadoVacio">
+            <h2 id="vacioTitulo">Selecciona un centro de costo</h2>
+            <p id="vacioTexto">Elige una opción para continuar.</p>
+          </div>
+          <div class="resultado" id="resultado" hidden></div>
+        </div>
+
+        <!-- Consultas recientes -->
+        <div class="recientes">
+          <div class="recientes-tit">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="8.6"/><polyline points="12 7.4 12 12 15.2 13.8"/>
+            </svg>
+            Consultas recientes
+          </div>
+          <p class="recientes-hint" id="recHint">Inicia una consulta para ver el Historial reciente de ese DNI.</p>
+          <ul class="lista-rec" id="listaRec" hidden></ul>
+        </div>
+
+      </section>
+
+      <!-- ============ ESCRITORIO (ventana cerrada) ============ -->
+      <section class="escritorio" id="escritorio" hidden>
+        <div class="wordmark"><span class="n">i</span><span class="m">p</span><span class="n">a</span><span class="m">rtner</span></div>
+        <div class="eslogan">THE <span class="f">FIRST</span> AI FOR HR</div>
+        <p>Elige un módulo en la barra inferior para comenzar.</p>
+      </section>
+
+      <!-- Dock -->
+      <div class="dock-zona">
+        <nav class="dock" aria-label="Módulos">
+          <button class="app" data-app="home" aria-label="Home" title="Home">
+            <span class="activo-punto"></span>
+            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3.6 10.6L12 4l8.4 6.6V19a1.3 1.3 0 0 1-1.3 1.3H4.9A1.3 1.3 0 0 1 3.6 19z"/>
+              <path d="M9.6 20.3v-5.1h4.8v5.1"/>
+            </svg>
+          </button>
+
+          <button class="app" data-app="prevencion" aria-current="true" aria-label="Prevención" title="Prevención">
+            <span class="activo-punto"></span>
+            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 3.2l7 2.6v5.4c0 4.3-2.9 7.9-7 9.6-4.1-1.7-7-5.3-7-9.6V5.8z"/>
+              <line x1="12" y1="9.6" x2="12" y2="13.2" stroke-linecap="round"/>
+              <circle cx="12" cy="15.8" r=".85" fill="#fff" stroke="none"/>
+            </svg>
+          </button>
+
+          <button class="app" data-app="procesos" aria-label="Procesos" title="Procesos">
+            <span class="activo-punto"></span>
+            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="7" y1="3.6" x2="17" y2="3.6"/><line x1="7" y1="20.4" x2="17" y2="20.4"/>
+              <path d="M8 3.6v3.1c0 2 4 3.6 4 5.3 0 1.7-4 3.3-4 5.3v3.1"/>
+              <path d="M16 3.6v3.1c0 2-4 3.6-4 5.3 0 1.7 4 3.3 4 5.3v3.1"/>
+            </svg>
+          </button>
+
+          <button class="app" data-app="dashboard" aria-label="Dashboard" title="Dashboard">
+            <span class="activo-punto"></span>
+            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2.8" y="4.6" width="18.4" height="12.6" rx="2.2"/>
+              <line x1="9.5" y1="20.4" x2="14.5" y2="20.4"/>
+              <line x1="7.4" y1="13.8" x2="7.4" y2="11.4"/>
+              <line x1="11" y1="13.8" x2="11" y2="8.8"/>
+              <line x1="14.6" y1="13.8" x2="14.6" y2="10.2"/>
+            </svg>
+          </button>
+
+          <button class="app" data-app="reportes" aria-label="Reportes" title="Reportes">
+            <span class="activo-punto"></span>
+            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+              <line x1="6.6" y1="19" x2="6.6" y2="12.4"/>
+              <line x1="12" y1="19" x2="12" y2="5.6"/>
+              <line x1="17.4" y1="19" x2="17.4" y2="9.6"/>
+            </svg>
+          </button>
+
+          <button class="app" data-app="progresion" aria-label="Progresión" title="Progresión">
+            <span class="activo-punto"></span>
+            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4.4 3.8v15.8h15.2"/>
+              <polyline points="7.6 15.6 11.4 11.8 14.4 13.6 19 8.4"/>
+              <circle cx="11.4" cy="11.8" r="1.5" fill="#fff" stroke="none"/>
+              <circle cx="14.4" cy="13.6" r="1.5" fill="#fff" stroke="none"/>
+              <circle cx="19" cy="8.4" r="1.5" fill="#fff" stroke="none"/>
+            </svg>
+          </button>
+        </nav>
+      </div>
+
+      <div class="aviso" id="aviso" role="status" aria-live="polite"></div>
+
+    </div>
+  </div>
+</div>
+
+
+</div><!-- /lienzo -->
+<script id="lienzo-1920-js">
+(function(){var L=document.getElementById('lienzo'),W=1920,H=1080;
+function encajar(){var w=innerWidth,h=innerHeight,k=Math.min(w/W,h/H);L.style.transform='translate('+(w-W*k)/2+'px,'+(h-H*k)/2+'px) scale('+k+')';}
+encajar();addEventListener('resize',encajar);})();
+</script>
+<script>
+(function(){
+  'use strict';
+
+  /* ---------------- Datos de demostración ---------------- */
+  var CENTROS = [
+    'ADMINISTRACIÓN Y FINANZAS',
+    'ALMACÉN CENTRAL',
+    'CADENA DE SUMINISTRO',
+    'GESTIÓN HUMANA — LIMA',
+    'GESTIÓN HUMANA — PROVINCIAS',
+    'LEGAL Y CUMPLIMIENTO',
+    'OPERACIONES — PLANTA NORTE',
+    'OPERACIONES — PLANTA SUR',
+    'RECLUTAMIENTO MASIVO',
+    'SEGURIDAD PATRIMONIAL',
+    'TECNOLOGÍA DE LA INFORMACIÓN'
+  ];
+
+  var MODULOS = {
+    home:       { titulo:'Home',       sub:'Panel principal',        a:'--m-home-a', b:'--m-home-b' },
+    prevencion: { titulo:'Prevención', sub:'Consulta Combo',         a:'--m-prev-a', b:'--m-prev-b' },
+    procesos:   { titulo:'Procesos',   sub:'Consultas en proceso',   a:'--m-proc-a', b:'--m-proc-b' },
+    dashboard:  { titulo:'Dashboard',  sub:'Consumo de paquete',     a:'--m-dash-a', b:'--m-dash-b' },
+    reportes:   { titulo:'Reportes',   sub:'Resultados del periodo', a:'--m-rep-a',  b:'--m-rep-b'  },
+    progresion: { titulo:'Progresión', sub:'Tendencia de consumo',   a:'--m-prog-a', b:'--m-prog-b' }
+  };
+
+  var $ = function(id){ return document.getElementById(id); };
+
+  var combo    = $('combo'),
+      cc       = $('cc'),
+      ccLista  = $('ccLista'),
+      ccCaret  = $('ccCaret'),
+      doc      = $('doc'),
+      cuerpo   = $('cuerpo'),
+      vacio    = $('estadoVacio'),
+      vTitulo  = $('vacioTitulo'),
+      vTexto   = $('vacioTexto'),
+      resultado= $('resultado'),
+      recHint  = $('recHint'),
+      listaRec = $('listaRec'),
+      aviso    = $('aviso');
+
+  var centroElegido = '';
+  var recientes = [];
+
+  /* ---------------- Aviso ---------------- */
+  var tAviso;
+  function avisar(txt){
+    aviso.textContent = txt;
+    aviso.classList.add('ver');
+    clearTimeout(tAviso);
+    tAviso = setTimeout(function(){ aviso.classList.remove('ver'); }, 2400);
+  }
+
+  /* ---------------- Combo centro de costo ---------------- */
+  function pintarLista(filtro){
+    var f = (filtro || '').trim().toLowerCase();
+    var items = CENTROS.filter(function(c){ return c.toLowerCase().indexOf(f) !== -1; });
+    ccLista.innerHTML = '';
+
+    if (!items.length){
+      var p = document.createElement('p');
+      p.className = 'sin-resultado';
+      p.textContent = 'Sin coincidencias.';
+      ccLista.appendChild(p);
+      return;
+    }
+    items.forEach(function(c){
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.setAttribute('role','option');
+      b.textContent = c;
+      if (c === centroElegido){ b.className = 'marcado'; b.setAttribute('aria-selected','true'); }
+      b.addEventListener('click', function(){
+        centroElegido = c;
+        cc.value = c;
+        cerrarLista();
+        actualizarVacio();
+        avisar('Centro de costo: ' + c);
+      });
+      ccLista.appendChild(b);
+    });
+  }
+
+  function abrirLista(){
+    pintarLista(cc.value === centroElegido ? '' : cc.value);
+    ccLista.hidden = false;
+    combo.classList.add('abierto');
+    cc.setAttribute('aria-expanded','true');
+  }
+  function cerrarLista(){
+    ccLista.hidden = true;
+    combo.classList.remove('abierto');
+    cc.setAttribute('aria-expanded','false');
+  }
+
+  cc.addEventListener('focus', abrirLista);
+  cc.addEventListener('input', function(){
+    centroElegido = '';
+    actualizarVacio();
+    abrirLista();
+  });
+  ccCaret.addEventListener('click', function(){
+    if (ccLista.hidden){ cc.focus(); abrirLista(); } else { cerrarLista(); }
+  });
+  cc.addEventListener('keydown', function(e){
+    if (e.key === 'Escape'){ cerrarLista(); }
+  });
+  document.addEventListener('click', function(e){
+    if (!combo.contains(e.target)) cerrarLista();
+  });
+
+  /* ---------------- Estado vacío ---------------- */
+  function actualizarVacio(){
+    if (!resultado.hidden) return;
+    if (centroElegido){
+      vTitulo.textContent = 'Listo para consultar';
+      vTexto.textContent  = 'Ingresa el documento y presiona Buscar.';
+    } else {
+      vTitulo.textContent = 'Selecciona un centro de costo';
+      vTexto.textContent  = 'Elige una opción para continuar.';
+    }
+  }
+
+  /* ---------------- Búsqueda ---------------- */
+  function buscar(){
+    var v = doc.value.trim();
+
+    if (!/^[0-9]{8,12}$/.test(v)){
+      avisar('Ingresa un documento válido, de 8 a 12 dígitos.');
+      doc.focus();
+      return;
+    }
+    if (!centroElegido){
+      avisar('Primero selecciona un centro de costo.');
+      cc.focus();
+      return;
+    }
+
+    resultado.innerHTML =
+      '<div class="tarjeta">' +
+        '<div class="tarjeta-top">' +
+          '<div class="avatar-res">' +
+            '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">' +
+              '<circle cx="12" cy="8.5" r="3.4"/><path d="M5.2 19.2c1-3.4 3.7-5.2 6.8-5.2s5.8 1.8 6.8 5.2"/>' +
+            '</svg>' +
+          '</div>' +
+          '<div class="quien">' +
+            '<b>NOMBRE APELLIDO DE EJEMPLO</b>' +
+            '<span>Documento ' + v + ' · ' + centroElegido + '</span>' +
+          '</div>' +
+          '<span class="chip"><i></i>Sin observaciones</span>' +
+        '</div>' +
+        '<div class="datos">' +
+          '<div><small>Tipo de documento</small><span>DNI</span></div>' +
+          '<div><small>Servicio</small><span>Consulta Combo</span></div>' +
+          '<div><small>Registros penales</small><span>0 coincidencias</span></div>' +
+          '<div><small>Registros policiales</small><span>0 coincidencias</span></div>' +
+          '<div><small>Requisitorias</small><span>0 coincidencias</span></div>' +
+          '<div><small>Fecha de consulta</small><span>' + fechaHoy() + '</span></div>' +
+        '</div>' +
+        '<p class="nota-demo">Maqueta de interfaz. Los datos mostrados son de ejemplo, no provienen de una consulta real.</p>' +
+      '</div>';
+
+    vacio.hidden = true;
+    resultado.hidden = false;
+    cuerpo.scrollTop = 0;
+
+    agregarReciente(v, centroElegido);
+    avisar('Consulta realizada: ' + v);
+  }
+
+  function fechaHoy(){
+    var d = new Date();
+    var p = function(n){ return (n < 10 ? '0' : '') + n; };
+    return p(d.getDate()) + '/' + p(d.getMonth() + 1) + '/' + d.getFullYear();
+  }
+  function horaAhora(){
+    var d = new Date();
+    var p = function(n){ return (n < 10 ? '0' : '') + n; };
+    return p(d.getHours()) + ':' + p(d.getMinutes());
+  }
+
+  function agregarReciente(docNum, centro){
+    recientes.unshift({ doc:docNum, centro:centro, hora:horaAhora() });
+    if (recientes.length > 6) recientes.pop();
+
+    listaRec.innerHTML = '';
+    recientes.forEach(function(r){
+      var li = document.createElement('li');
+      var b  = document.createElement('b');
+      b.textContent = r.doc;
+      var s  = document.createElement('span');
+      s.className = 'cc';
+      s.textContent = r.centro;
+      var t  = document.createElement('time');
+      t.textContent = r.hora;
+      li.appendChild(b); li.appendChild(s); li.appendChild(t);
+      listaRec.appendChild(li);
+    });
+    recHint.hidden  = true;
+    listaRec.hidden = false;
+  }
+
+  $('btnBuscar').addEventListener('click', buscar);
+  doc.addEventListener('keydown', function(e){ if (e.key === 'Enter') buscar(); });
+  doc.addEventListener('input', function(){
+    if (!resultado.hidden){
+      resultado.hidden = true;
+      vacio.hidden = false;
+      actualizarVacio();
+    }
+  });
+
+  /* ---------------- Dock y módulos ---------------- */
+  var apps      = Array.prototype.slice.call(document.querySelectorAll('.app')),
+      ficha     = $('fichaIcono'),
+      modTitulo = $('moduloTitulo'),
+      modSub    = $('moduloSub'),
+      modulo    = $('modulo'),
+      escritorio= $('escritorio');
+
+  function abrirModulo(clave){
+    var m = MODULOS[clave];
+    if (!m) return;
+
+    escritorio.hidden = true;
+    modulo.hidden = false;
+
+    modTitulo.textContent = m.titulo;
+    modSub.textContent    = m.sub;
+    ficha.style.background = 'linear-gradient(160deg, var(' + m.a + '), var(' + m.b + '))';
+
+    apps.forEach(function(a){
+      a.setAttribute('aria-current', a.dataset.app === clave ? 'true' : 'false');
+    });
+
+    if (clave !== 'prevencion'){
+      avisar(m.titulo + ': módulo en construcción.');
+    }
+  }
+
+  apps.forEach(function(a){
+    a.addEventListener('click', function(){ abrirModulo(a.dataset.app); });
+  });
+
+  $('btnCerrar').addEventListener('click', function(){
+    modulo.hidden = true;
+    escritorio.hidden = false;
+    apps.forEach(function(a){ a.setAttribute('aria-current','false'); });
+  });
+
+  $('btnChat').addEventListener('click', function(){ avisar('Jaina, tu asistente iPartner, te saluda.'); });
+  $('btnPerfil').addEventListener('click', function(){ avisar('Menú de perfil.'); });
+
+  /* ---------------- Inicio ---------------- */
+  pintarLista('');
+  actualizarVacio();
+})();
+</script>
+</body>
+</html>
