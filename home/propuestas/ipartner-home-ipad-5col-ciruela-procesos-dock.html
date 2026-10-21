@@ -2274,6 +2274,6 @@ window.addEventListener('load',function(){setTimeout(al,300)});window.addEventLi
 var A=app.getBoundingClientRect(),k=A.width/app.offsetWidth||1,e=document.getElementById('etqFunc');
 if(!e){e=document.createElement('div');e.id='etqFunc';e.className='etiqueta-zona';e.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg><span>Funcionalidades</span>';app.appendChild(e);}
 var a=acc.getBoundingClientRect(),gr=g.getBoundingClientRect(),gap=w.getBoundingClientRect().top-gr.bottom;
-e.style.left=((a.left-A.left)/k)+'px';e.style.top=((a.top-gap-gr.height-A.top)/k)+'px';}
+var er=e.getBoundingClientRect();e.style.left=((a.right-A.left)/k-er.width/k)+'px';e.style.top=((a.top-gap-gr.height-A.top)/k)+'px';}
 window.addEventListener('load',function(){setTimeout(pon,600)});window.addEventListener('resize',function(){setTimeout(pon,650)});})();</script></body>
 </html>
