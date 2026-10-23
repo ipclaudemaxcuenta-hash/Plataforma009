@@ -7,6 +7,12 @@
 - `assets/iconos/procesos/`: los íconos del Dock de Procesos (PNG de 200 px).
 - `assets/iconos/acciones/`: Jaina, notificaciones, cohete, avión y Asíncrona (PNG de 160–200 px).
 
+## Pantallas con menús abiertos
+- `index-menu-cohete.html`: el menú del cohete abierto (Admin, Actualizar datos, Cambiar password y Cerrar sesión).
+- `index-menu-avion.html`: el menú del avión abierto (System, SLAM, Puntos IP, Eventos y Buzón de sugerencias).
+
+Importa también estos dos archivos para tener los menús en Figma: en `index.html` los menús están cerrados.
+
 ## Importar en Figma
 1. Instalar el plugin **html.to.design** en Figma.
 2. Importar `index.html` junto con su carpeta `assets/`. También se puede subir la carpeta a cualquier hosting estático e importar la URL.
