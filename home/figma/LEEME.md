@@ -1,3 +1,15 @@
+# ⚠️ PARA FIGMA, IMPORTA SOLO LOS ARCHIVOS `figma-*.html`
+Son versiones "congeladas": sin código JavaScript y con cada elemento fijo en su lugar, para que html.to.design no desordene nada.
+- `figma-home.html`: el home, página 1.
+- `figma-home-pagina-2.html`: el home, página 2.
+- `figma-menu-cohete.html`: con el menú del cohete abierto.
+- `figma-menu-avion.html`: con el menú del avión abierto.
+- `iconos.html`: la hoja de íconos.
+
+Importa con un ancho de **1920**, con Autolayout apagado. Luego, en Figma, selecciona el frame, presiona **K** (herramienta de escala) y escribe un ancho de **2560**: todo se escala proporcionalmente a 2560×1440.
+
+Los archivos `index*.html` son las versiones interactivas para el programador; no los importes en Figma.
+
 # Home iPartner · paquete para Figma y desarrollo
 
 ## Contenido

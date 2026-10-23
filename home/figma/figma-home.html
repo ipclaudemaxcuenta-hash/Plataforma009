@@ -1,0 +1,1778 @@
+<!doctype html>
+<html lang="es"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>iPartner · Inicio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+:root{
+  /* ===== BASE DE MARCA (uso puntual) ===== */
+  --naranja:#ef801c;
+  --morado:#89037b;
+  --blanco:#ffffff;
+
+  /* ===== ESCALA SUAVE DERIVADA ===== */
+  --naranja-medio:#f0a75f;
+  --naranja-tenue:#fbe7d5;
+  --naranja-velo:#fdf4ec;
+  --naranja-tinta:#b5610f;
+
+  --morado-medio:#a5619b;
+  --morado-tenue:#efe2ee;
+  --morado-velo:#f8f2f7;
+  --morado-tinta:#5c2255;
+
+  /* Superficies y texto */
+  --papel:#fcf9fa;
+  --glass:rgba(255,255,255,.9);
+  --glass-border:rgba(137,3,123,.08);
+  --linea:rgba(137,3,123,.1);
+  --tinta:#3d2439;
+  --tinta-suave:#8a7686;
+  --tinta-nav:#5f4760;
+
+  /* Tamaño del icono central: cámbialo aquí y todo se reajusta */
+  --icon:44px;
+  --icon-radius:15%;
+  --nav-h:60px;
+  --marco:.62cm;                              /* grosor del bisel */
+  --marco-radio:calc(var(--marco) * 1.86);    /* radio exterior, proporción del iPad */
+  --marco-color:#0a0a0a;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color:var(--tinta);
+  overflow:hidden;
+  background:transparent;          /* las capas del tema van detrás; si se pinta aquí, las tapa */
+  border:var(--marco) solid transparent;
+  border-radius:var(--marco-radio);
+  background-clip:padding-box;
+}
+html{
+  background:
+    linear-gradient(150deg,#1b1b1e 0%,var(--marco-color) 22%,#050506 55%,#131316 82%,#040405 100%);
+  background-attachment:fixed;
+}
+
+/* ---------- Chasis (bisel tipo iPad) ---------- */
+.chasis{
+  position:fixed;inset:0;z-index:9999;pointer-events:none;
+  border-radius:var(--marco-radio);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.13);   /* filo metálico exterior */
+}
+.chasis::before{                                       /* canto interior del bisel */
+  content:"";position:absolute;inset:var(--marco);
+  border-radius:calc(var(--marco-radio) - var(--marco));
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.15),
+    0 0 10px rgba(0,0,0,.55),
+    0 0 2px rgba(0,0,0,.9);
+}
+.chasis::after{                                        /* cámara frontal */
+  content:"";position:absolute;top:50%;right:calc(var(--marco) / 2);
+  transform:translate(50%,-50%);
+  width:5px;height:5px;border-radius:50%;
+  background:radial-gradient(circle at 34% 32%, #46536b 0%, #1b2130 45%, #090b10 100%);
+  box-shadow:0 0 0 .5px rgba(255,255,255,.1), inset 0 0 2px rgba(0,0,0,.9);
+}
+
+/* ---------- Fondo ---------- */
+.bg-photo{
+  position:fixed;inset:var(--marco);z-index:-3;background-color:var(--papel);
+  border-radius:calc(var(--marco-radio) - var(--marco));overflow:hidden;
+  background:linear-gradient(160deg,#fdfbfc 0%,#faf5f8 55%,#f4ecf3 100%);
+}
+.stage{
+  position:fixed;inset:var(--marco);z-index:-2;
+  border-radius:calc(var(--marco-radio) - var(--marco));overflow:hidden;
+  background-size:cover;background-position:center;
+  background-image:var(--fondo);
+  transform:translateZ(0);
+}
+.stage::after{ /* velo parejo: el tema se ve completo y el contenido sigue legible */
+  content:"";position:absolute;inset:0;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,.04) 45%,rgba(61,36,57,.1) 100%),
+    radial-gradient(120% 100% at 22% 50%, rgba(252,249,250,.3), rgba(252,249,250,0) 62%);
+}
+/* Los temas oscuros piden un poco más de velo bajo el panel izquierdo */
+body[data-tema="atardecer"] .stage::after,
+body[data-tema="confeti"] .stage::after,
+body[data-tema="ondas"] .stage::after{
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,.03) 45%,rgba(20,10,25,.14) 100%),
+    radial-gradient(115% 100% at 20% 50%, rgba(255,255,255,.26), rgba(255,255,255,0) 60%);
+}
+
+/* Etiquetas claras sobre las fotos oscuras */
+body[data-tema="atardecer"] .app-icono span,
+body[data-tema="ondas"] .app-icono span,
+body[data-tema="confeti"] .app-icono span{
+  color:#fff;text-shadow:0 1px 5px rgba(20,10,25,.75)
+}
+body[data-tema="atardecer"] .app-icono:hover span,
+body[data-tema="ondas"] .app-icono:hover span,
+body[data-tema="confeti"] .app-icono:hover span{color:#fff}
+
+/* Capa que revela el tema nuevo con un círculo que se expande */
+.stage-reveal{
+  z-index:-2;
+  clip-path:circle(0px at var(--ox,50%) var(--oy,50%));
+  will-change:clip-path;
+}
+.stage-reveal.animando{
+  transition:clip-path .9s cubic-bezier(.62,.02,.3,1);
+  clip-path:circle(var(--r,150vmax) at var(--ox,50%) var(--oy,50%));
+}
+/* Onda que se abre desde el centro de la grilla */
+.onda{
+  position:fixed;top:50%;left:calc(50% + 150px);z-index:5;pointer-events:none;
+  width:22px;height:22px;margin:-11px 0 0 -11px;border-radius:50%;
+  border:1.5px solid rgba(255,255,255,.85);opacity:0;
+}
+.onda.activa{animation:expandir .95s cubic-bezier(.2,.7,.3,1) forwards}
+@keyframes expandir{
+  0%{opacity:.9;transform:scale(1)}
+  70%{opacity:.22}
+  100%{opacity:0;transform:scale(78)}
+}
+/* Los iconos acusan el cambio, uno tras otro */
+@keyframes brotar{
+  0%{transform:translateY(0) scale(1)}
+  38%{transform:translateY(-9px) scale(1.08)}
+  70%{transform:translateY(1px) scale(.99)}
+  100%{transform:translateY(0) scale(1)}
+}
+/* Y las tarjetas respiran una vez */
+@keyframes destello{
+  0%{box-shadow:0 10px 30px rgba(92,34,85,.12),0 2px 6px rgba(92,34,85,.06)}
+  45%{box-shadow:0 16px 40px rgba(92,34,85,.2),0 3px 8px rgba(92,34,85,.09)}
+  100%{box-shadow:0 10px 30px rgba(92,34,85,.12),0 2px 6px rgba(92,34,85,.06)}
+}
+.panel.refresca .card{animation:destello .8s ease both}
+.panel.refresca .card:nth-child(2){animation-delay:70ms}
+.panel.refresca .card:nth-child(3){animation-delay:140ms}
+.panel.refresca .card:nth-child(4){animation-delay:210ms}
+
+/* Miniatura seleccionada: anillo vivo */
+.tema{transition:transform .18s, box-shadow .25s}
+.tema:active{transform:scale(.94)}
+.tema[aria-pressed="true"]{box-shadow:0 0 0 3px rgba(239,128,28,.22), 0 4px 12px rgba(92,34,85,.15)}
+
+/* ---------- Layout ---------- */
+.app{
+  position:relative;height:100%;
+  display:grid;
+  grid-template-columns:clamp(340px, 34vw, 620px) 1fr;
+  grid-template-rows:auto 1fr var(--nav-h);
+  gap:0 28px;
+  padding:18px 26px 14px;
+}
+
+/* ---------- Encabezado ---------- */
+header{grid-column:1/-1;display:flex;align-items:flex-start;justify-content:space-between}
+.marca{line-height:1}
+.marca h1{
+  font-family:"Outfit",sans-serif;font-weight:600;font-size:34px;letter-spacing:-.02em;
+  color:var(--morado-tinta);
+}
+.marca h1 b{color:var(--naranja);font-weight:700}
+.marca span{font-size:11px;color:var(--tinta-suave);letter-spacing:.02em}
+.marca span u{text-decoration-color:var(--naranja-medio);text-underline-offset:2px}
+
+.sesion{display:flex;align-items:center;gap:16px}
+/* Selector de horario programado (segmentado, estilo iPad) */
+.horario-seg{
+  display:inline-flex;align-items:center;gap:3px;padding:3px;border-radius:999px;
+  background:linear-gradient(150deg,rgba(255,255,255,.5),rgba(255,255,255,.24));
+  backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);
+  border:1px solid rgba(255,255,255,.6);
+  box-shadow:0 6px 16px rgba(92,34,85,.12), inset 0 1px 1px rgba(255,255,255,.85);
+}
+.hseg-op{
+  display:inline-flex;align-items:center;gap:5px;border:0;cursor:pointer;
+  padding:6px 12px;border-radius:999px;font:inherit;font-size:12.5px;font-weight:600;
+  color:#5c2255;background:transparent;transition:background .2s, color .2s, box-shadow .2s;
+}
+.hseg-op svg{width:14px;height:14px}
+.hseg-op.activo{
+  color:#fff;background:linear-gradient(150deg,#3b3fa0,#2a2d80);
+  box-shadow:0 4px 10px rgba(59,63,160,.35), inset 0 1px 1px rgba(255,255,255,.3);
+}
+
+.campana{
+  position:relative;width:38px;height:38px;border:0;border-radius:50%;
+  background:linear-gradient(150deg,rgba(255,255,255,.5),rgba(255,255,255,.24));
+  backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);
+  border:1px solid rgba(255,255,255,.55);
+  box-shadow:0 4px 14px rgba(92,34,85,.1), inset 0 1px 1px rgba(255,255,255,.85);
+  display:grid;place-items:center;cursor:pointer;transition:transform .15s
+}
+.campana:hover{transform:translateY(-1px)}
+.campana .punto{
+  position:absolute;top:6px;right:7px;width:8px;height:8px;border-radius:50%;
+  background:var(--naranja);border:1.5px solid #fff
+}
+.usuario{
+  display:flex;align-items:center;gap:9px;padding:4px;border-radius:999px;
+  background:linear-gradient(150deg,rgba(255,255,255,.5),rgba(255,255,255,.24));
+  backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);
+  border:1px solid rgba(255,255,255,.55);
+  box-shadow:0 4px 14px rgba(92,34,85,.1), inset 0 1px 1px rgba(255,255,255,.85);
+  cursor:pointer;font-size:13.5px;color:var(--tinta)
+}
+.avatar{
+  width:34px;height:34px;border-radius:50%;
+  background:linear-gradient(150deg,#a5619b,#89037b);display:grid;place-items:center;
+  box-shadow:inset 0 1px 1px rgba(255,255,255,.35)
+}
+
+/* ---------- Tarjetas ---------- */
+.panel{display:flex;flex-direction:column;gap:14px;padding:16px 0 12px;margin-left:auto;width:340px;overflow:auto;scrollbar-width:none}
+.panel::-webkit-scrollbar{display:none}
+.card{
+  position:relative;isolation:isolate;
+  border-radius:26px;padding:17px 19px;
+  background:#ffffff;
+  border:1px solid rgba(0,0,0,.05);
+  box-shadow:
+    0 10px 30px rgba(92,34,85,.12),
+    0 2px 6px rgba(92,34,85,.06);
+  transition:box-shadow .3s ease, transform .3s ease;
+}
+/* Reflejo especular que recorre el borde superior */
+.card::before{
+  content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:0;
+  background:none;
+}
+/* Canto refractado: una línea de luz por dentro del borde */
+.card::after{
+  content:"";position:absolute;inset:1px;border-radius:calc(26px - 1px);pointer-events:none;z-index:0;
+  box-shadow:none;
+}
+.card > *{position:relative;z-index:1}
+.card:hover{
+  box-shadow:
+    0 14px 36px rgba(92,34,85,.16),
+    0 2px 6px rgba(92,34,85,.07);
+}
+/* Respaldo para navegadores sin desenfoque de fondo */
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  .card{background:#ffffff}
+}
+
+.card.reloj{
+  background:transparent;
+  border-color:transparent;
+  box-shadow:none;
+}
+.card.reloj::before,.card.reloj::after{display:none}
+/* Texto del reloj: se aclara sobre los temas oscuros */
+body[data-tema="atardecer"] .card.reloj,
+body[data-tema="confeti"] .card.reloj,
+body[data-tema="ondas"] .card.reloj{color:#fff}
+body[data-tema="atardecer"] .card.reloj .hora,
+body[data-tema="atardecer"] .card.reloj .fecha,
+body[data-tema="atardecer"] .card.reloj .saludo,
+body[data-tema="atardecer"] .card.reloj .hora small,
+body[data-tema="ondas"] .card.reloj .hora,
+body[data-tema="ondas"] .card.reloj .fecha,
+body[data-tema="ondas"] .card.reloj .saludo,
+body[data-tema="ondas"] .card.reloj .hora small,
+body[data-tema="confeti"] .card.reloj .hora,
+body[data-tema="confeti"] .card.reloj .fecha,
+body[data-tema="confeti"] .card.reloj .saludo,
+body[data-tema="confeti"] .card.reloj .hora small{color:#fff;text-shadow:0 1px 5px rgba(20,10,25,.6)}
+body[data-tema="atardecer"] .card.reloj .aro,
+body[data-tema="confeti"] .card.reloj .aro,
+body[data-tema="ondas"] .card.reloj .aro{border-color:rgba(255,255,255,.7)}
+body[data-tema="atardecer"] .card.reloj .aro svg,
+body[data-tema="confeti"] .card.reloj .aro svg,
+body[data-tema="ondas"] .card.reloj .aro svg{stroke:#fff}
+.reloj{display:flex;gap:14px;align-items:center}
+.reloj .aro{
+  width:44px;height:44px;flex:0 0 44px;border-radius:50%;
+  background:var(--naranja-velo);border:1px solid rgba(239,128,28,.22);
+  display:grid;place-items:center
+}
+.hora{font-family:"Outfit",sans-serif;font-size:40px;font-weight:500;letter-spacing:-.02em;line-height:1;color:var(--morado-tinta)}
+.hora small{font-size:15px;font-weight:400;color:var(--tinta-suave);margin-left:4px}
+.fecha{font-size:13px;margin-top:6px}
+.saludo{font-size:11.5px;color:var(--tinta-suave);margin-top:2px}
+/* Reloj y clima lado a lado */
+.fila-superior{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fila-superior .card{margin:0}
+.fila-superior .card.reloj{display:flex;align-items:center}
+.fila-superior .hora{font-size:51px}
+.fila-superior .temp{font-size:30px}
+
+/* Widget: consumo del paquete actual */
+/* Widget: novedades de la plataforma */
+.novedades{position:relative}
+.nov-badge{
+  font-size:11px;font-weight:700;color:#fff;background:var(--naranja,#ef801c);
+  min-width:20px;height:20px;padding:0 6px;border-radius:999px;display:inline-grid;place-items:center;
+}
+.nov-carrusel{display:flex;align-items:center;gap:6px}
+.nov-actual{flex:1;min-width:0;overflow:hidden}
+.nov-nav{
+  flex:0 0 28px;width:28px;height:28px;border:0;border-radius:9px;cursor:pointer;
+  display:grid;place-items:center;color:#3b3fa0;background:rgba(59,63,160,.1);transition:background .15s;
+}
+.nov-nav svg{width:15px;height:15px}
+.nov-nav:hover{background:rgba(59,63,160,.2)}
+.nov-puntos{display:flex;justify-content:center;gap:6px;margin-top:8px}
+.nov-punto-ind{
+  width:7px;height:7px;border-radius:50%;background:rgba(92,34,85,.2);cursor:pointer;transition:.2s;padding:0;border:0;
+}
+.nov-punto-ind.activo{background:var(--naranja,#ef801c);width:18px;border-radius:4px}
+/* Transición de la notificación al cambiar */
+.nov-actual .nov-item{animation:novSlide .3s ease both}
+@keyframes novSlide{from{opacity:0;transform:translateX(10px)}to{opacity:1;transform:none}}
+.nov-item{
+  display:flex;gap:10px;align-items:flex-start;padding:9px 8px;border-radius:11px;cursor:pointer;
+  transition:background .15s;position:relative;
+}
+.nov-item:hover{background:rgba(92,34,85,.05)}
+.nov-ico{width:30px;height:30px;flex:0 0 30px;border-radius:9px;display:grid;place-items:center;color:#fff}
+.nov-ico svg{width:16px;height:16px}
+.nov-ico.nuevo{background:linear-gradient(160deg,#4fbf74,#2e9e52)}
+.nov-ico.mejora{background:linear-gradient(160deg,#6a70e0,#3b3fa0)}
+.nov-ico.aviso{background:linear-gradient(160deg,#f5a94e,#e07d1f)}
+.nov-txt{min-width:0;flex:1}
+.nov-tit{font-size:12.5px;font-weight:600;color:var(--tinta);line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nov-desc{font-size:11px;color:var(--tinta-suave);line-height:1.3;margin-top:1px}
+.nov-time{font-size:10px;color:var(--tinta-suave);white-space:nowrap;margin-top:2px}
+.nov-punto{width:7px;height:7px;border-radius:50%;background:var(--naranja,#ef801c);flex:0 0 7px;margin-top:6px}
+.nov-punto.leido{background:transparent}
+/* En la barra (una sola), no truncar la descripción tan corto */
+.nov-actual .nov-item{cursor:pointer}
+.nov-actual .nov-desc{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+.consumo-plan{font-size:10.5px;font-weight:500;color:var(--naranja-tinta);background:var(--naranja-velo);padding:3px 9px;border-radius:999px}
+.consumo-lista{display:flex;flex-direction:column;gap:12px;margin-top:4px}
+.consumo-item{display:flex;flex-direction:column;gap:5px}
+.consumo-head{display:flex;justify-content:space-between;align-items:baseline;font-size:12px}
+.consumo-head .etq{color:var(--tinta);font-weight:500}
+.consumo-head .val{color:var(--tinta-suave);font-size:11px}
+.consumo-barra{height:7px;border-radius:5px;background:rgba(92,34,85,.1);overflow:hidden}
+.consumo-relleno{height:100%;border-radius:5px;width:0;transition:width 1s cubic-bezier(.3,.9,.3,1)}
+.consumo-relleno.baja{background:linear-gradient(90deg,#6fc98a,#2ba24d)}
+.consumo-relleno.media{background:linear-gradient(90deg,#f5bc80,#ef801c)}
+.consumo-relleno.alta{background:linear-gradient(90deg,#f2637f,#d0344f)}
+
+.fila-superior .clima{grid-template-columns:1fr;gap:2px}
+.fila-superior .clima .rangos{flex-direction:row;gap:12px;margin-top:4px}
+.clima{display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:center}
+/* Widget de clima estilo iPad: cielo de fondo + texto blanco */
+.card.clima{
+  transition:background .6s ease;
+  color:#fff;
+  position:relative;overflow:hidden;
+}
+.card.clima .ciudad,.card.clima .temp,.card.clima .estado,.card.clima .rangos{color:#fff}
+.card.clima .ciudad svg{stroke:rgba(255,255,255,.9)}
+.card.clima .estado{color:rgba(255,255,255,.92)}
+.card.clima .rangos{color:rgba(255,255,255,.85)}
+/* velo sutil para asegurar contraste del texto sobre el cielo */
+.card.clima::after{
+  content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
+  background:linear-gradient(180deg,rgba(0,0,0,.02),rgba(0,0,0,.14));
+}
+.card.clima > *{position:relative;z-index:1}
+
+/* Cielos según la condición (mismos gradientes que el app de iPad) */
+.card.clima.c-soleado{background:linear-gradient(180deg,#2f7fd6 0%,#4a9fe0 45%,#8fc9f0 100%)}
+.card.clima.c-despejado{background:linear-gradient(180deg,#3d8ee0 0%,#5aa6e8 50%,#9ad0f5 100%)}
+.card.clima.c-parcial{background:linear-gradient(180deg,#5b7fa6 0%,#7c9bbd 45%,#aebfd2 100%)}
+.card.clima.c-nublado{background:linear-gradient(180deg,#6b7685 0%,#8b95a3 50%,#aab2bd 100%)}
+.card.clima.c-lluvia{background:linear-gradient(180deg,#3f5568 0%,#5a7387 50%,#7f96a8 100%)}
+.card.clima.c-tormenta{background:linear-gradient(180deg,#2c3444 0%,#454f63 50%,#65708a 100%)}
+.card.clima.c-niebla{background:linear-gradient(180deg,#8a929c 0%,#a3aab3 50%,#c1c7ce 100%)}
+.card.clima.c-amanecer{background:linear-gradient(180deg,#4a5b8c 0%,#c77b8a 55%,#f0b070 100%)}
+.card.clima.c-atardecer{background:linear-gradient(180deg,#3b4a7a 0%,#a85f7e 50%,#e88a5a 100%)}
+.card.clima.c-noche{background:linear-gradient(180deg,#0f1834 0%,#1e2a52 55%,#38315e 100%)}
+
+.clima .ciudad{grid-column:1/-1;font-size:12.5px;display:flex;align-items:center;gap:6px}
+.temp{font-family:"Outfit",sans-serif;font-size:38px;font-weight:400;line-height:1}
+.estado{font-size:11.5px;margin-top:3px}
+.rangos{display:flex;flex-direction:column;gap:6px;font-size:11px}
+.rangos span{display:flex;align-items:center;gap:6px}
+.rangos i{width:7px;height:7px;border-radius:50%;display:inline-block}
+.rangos .max{background:#ffd88a}
+.rangos .min{background:#bcd4ff}
+
+
+
+.titulo-card{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.titulo-card h2{font-size:13px;font-weight:600;display:flex;align-items:center;gap:7px;color:var(--morado-tinta)}
+.titulo-card a{font-size:11px;color:var(--tinta-suave);text-decoration:none;display:flex;align-items:center;gap:3px}
+.titulo-card a:hover{color:var(--naranja-tinta)}
+.noticia{display:grid;grid-template-columns:44px 1fr auto;gap:10px;align-items:center;padding:6px 0;border-radius:12px;cursor:pointer;text-decoration:none;color:inherit}
+.noticia:hover{background:var(--morado-velo)}
+.miniatura{width:44px;height:30px;border-radius:7px;border:1px solid var(--linea);overflow:hidden;flex:0 0 44px;display:block;position:relative}
+.miniatura img{width:100%;height:100%;object-fit:cover;display:block}
+.noticia p{font-size:11.5px;line-height:1.32;padding-right:4px}
+.noticia p::before{content:"•";color:var(--naranja-medio);margin-right:5px}
+.noticia time{font-size:10px;color:var(--tinta-suave);white-space:nowrap}
+
+.temas{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.tema{
+  height:50px;border-radius:12px;border:1.5px solid var(--linea);cursor:pointer;
+  position:relative;transition:transform .18s
+}
+.tema:hover{transform:translateY(-2px)}
+.tema[aria-pressed="true"]{border-color:var(--naranja-medio)}
+.tema[aria-pressed="true"]::after{
+  content:"";position:absolute;right:6px;bottom:6px;width:13px;height:13px;border-radius:50%;
+  background:var(--naranja);border:2px solid #fff
+}
+.tema{background-size:cover;background-position:center}
+
+/* ---------- Grilla central (estilo iPad) ---------- */
+.escritorio{position:relative;padding:0}
+/* ---------- Buscador ---------- */
+.buscador{
+  position:absolute;top:21px;left:50%;transform:translateX(calc(-50% - 11cm));z-index:5;
+  display:flex;align-items:center;gap:9px;
+  width:calc(min(360px,60%) - 3cm);padding:19.8px 14px;border-radius:999px;
+  background:linear-gradient(150deg,rgba(255,255,255,.62),rgba(255,255,255,.44));
+  backdrop-filter:blur(22px) saturate(180%);-webkit-backdrop-filter:blur(22px) saturate(180%);
+  border:1px solid rgba(255,255,255,.6);
+  box-shadow:0 8px 22px rgba(92,34,85,.14), inset 0 1px 1px rgba(255,255,255,.85);
+  transition:box-shadow .2s, transform .2s;
+}
+.buscador:focus-within{box-shadow:0 10px 26px rgba(92,34,85,.2), inset 0 1px 1px rgba(255,255,255,.9), 0 0 0 2px rgba(239,128,28,.3)}
+.buscador svg{width:18px;height:18px;color:var(--morado-tinta);flex:0 0 18px}
+.buscador input{
+  flex:1;border:0;background:none;outline:none;font:inherit;font-size:14px;color:var(--tinta);
+}
+.buscador input::placeholder{color:var(--tinta-suave)}
+.busca-x{
+  border:0;background:rgba(92,34,85,.12);color:var(--morado-tinta);cursor:pointer;
+  width:20px;height:20px;border-radius:50%;font-size:15px;line-height:1;display:grid;place-items:center;
+  flex:0 0 20px;transition:background .15s;
+}
+.busca-x:hover{background:rgba(92,34,85,.22)}
+/* Chip oculto al filtrar */
+.chip-app.oculto{opacity:0;transform:scale(.8);pointer-events:none;transition:opacity .2s, transform .2s}
+.chip-app.resaltado .chip-ico{box-shadow:0 8px 18px rgba(20,10,25,.3), 0 0 0 3px rgba(239,128,28,.55)}
+
+.lienzo{
+  position:absolute;inset:0;
+}
+.chip-app{
+  position:absolute;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  width:var(--icon);background:none;border:0;padding:0;cursor:pointer;
+  font:inherit;color:var(--tinta);-webkit-tap-highlight-color:transparent;
+  touch-action:none;user-select:none;
+  transition:transform .16s cubic-bezier(.2,.8,.3,1.2), box-shadow .16s;
+  z-index:1;
+}
+.chip-app .chip-ico{
+  width:var(--icon);height:var(--icon);border-radius:var(--icon-radius);
+  display:grid;place-items:center;position:relative;overflow:hidden;
+  box-shadow:0 5px 12px rgba(20,10,25,.2), inset 0 1px 1px rgba(255,255,255,.45);
+  transition:transform .16s cubic-bezier(.2,.8,.3,1.3), box-shadow .16s;
+}
+.chip-app .chip-ico::before{  /* brillo superior */
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(255,255,255,.34),rgba(255,255,255,0) 58%,rgba(0,0,0,.04));
+}
+.chip-app .chip-ico::after{   /* canto de luz interior */
+  content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  box-shadow:inset 0 0 0 .8px rgba(255,255,255,.28);
+}
+.chip-app .chip-ico svg{filter:drop-shadow(0 1px 1.5px rgba(20,10,25,.3))}
+.chip-app .chip-ico svg{width:54%;height:54%;position:relative;z-index:1;stroke-width:2.2px}
+.chip-lbl{
+  font-size:11px;font-weight:500;line-height:1.2;text-align:center;width:88px;
+  color:var(--tinta);pointer-events:none;
+}
+body[data-tema="atardecer"] .chip-lbl,
+body[data-tema="confeti"] .chip-lbl,
+body[data-tema="ondas"] .chip-lbl{color:#fff;text-shadow:0 1px 4px rgba(20,10,25,.7)}
+
+.chip-app:hover{z-index:3}
+.chip-app:hover .chip-ico{transform:translateY(-3px) scale(1.07);box-shadow:0 9px 18px rgba(20,10,25,.28), inset 0 1px 1px rgba(255,255,255,.6)}
+.chip-app:active{cursor:grabbing}
+.chip-app.arrastrando{z-index:9;cursor:grabbing;transition:none}
+.chip-app.arrastrando .chip-ico{transform:scale(1.14);box-shadow:0 16px 30px rgba(20,10,25,.34)}
+.chip-app:focus-visible .chip-ico{outline:2.5px solid var(--naranja);outline-offset:3px}
+
+/* Colores de los chips: sólidos y encendidos */
+.c-crediticio .chip-ico{background:linear-gradient(160deg,#97b3f6,#4672e5)}
+.c-extranjero .chip-ico{background:linear-gradient(160deg,#59d4c3,#00a6bb)}
+.c-income .chip-ico{background:linear-gradient(160deg,#71da90,#1cbd4a)}
+.c-black-list .chip-ico{background:linear-gradient(160deg,#5b6284,#2a2f4d)}
+.c-ruc .chip-ico{background:linear-gradient(160deg,#ffc78c,#ff881c)}
+.c-splaft .chip-ico{background:linear-gradient(160deg,#ff6a88,#e72c4d)}
+.c-b2b .chip-ico{background:linear-gradient(160deg,#d696e4,#a753c1)}
+.c-ficha-id .chip-ico{background:linear-gradient(160deg,#7fc3f8,#3786d9)}
+.c-procesos .chip-ico{background:linear-gradient(160deg,#ffaa5e,#f68020)}
+.c-historial .chip-ico{background:linear-gradient(160deg,#b27adf,#8535b6)}
+.c-paquetes .chip-ico{background:linear-gradient(160deg,#ff99c0,#f45996)}
+.c-diccionario-legal .chip-ico{background:linear-gradient(160deg,#907ee6,#5844c1)}
+.c-perfil .chip-ico{background:linear-gradient(160deg,#59d4b5,#22b492)}
+.c-prevencion-chip .chip-ico{background:linear-gradient(160deg,#b48ade,#7a3f9e)}
+.c-proveedor-chip .chip-ico{background:linear-gradient(160deg,#4fbf74,#2e9e52)}
+.c-reclutamiento-chip .chip-ico{background:linear-gradient(160deg,#7ab8e8,#4a86c4)}
+
+
+/* ---------- Barra inferior ---------- */
+nav{
+  grid-column:1/-1;justify-self:center;align-self:center;
+  display:flex;align-items:center;justify-content:center;gap:.4cm;
+  padding:9px 20px;margin:0;
+  background:linear-gradient(180deg,rgba(255,255,255,.6),rgba(255,255,255,.42));
+  backdrop-filter:blur(30px) saturate(190%) brightness(1.05);
+  -webkit-backdrop-filter:blur(30px) saturate(190%) brightness(1.05);
+  border:1px solid rgba(255,255,255,.6);
+  box-shadow:
+    inset 0 1px 1px rgba(255,255,255,.9),
+    0 8px 26px rgba(92,34,85,.16),
+    0 2px 6px rgba(92,34,85,.08);
+  border-radius:20px;
+  position:relative;
+}
+.nav-item{
+  display:flex;align-items:center;justify-content:center;background:none;border:0;cursor:pointer;
+  padding:8px;border-radius:14px;transition:transform .15s
+}
+.nav-item{position:relative}
+.nav-item::after{
+  content:attr(aria-label);position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%) translateY(4px);
+  background:rgba(30,15,28,.92);color:#fff;font-size:11px;font-weight:500;white-space:nowrap;
+  padding:4px 9px;border-radius:7px;opacity:0;pointer-events:none;transition:opacity .16s, transform .16s;
+  box-shadow:0 4px 12px rgba(0,0,0,.25)
+}
+.nav-item:hover::after{opacity:1;transform:translateX(-50%) translateY(0)}
+/* Chip de color estilo app iOS */
+.nav-chip{
+  width:38px;height:38px;flex:0 0 38px;border-radius:11px;
+  display:grid;place-items:center;position:relative;overflow:hidden;
+  box-shadow:0 3px 7px rgba(20,10,25,.22), inset 0 1px 1px rgba(255,255,255,.5);
+  transition:transform .16s cubic-bezier(.2,.8,.3,1.3), box-shadow .16s;
+}
+.nav-chip::before{               /* brillo superior */
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(255,255,255,.34),rgba(255,255,255,0) 58%,rgba(0,0,0,.04));
+}
+.nav-chip svg{width:21px;height:21px;position:relative;z-index:1}
+.nav-item:hover .nav-chip{transform:translateY(-2px) scale(1.08);box-shadow:0 6px 12px rgba(20,10,25,.28), inset 0 1px 1px rgba(255,255,255,.55)}
+.nav-item:active .nav-chip{transform:scale(.92)}
+.nav-item[aria-current="page"] .nav-chip{box-shadow:0 3px 7px rgba(20,10,25,.22), inset 0 1px 1px rgba(255,255,255,.5), 0 0 0 2px rgba(239,128,28,.35)}
+/* Colores de cada sección, tomados de la referencia */
+.c-home{background:linear-gradient(160deg,#f5a94e,#e07d1f)}          /* naranja de marca */
+.c-prevencion{background:linear-gradient(160deg,#a877cf,#7a3f9e)}   /* morado */
+.c-proveedor{background:linear-gradient(160deg,#4fbf74,#2e9e52)}    /* ámbar */
+.c-reclutamiento{background:linear-gradient(160deg,#7ab8e8,#4a86c4)}/* azul suave */
+.c-asincrona{background:linear-gradient(160deg,#c98fd6,#9a54b0)}    /* orquídea */
+.c-monitoreo{background:linear-gradient(160deg,#8a7ad6,#5a4bab)}    /* índigo */
+.c-dashboard{background:linear-gradient(160deg,#5ac2a8,#2f9b82)}
+.c-analytics{background:linear-gradient(160deg,#4dc7d6,#1c93b0)}    /* verde azulado */
+nav .indicador{display:none}
+/* Puntito bajo el chip activo */
+.nav-item[aria-current="page"]::before{
+  content:"";position:absolute;bottom:2px;left:50%;transform:translateX(-50%);
+  width:5px;height:5px;border-radius:50%;background:var(--naranja);
+}
+
+/* Monitores grandes: iconos con un poco más de tamaño */
+@media (min-width:1800px){
+  :root{--icon:66px}
+}
+/* Monitores medianos: columna del panel más ajustada */
+@media (max-width:1400px){
+  .app{grid-template-columns:clamp(320px, 30vw, 460px) 1fr}
+}
+/* Monitores pequeños / ventanas angostas */
+@media (max-width:1150px){
+  .app{grid-template-columns:300px 1fr;gap:0 18px}
+  .panel{width:300px}
+  :root{--icon:52px}
+}
+/* Muy angosto: panel al mínimo, clima y reloj apilados */
+@media (max-width:960px){
+  .app{grid-template-columns:270px 1fr}
+  .panel{width:270px}
+  .fila-superior{grid-template-columns:1fr}
+  :root{--icon:48px}
+}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+#busca.busca-error{color:#e0243b;animation:shakeBusca .4s}
+@keyframes shakeBusca{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.c-premium-ia .chip-ico{background:linear-gradient(160deg,#a15cc8,#7a3f9e)}
+.c-clasico .chip-ico{background:linear-gradient(160deg,#ffd27a,#f0a51c)}
+.c-basico-plus .chip-ico{background:linear-gradient(160deg,#6ee0b0,#22b07a)}
+.c-premium .chip-ico{background:linear-gradient(160deg,#7fc3f8,#3786d9)}
+.c-vip .chip-ico{background:linear-gradient(160deg,#ffcf5e,#e0a01c)}
+.c-zeta .chip-ico{background:linear-gradient(160deg,#b6a0f0,#7a5be0)}
+.c-z-basico .chip-ico{background:linear-gradient(160deg,#8fd0f5,#3f9ae0)}
+.c-z-basico-plus .chip-ico{background:linear-gradient(160deg,#7ee0c8,#2fb89b)}
+.c-z-premium .chip-ico{background:linear-gradient(160deg,#f0a0d0,#d64ba0)}
+.c-z-vip .chip-ico{background:linear-gradient(160deg,#ffbf8c,#f0801c)}
+.c-credit-pro .chip-ico{background:linear-gradient(160deg,#97b3f6,#4672e5)}
+
+/* =====================================================================
+   REDISEÑO HOME v2 — jerarquía y medidas según la maqueta
+   ===================================================================== */
+:root{
+  --panel-w:440px;        /* columna izquierda */
+  --zona-w:1120px;        /* ancho de la barra de búsqueda = ancho de la grilla */
+  --icon:50px;
+  --icon-radius:24%;
+  --nav-h:84px;
+}
+.app{
+  grid-template-columns:var(--panel-w) minmax(0,1fr);
+  grid-template-rows:auto 1fr var(--nav-h);
+  gap:0 clamp(28px,4vw,96px);
+  padding:16px clamp(24px,4vw,84px) 10px;
+}
+header{justify-content:flex-end}
+.sesion{gap:clamp(20px,3vw,52px)}
+
+/* Estado del servicio */
+.servicio{
+  display:inline-flex;align-items:center;gap:8px;padding:3px 12px 3px 3px;border-radius:999px;
+  background:linear-gradient(150deg,rgba(255,255,255,.55),rgba(255,255,255,.3));
+  backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);
+  border:1px solid rgba(255,255,255,.65);
+  box-shadow:0 6px 16px rgba(92,34,85,.12), inset 0 1px 1px rgba(255,255,255,.85);
+}
+.serv-activo{
+  padding:8px 16px;border-radius:999px;font-size:15px;font-weight:600;color:#fff;
+  background:linear-gradient(150deg,#3b3fa0,#2a2d80);
+  box-shadow:0 4px 10px rgba(59,63,160,.35), inset 0 1px 1px rgba(255,255,255,.3);
+}
+.serv-horas{display:inline-flex;align-items:center;gap:4px;font-size:12.5px;font-weight:600;color:var(--morado-tinta)}
+.serv-horas svg{width:13px;height:13px}
+
+/* Accesos superiores: Jaina, notificaciones, usuario, viajes */
+.acciones{display:flex;gap:10px}
+.accion{
+  width:38px;height:38px;border-radius:50%;border:2px solid rgba(255,255,255,.85);cursor:pointer;padding:0;
+  display:grid;place-items:center;position:relative;
+  box-shadow:0 4px 12px rgba(20,10,25,.18), inset 0 1px 1px rgba(255,255,255,.35);
+  transition:transform .15s, box-shadow .15s;
+}
+.accion svg{width:18px;height:18px}
+.accion:hover{transform:translateY(-1px) scale(1.05)}
+.accion:focus-visible{outline:2.5px solid var(--naranja);outline-offset:2px}
+.a-jaina{background:radial-gradient(circle at 35% 30%,#4fb3ff,#1f6fe0 60%,#1a3fa8)}
+.a-notif{background:linear-gradient(160deg,#4fd08a,#1fa760)}
+.a-user{background:linear-gradient(160deg,#b25fae,#7a1d72)}
+.a-viaje{background:linear-gradient(160deg,#2b3a9e,#141c63)}
+.usuario{padding:0;gap:0;font-size:inherit}
+
+/* ---------- Panel izquierdo ---------- */
+.panel{width:100%;margin-left:0;gap:20px;padding:24px 0 12px}
+.card{border-radius:24px;padding:16px 18px}
+.card::after{border-radius:23px}
+.fila-superior{gap:14px}
+.card.reloj{background:#fff;border-color:rgba(0,0,0,.05);box-shadow:0 10px 30px rgba(92,34,85,.12),0 2px 6px rgba(92,34,85,.06)}
+body[data-tema] .card.reloj,
+body[data-tema] .card.reloj .hora,
+body[data-tema] .card.reloj .fecha,
+body[data-tema] .card.reloj .saludo{color:var(--tinta);text-shadow:none}
+body[data-tema] .card.reloj .hora{color:var(--morado-tinta)}
+body[data-tema] .card.reloj .hora small,
+body[data-tema] .card.reloj .saludo{color:var(--tinta-suave)}
+.fila-superior .hora{font-size:44px;font-weight:400}
+.fecha{font-size:12.5px;margin-top:10px}
+.saludo{font-size:11px;margin-top:6px}
+
+.card.clima{gap:6px;padding:14px 16px}
+.card.clima.c-despejado,.card.clima.c-soleado{background:linear-gradient(170deg,#2f5a86 0%,#3d6a95 60%,#4b77a0 100%)}
+.clima-cuerpo{display:flex;align-items:center;gap:10px}
+.clima-ico{width:46px;height:46px;flex:0 0 46px;border-radius:14px;display:grid;place-items:center;
+  background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.18)}
+.clima-ico svg{width:30px;height:30px}
+.fila-superior .temp{font-size:32px;color:#ffd36b}
+.clima .ciudad{font-size:11.5px}
+.fila-superior .clima .rangos{font-size:10.5px;margin-top:2px}
+
+.titulo-card{margin-bottom:12px}
+.titulo-card h2{font-size:12.5px;font-weight:500;color:var(--tinta)}
+.temas{gap:8px}
+.tema{height:48px;border-radius:10px}
+
+.nov-badge{min-width:18px;height:18px;font-size:10.5px}
+.nov-vacio{font-size:11.5px;color:var(--tinta-suave);text-align:center;padding:14px 0 18px}
+
+.noticia{grid-template-columns:30px 1fr auto;gap:12px;padding:7px 4px}
+.noticia p{font-size:11.5px}
+.noticia p::before{content:none}
+.noticia time{font-size:10.5px}
+.not-ico{width:30px;height:24px;border-radius:7px;display:grid;place-items:center;box-shadow:0 2px 5px rgba(20,10,25,.12)}
+.not-ico svg{width:13px;height:13px}
+.n-naranja{background:linear-gradient(160deg,#ffcf6e,#f5a21f)}
+.n-verde{background:linear-gradient(160deg,#4fd3c0,#17a99a)}
+.n-azul{background:linear-gradient(160deg,#7b8cff,#4a5ae0)}
+.n-celeste{background:linear-gradient(160deg,#7fb8f5,#3f86d9)}
+
+/* ---------- Zona central: buscador + grilla con el MISMO ancho ---------- */
+.escritorio{display:flex;justify-content:center;min-height:0;padding-top:24px}
+.zona{width:min(var(--zona-w),100%);display:flex;flex-direction:column;min-height:0}
+.buscador{
+  position:relative;top:auto;left:auto;transform:none;
+  width:100%;padding:10px 10px 10px 30px;gap:14px;
+  background:rgba(255,255,255,.92);
+  box-shadow:0 12px 30px rgba(92,34,85,.12), inset 0 1px 1px rgba(255,255,255,.9);
+}
+.buscador svg{width:22px;height:22px;flex:0 0 22px}
+.buscador input{font-size:17px}
+.busca-ir{
+  width:56px;height:56px;flex:0 0 56px;border-radius:50%;border:0;cursor:pointer;
+  display:grid;place-items:center;
+  background:radial-gradient(circle at 35% 30%,#7a2a6e,#4a0f45 70%);
+  box-shadow:0 6px 14px rgba(74,15,69,.35), inset 0 1px 1px rgba(255,255,255,.25);
+  transition:transform .15s;
+}
+.busca-ir svg{width:22px;height:22px;flex:0 0 22px;color:#fff}
+.busca-ir:hover{transform:scale(1.05)}
+.busca-ir:focus-visible{outline:2.5px solid var(--naranja);outline-offset:3px}
+
+/* Pantallas de iconos (18 por pantalla, 6 × 3) */
+.paginas{
+  flex:1;min-height:0;margin-top:28px;
+  display:flex;overflow-x:auto;overflow-y:hidden;
+  scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;
+}
+.paginas::-webkit-scrollbar{display:none}
+.paginas.arrastrando{scroll-snap-type:none;cursor:grabbing}
+.pagina{
+  flex:0 0 100%;scroll-snap-align:start;
+  display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:min-content;
+  row-gap:clamp(22px,4.2vh,48px);justify-items:center;align-content:start;
+  padding:6px 0;
+}
+.chip-app{position:relative;touch-action:manipulation;width:auto;gap:9px}
+.chip-lbl{width:110px;font-size:11.5px}
+
+.puntos-pag{display:flex;justify-content:center;gap:22px;padding:14px 0 6px}
+.punto-pag{
+  width:16px;height:16px;border-radius:50%;border:0;padding:0;cursor:pointer;
+  background:rgba(255,255,255,.5);box-shadow:0 1px 4px rgba(92,34,85,.12);transition:background .2s, transform .2s;
+}
+.punto-pag.activo{background:rgba(255,255,255,.85)}
+.punto-pag:hover{transform:scale(1.15)}
+.punto-pag:focus-visible{outline:2px solid var(--naranja);outline-offset:3px}
+
+/* Colores de los iconos según la maqueta */
+.k-star .chip-ico{background:linear-gradient(160deg,#ffd45e,#f5a316)}
+.k-diam .chip-ico{background:linear-gradient(160deg,#7fc3f8,#3786d9)}
+.k-crown .chip-ico{background:linear-gradient(160deg,#ffd45e,#f0a51c)}
+.k-violeta .chip-ico{background:linear-gradient(160deg,#a066d6,#6f2fb0)}
+.k-ficha .chip-ico{background:linear-gradient(160deg,#7fc3f8,#3786d9)}
+.k-splaft .chip-ico{background:linear-gradient(160deg,#ff6a7e,#e02c45)}
+.k-cred .chip-ico{background:linear-gradient(160deg,#8fb0fb,#4f74e8)}
+.k-income .chip-ico{background:linear-gradient(160deg,#52d977,#17b046)}
+.k-empresa .chip-ico{background:linear-gradient(160deg,#4fcf78,#1f9f4a)}
+.k-mundo .chip-ico{background:linear-gradient(160deg,#4fd8d0,#14aab8)}
+.k-ruc .chip-ico{background:linear-gradient(160deg,#ffc07a,#ff9a3c)}
+.k-libro .chip-ico{background:linear-gradient(160deg,#7c6cf0,#4a32c8)}
+.k-reclu .chip-ico{background:linear-gradient(160deg,#7ab8f0,#4a8ad0)}
+.k-reloj .chip-ico{background:linear-gradient(160deg,#a66df0,#7a35d0)}
+.k-caja .chip-ico{background:linear-gradient(160deg,#7fc6ff,#3d8de6)}
+.k-proc .chip-ico{background:linear-gradient(160deg,#ffaa50,#ff7a1a)}
+.k-b2b .chip-ico{background:linear-gradient(160deg,#c78af0,#9a4fe0)}
+.k-black .chip-ico{background:linear-gradient(160deg,#5b6284,#2a2f4d)}
+.k-arena .chip-ico{background:linear-gradient(160deg,#6fb4ff,#3a7fe6)}
+
+/* ---------- Barra inferior (orden de la maqueta) ---------- */
+nav{gap:clamp(14px,1.6vw,30px);padding:10px 22px;border-radius:22px;background:rgba(255,255,255,.88)}
+.nav-chip{width:40px;height:40px;flex:0 0 40px}
+.c-monitoreo{background:linear-gradient(160deg,#ff9ec4,#ec5c98)}
+.c-asincrona{background:linear-gradient(160deg,#c98fd6,#9a54b0)}
+.c-diccionario{background:linear-gradient(160deg,#7c6cf0,#4a32c8)}
+.c-historial-nav{background:linear-gradient(160deg,#a66df0,#7a35d0)}
+.c-dashboard{background:linear-gradient(160deg,#4fc4a0,#1f9a78)}
+.c-analytics{background:linear-gradient(160deg,#7fd6e6,#3aa9c8)}
+.c-procesos-nav{background:linear-gradient(160deg,#ffaa50,#ff7a1a)}
+
+.onda{left:calc(50% + 220px)}
+
+
+[hidden]{display:none!important}
+.titulo-card h2 .h2-txt{display:inline}
+
+/* =====================================================================
+   LIENZO FIJO 1920 × 1080 — se escala entero para encajar en cualquier pantalla
+   ===================================================================== */
+:root{--icon:52px!important;--panel-w:440px!important}
+.app{
+  position:absolute!important;left:0;top:0;
+  width:1920px!important;height:1080px!important;
+  transform-origin:0 0;
+  grid-template-columns:440px minmax(0,1fr)!important;
+  grid-template-rows:64px 1fr 96px!important;
+  gap:0 96px!important;
+  padding:28px 80px 24px!important;
+}
+.panel{width:440px!important;padding:24px 0 0!important;gap:22px!important;overflow:visible}
+.fila-superior{grid-template-columns:1fr 1fr!important}
+.fila-superior .hora{font-size:46px!important}
+.pagina{grid-template-columns:repeat(6,1fr)!important;row-gap:56px!important}
+.escritorio{padding-top:24px}
+.zona{width:100%}
+.buscador{min-height:76px}
+.paginas{margin-top:44px}
+
+/* Encabezado alineado al borde derecho del buscador */
+header{display:grid!important;grid-template-columns:440px minmax(0,1fr);column-gap:96px;align-items:center}
+.sesion{grid-column:2;justify-self:end}
+
+/* Indicador de pantallas: cápsula estilo iOS */
+.puntos-pag{
+  align-self:center;display:inline-flex;align-items:center;gap:12px;
+  padding:10px 18px;margin:0 0 16px;border-radius:999px;
+  background:rgba(60,40,60,.28);
+  backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);
+  border:1px solid rgba(255,255,255,.22);
+  box-shadow:0 6px 18px rgba(20,10,25,.14);
+}
+.punto-pag{width:9px;height:9px;background:rgba(255,255,255,.5);box-shadow:none;padding:0}
+.punto-pag.activo{background:#fff}
+.punto-pag:hover{transform:scale(1.25)}
+
+/* Composición: la grilla llena el alto disponible y el Dock se centra bajo la zona de iconos */
+:root{--icon:56px!important}
+.pagina{row-gap:84px!important;align-content:start!important;padding:4px 0!important}
+.paginas{margin-top:56px!important}
+.chip-lbl{font-size:12px}
+nav{grid-column:2!important}
+
+/* Margen único en los 4 lados: el borde superior de los iconos de arriba,
+   el borde inferior del Dock y los laterales quedan a la misma distancia */
+:root{--margen:64px}
+.app{
+  padding:var(--margen)!important;
+  grid-template-rows:auto minmax(0,1fr) auto!important;
+}
+header{align-items:start!important;height:auto}
+.sesion{align-items:center}
+nav{align-self:end!important;margin:0!important}
+.panel{padding-top:28px!important}
+.escritorio{padding-top:28px!important}
+.paginas{margin-top:48px!important}
+.pagina{row-gap:72px!important}
+.puntos-pag{margin-bottom:20px!important}
+.servicio{height:44px;box-sizing:border-box}
+.accion{width:44px;height:44px}
+.accion svg{width:20px;height:20px}
+
+/* Multiplicador junto al nombre del producto */
+.chip-lbl{width:128px}
+.chip-mult{font-weight:600;color:var(--naranja-tinta);white-space:nowrap}
+body[data-tema="atardecer"] .chip-mult,body[data-tema="confeti"] .chip-mult,body[data-tema="ondas"] .chip-mult{color:#ffd9a8}
+/* Colores de los iconos nuevos */
+.k-refer .chip-ico{background:linear-gradient(160deg,#6ad0a8,#1fa37a)}
+.k-busq .chip-ico{background:linear-gradient(160deg,#7ab8f0,#4a8ad0)}
+.k-ip .chip-ico{background:linear-gradient(160deg,#8f9bff,#5563e6)}
+.k-icar .chip-ico{background:linear-gradient(160deg,#ff8f6b,#e8532c)}
+.k-nfc .chip-ico{background:linear-gradient(160deg,#5fd0e8,#1c9fc4)}
+.k-onb .chip-ico{background:linear-gradient(160deg,#ff9ec4,#ec5c98)}
+.k-pod .chip-ico{background:linear-gradient(160deg,#c78af0,#9a4fe0)}
+.k-cese .chip-ico{background:linear-gradient(160deg,#9aa3b8,#5f6880)}
+
+/* Multiplicador: mismo color y peso que el nombre del icono */
+.chip-mult,
+body[data-tema="atardecer"] .chip-mult,body[data-tema="confeti"] .chip-mult,body[data-tema="ondas"] .chip-mult{color:inherit;font-weight:inherit}
+/* App IP (logo iPartner IA) */
+.k-app-ip .chip-ico{background:linear-gradient(135deg,#33287e 0%,#4a2a86 55%,#8a1d78 100%)}
+.k-app-ip .chip-ico svg.logo-app{width:100%;height:100%;filter:none}
+
+/* Pantallas de hasta 24 iconos (6 × 4) */
+.pagina{row-gap:44px!important}
+.paginas{margin-top:40px!important}
+.k-app-ip .chip-ico{background:#3a2880}
+.k-app-ip .chip-ico img.logo-app{width:100%;height:100%;object-fit:cover;display:block}
+.k-app-ip .chip-ico::before{opacity:.5}
+.pagina{grid-auto-rows:104px!important;row-gap:28px!important;align-items:start}
+
+/* Botón de Asíncrona en el buscador: mismo chip que en el Dock */
+.busca-ir{
+  border-radius:16px;
+  background:linear-gradient(160deg,#c98fd6,#9a54b0);
+  box-shadow:0 6px 14px rgba(154,84,176,.35), inset 0 1px 1px rgba(255,255,255,.5);
+  position:relative;overflow:hidden;
+}
+.busca-ir::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.34),rgba(255,255,255,0) 58%,rgba(0,0,0,.04))}
+.busca-ir svg{position:relative;z-index:1;width:26px!important;height:26px!important}
+
+/* Grilla alineada con el contenido del buscador:
+   primer icono bajo la lupa, último icono bajo el botón de Asíncrona */
+.pagina{
+  grid-template-columns:repeat(6,var(--icon))!important;
+  justify-content:space-between;
+  padding-left:30px!important;padding-right:10px!important;
+}
+
+/* Menú del avión */
+header{position:relative;z-index:20}
+.menu-wrap{position:relative}
+.menu-pop{
+  position:absolute;top:calc(100% + 10px);right:-6px;z-index:30;
+  min-width:216px;padding:8px;border-radius:16px;
+  background:rgba(255,255,255,.96);
+  backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);
+  border:1px solid rgba(92,34,85,.08);
+  box-shadow:0 18px 40px rgba(61,36,57,.18),0 3px 8px rgba(61,36,57,.08);
+  transform-origin:top right;animation:menuIn .18s cubic-bezier(.2,.8,.3,1);
+}
+@keyframes menuIn{from{opacity:0;transform:scale(.94) translateY(-4px)}to{opacity:1;transform:none}}
+.menu-item{
+  display:flex;align-items:center;gap:12px;padding:9px 12px;border-radius:10px;
+  font-size:13.5px;color:var(--tinta);text-decoration:none;white-space:nowrap;
+  transition:background .15s;
+}
+.menu-item svg{width:18px;height:18px;flex:0 0 18px;color:var(--tinta-nav)}
+.menu-item:hover,.menu-item:focus-visible{background:var(--morado-velo);outline:none}
+.menu-item:focus-visible{box-shadow:inset 0 0 0 2px rgba(239,128,28,.45)}
+.a-viaje[aria-expanded="true"]{box-shadow:0 0 0 3px rgba(43,58,158,.25),0 4px 12px rgba(20,10,25,.18)}
+.menu-sep{display:block;height:1px;margin:6px 10px;background:rgba(92,34,85,.1)}
+.menu-salir{color:#c0303f}
+.menu-salir svg{color:#c0303f}
+.menu-salir:hover,.menu-salir:focus-visible{background:rgba(224,36,59,.07)}
+.a-user[aria-expanded="true"]{box-shadow:0 0 0 3px rgba(122,29,114,.25),0 4px 12px rgba(20,10,25,.18)}
+/* Botón de Asíncrona circular: sigue la curva del extremo del buscador */
+.busca-ir{border-radius:50%!important}
+
+/* Pantalla 2: servicios agrupados (un color por grupo, un grupo por fila) */
+.pagina.agrupada{grid-auto-rows:auto!important;row-gap:0!important}
+.grupo-tit{
+  grid-column:1/-1;justify-self:start;margin:0 0 12px -2px;
+  font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--tinta-nav);padding:4px 10px;border-radius:999px;
+  background:rgba(255,255,255,.62);border:1px solid rgba(255,255,255,.7);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+}
+.pagina.agrupada .chip-app{margin-bottom:30px}
+.pagina.agrupada .grupo-tit ~ .grupo-tit{grid-column:1/-1}
+.k-g-ia .chip-ico{background:linear-gradient(160deg,#a066d6,#6f2fb0)}
+.k-g-z .chip-ico{background:linear-gradient(160deg,#ffd45e,#f5a316)}
+.k-g-clasicos .chip-ico{background:linear-gradient(160deg,#7fc3f8,#3786d9)}
+
+/* Carrusel controlado: sin scroll nativo, siempre una pantalla completa */
+.paginas{overflow:hidden!important;scroll-snap-type:none!important;touch-action:pan-y;display:block!important}
+.pista{display:flex;height:100%;will-change:transform}
+.pista>.pagina{flex:0 0 100%;min-width:0}
+.paginas.arrastrando{cursor:grabbing}
+.paginas.arrastrando .chip-app{pointer-events:none}
+/* Pantalla 2: misma retícula que la pantalla 1; cada grupo empieza en fila nueva */
+.chip-app.fila-nueva{grid-column-start:1}
+.k-g-ia.fila-nueva .chip-ico,.k-g-ia .chip-ico{background:linear-gradient(160deg,#a066d6,#6f2fb0)}
+
+/* Nombres legibles sobre cualquier zona de la foto (planta, taza, temas oscuros):
+   cápsula de vidrio claro detrás de la etiqueta, como en iPadOS */
+.chip-lbl{
+  width:auto!important;max-width:132px;padding:3px 9px;border-radius:999px;
+  background:rgba(255,255,255,.72);
+  backdrop-filter:blur(10px) saturate(160%);-webkit-backdrop-filter:blur(10px) saturate(160%);
+  box-shadow:0 1px 3px rgba(61,36,57,.10);
+  color:var(--tinta)!important;text-shadow:none!important;
+}
+.chip-lbl{white-space:nowrap;max-width:none!important;flex:0 0 auto}
+.chip-lbl{background:rgba(255,255,255,.86)!important}
+
+/* Sin cápsulas: nombres oscuros y homogéneos */
+.chip-lbl{background:none!important;box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;padding:0!important;
+  text-shadow:0 0 6px rgba(255,255,255,.9),0 0 2px rgba(255,255,255,.9)!important}
+
+
+/* ===== Feedback: 4 íconos por fila (6 filas = 24 por pantalla) ===== */
+.pagina{
+  grid-template-columns:repeat(4,var(--icon))!important;
+  grid-auto-rows:84px!important;row-gap:12px!important;
+}
+.paginas{margin-top:32px!important}
+.chip-app{gap:7px!important}
+/* Pantalla 1 agrupada por consumo: un color por grupo */
+.k-g-x3 .chip-ico{background:linear-gradient(160deg,#52d977,#17b046)}
+.k-g-x2 .chip-ico{background:linear-gradient(160deg,#4fd8d0,#14aab8)}
+.k-g-x1 .chip-ico{background:linear-gradient(160deg,#8f9bff,#5563e6)}
+.k-g-va .chip-ico{background:linear-gradient(160deg,#ff9ec4,#ec5c98)}
+
+/* ===== Feedback: íconos del Dock circulares ===== */
+.nav-chip{border-radius:50%!important}
+.nav-item{border-radius:50%}
+/* 4 por fila como bloque compacto y centrado (columnas de 176px, filas de 92px) */
+.pagina{
+  grid-template-columns:repeat(4,176px)!important;
+  justify-content:center!important;justify-items:center;
+  padding-left:0!important;padding-right:0!important;
+  grid-auto-rows:84px!important;row-gap:10px!important;
+}
+
+/* ===== Proporción barra / íconos: una sola columna central ===== */
+:root{--icon:62px!important}
+.zona{width:780px!important;margin:0 auto}
+.pagina{
+  grid-template-columns:repeat(4,var(--icon))!important;
+  justify-content:space-between!important;
+  padding-left:30px!important;padding-right:10px!important;   /* 1.er icono bajo la lupa, último bajo Asíncrona */
+  grid-auto-rows:90px!important;row-gap:6px!important;
+}
+.paginas{margin-top:30px!important}
+.chip-app .chip-ico svg{width:52%;height:52%}
+.chip-lbl{font-size:12.5px}
+.pagina{grid-auto-rows:86px!important;row-gap:4px!important}.paginas{margin-top:24px!important}
+/* Margen lateral del carrusel: los nombres largos pueden salir del ancho de la barra sin cortarse */
+.paginas{margin-left:-80px!important;margin-right:-80px!important;padding:0 80px!important}
+.pista{gap:160px}
+
+
+/* ===== Jerarquía de la grilla: aire entre filas, más aire entre grupos ===== */
+:root{--icon:58px!important}
+.pagina{grid-auto-rows:auto!important;row-gap:8px!important;align-content:start}
+.chip-app{gap:7px!important}
+/* nombres en dos líneas como máximo, ancho fijo y equilibrado */
+.chip-lbl{
+  white-space:normal!important;width:108px!important;max-width:108px!important;
+  line-height:1.22;min-height:2.44em;text-wrap:balance;font-size:12.5px;
+}
+/* separación extra al empezar un grupo nuevo */
+.chip-app.fila-nueva:not(:first-child){margin-top:12px}
+.paginas{margin-top:26px!important}
+.puntos-pag{margin-bottom:12px!important}
+.pagina{align-items:end!important}
+/* Reparto del alto: 10px entre filas, 10px extra entre grupos */
+:root{--icon:56px!important}
+.pagina{row-gap:10px!important}
+.chip-lbl{line-height:1.15!important;min-height:2.3em!important}
+.chip-app.fila-nueva:not(:first-child){margin-top:10px!important}
+.paginas{margin-top:14px!important}
+.pagina{row-gap:14px!important}
+.chip-lbl{text-shadow:0 0 3px #fff,0 0 6px #fff,0 0 10px rgba(255,255,255,.9)!important}
+/* Misma distancia entre TODAS las filas (sin extra por grupo) */
+.chip-app.fila-nueva:not(:first-child){margin-top:0!important}
+.pagina{row-gap:20px!important}
+/* Mismo espacio en blanco entre el final de los nombres y la fila siguiente */
+.chip-lbl{min-height:0!important}
+.pagina{align-items:start!important;row-gap:30px!important}
+/* Mismo aire arriba (barra → primera fila) y abajo (última fila → cápsula) */
+.pagina{row-gap:24px!important}
+.paginas{margin-top:32px!important}
+.paginas{margin-top:37px!important}
+/* Íconos al mismo margen que la barra de búsqueda */
+.pagina{padding-left:0!important;padding-right:0!important}
+
+/* ===== Feedback jefe 1: 4 íconos × 5 filas (20), nombres en una sola línea, grilla continua ===== */
+.chip-lbl{white-space:nowrap!important;width:auto!important;max-width:none!important;min-height:0!important}
+.pagina{align-items:start!important}
+
+/* ===== Feedback jefe 2: color en las tarjetas ===== */
+.card.reloj{background:linear-gradient(160deg,#f2f3f6,#e2e5ea)!important;border-color:rgba(60,70,90,.08)!important;box-shadow:0 10px 30px rgba(60,70,90,.12),0 2px 6px rgba(60,70,90,.06)!important}
+.card-mood{background:linear-gradient(160deg,#eef8f0,#dbf0df)!important;border-color:rgba(46,158,82,.12)!important}
+.card.novedades{background:linear-gradient(160deg,#fffaf0,#fbf0d6)!important;border-color:rgba(200,160,60,.14)!important}
+.card.noticiero{background:linear-gradient(160deg,#f9f2e8,#efe2cf)!important;border-color:rgba(150,110,60,.12)!important}
+.noticia:hover{background:rgba(255,255,255,.55)!important}
+.pagina{row-gap:48px!important}.paginas{margin-top:42px!important}
+
+/* Tarjetas con color sólido y reconocible, como los widgets de iPadOS */
+.card.reloj{background:linear-gradient(160deg,#e4e7ec,#cfd4db)!important;border-color:rgba(60,70,90,.1)!important}
+.card-mood{background:linear-gradient(160deg,#cdeed5,#ade0b9)!important;border-color:rgba(46,158,82,.18)!important}
+.card.novedades{background:linear-gradient(160deg,#fff4d6,#f9e6b4)!important;border-color:rgba(200,160,60,.2)!important}
+.card.noticiero{background:linear-gradient(160deg,#f2e3cd,#e5d0b2)!important;border-color:rgba(150,110,60,.18)!important}
+.card.reloj .saludo,.card.noticiero .noticia time,.card.novedades .nov-vacio{color:#6b5a68!important}
+/* Noticiero: beige neutro (arena) para separarse de la crema de Lo ultimito */
+.card.noticiero{background:linear-gradient(160deg,#efebe5,#e2dbd1)!important;border-color:rgba(110,95,75,.14)!important}
+/* Encabezado alineado a la barra: «Activo · 24h» al borde izquierdo, íconos al borde derecho */
+header .sesion{grid-column:2;justify-self:center!important;width:780px;justify-content:space-between}
+/* Clima más celeste (cielo de día), texto blanco legible */
+.card.clima.c-despejado,.card.clima.c-soleado,.card.clima.c-parcial,.card.clima.c-amanecer{
+  background:linear-gradient(170deg,#5cb3ee 0%,#3e97df 60%,#2f86d4 100%)!important}
+.card.clima .ciudad,.card.clima .temp,.card.clima .estado,.card.clima .rangos{text-shadow:0 1px 2px rgba(10,50,100,.28)}
+.card.clima::after{background:linear-gradient(180deg,rgba(0,0,0,0),rgba(0,40,90,.10))!important}
+.fila-superior .temp{color:#fff!important}
+/* texto blanco para tarjetas de fondo intenso (clase .tx-claro) */
+.tx-claro, .tx-claro .hora, .tx-claro .fecha, .tx-claro .titulo-card h2, .tx-claro .noticia p, .tx-claro .nov-vacio{color:#fff!important;text-shadow:0 1px 2px rgba(0,0,0,.18)}
+.tx-claro .hora small, .tx-claro .saludo, .tx-claro .noticia time, .tx-claro .titulo-card a{color:rgba(255,255,255,.82)!important}
+.tx-claro .titulo-card h2 svg{stroke:#fff!important}
+.tx-claro .noticia:hover{background:rgba(255,255,255,.14)!important}
+.tx-claro{border-color:rgba(255,255,255,.18)!important}
+/* PROPUESTA 2 · Paleta café (tomada de la taza) */
+.card.reloj{background:linear-gradient(160deg,#4a4846,#2f2d2b)!important}
+.card-mood{background:linear-gradient(160deg,#efe5d6,#e0cfb7)!important;border-color:rgba(110,80,50,.14)!important}
+.card.novedades{background:linear-gradient(160deg,#dcc09b,#c9a274)!important;border-color:rgba(110,80,50,.16)!important}
+.card.novedades .nov-vacio{color:#4a3424!important}
+.card.noticiero{background:linear-gradient(160deg,#faf7f2,#efe8de)!important;border-color:rgba(110,80,50,.12)!important}
+.card-mood .titulo-card h2,.card.novedades .titulo-card h2,.card.noticiero .titulo-card h2{color:#3b2a20!important}
+.card.reloj.tx-claro .saludo,.card.noticiero.tx-claro .noticia time,.card.novedades.tx-claro .nov-vacio{color:rgba(255,255,255,.85)!important}
+/* Reloj y clima como en la propuesta de colores vivos */
+.card.reloj{background:linear-gradient(160deg,#6b7280,#474e5c)!important}
+.card.clima.c-despejado,.card.clima.c-soleado,.card.clima.c-parcial,.card.clima.c-amanecer{background:linear-gradient(170deg,#3fa9f5,#1877e0)!important}
+/* Columna central centrada: mismo espacio a cada lado */
+.zona,header .sesion,nav{position:relative;left:-16px}
+/* Tres espacios iguales: borde → panel → columna → borde */
+.panel{position:relative;left:187px}
+.zona,header .sesion,nav{left:98px!important}
+
+/* ================= PROPUESTA MEJORA ================= */
+:root{--icon:64px!important}
+/* Encabezado: saludo a la izquierda, barra centrada, accesos a la derecha */
+header{position:relative;min-height:84px;align-items:center!important}
+.marca{margin-left:187px;line-height:1.15}
+.saludo-top{font-family:"Outfit",sans-serif;font-size:34px;font-weight:600;color:var(--morado-tinta);letter-spacing:-.01em}
+.saludo-sub{font-size:14px;color:#5f4760;margin-top:4px}
+header .buscador{position:absolute!important;left:50%!important;top:4px;transform:translateX(-50%)!important;width:660px!important;margin:0}
+header .sesion{left:0!important;width:auto!important;justify-self:end!important;gap:18px;justify-content:flex-end!important}
+/* Grilla sin barra encima */
+.paginas{margin-top:26px!important}
+.chip-lbl{font-size:13px!important}
+.chip-app{gap:9px!important}
+/* Dock centrado en la pantalla, como en el iPad */
+nav{grid-column:1/-1!important;justify-self:center!important;left:0!important;margin-left:0!important}
+.puntos-pag{margin-bottom:14px!important}
+
+/* Reloj y clima con más profundidad */
+.card.reloj{background:radial-gradient(120% 90% at 85% 110%,rgba(255,190,140,.45),rgba(255,190,140,0) 55%),linear-gradient(160deg,#6f7787,#3f4655)!important;overflow:hidden}
+.card.reloj::before{display:block!important;content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(180deg,rgba(255,255,255,.16),rgba(255,255,255,0) 45%)}
+.card.clima{overflow:hidden}
+.card.clima.c-despejado,.card.clima.c-soleado,.card.clima.c-parcial,.card.clima.c-amanecer{background:radial-gradient(90% 70% at 15% 0%,rgba(255,255,255,.35),rgba(255,255,255,0) 60%),linear-gradient(170deg,#4cb4f7,#1a74dc)!important}
+.nube{position:absolute;right:-18px;bottom:-14px;width:150px;height:auto;opacity:.85;z-index:0;pointer-events:none}
+.card.clima>*:not(.nube){position:relative;z-index:1}
+
+/* Categorías de noticias en cápsulas */
+.noticia time{background:rgba(110,80,50,.08);border-radius:999px;padding:4px 10px;font-size:11px!important}
+.card.clima>.nube{position:absolute!important;right:-14px;bottom:-16px;width:120px}
+.marca{min-width:520px}
+header .buscador{left:calc(50% + 24px)!important}
+/* Dock y cápsula centrados bajo la grilla */
+nav{grid-column:2!important;left:98px!important}
+.paginas{margin-top:-4px!important}.pagina{row-gap:54px!important}
+.marca{min-width:0;max-width:340px}
+.card.clima>.nube{right:-10px;top:-10px;bottom:auto;width:96px;opacity:.9}
+
+/* ======== ESTILO iPad: UNA SOLA CUADRÍCULA ========
+   6 columnas de 280px (1680px) y filas de 128px.
+   Widgets = 2 columnas; íconos = 4 columnas, centrados en su celda. */
+.app{grid-template-columns:560px minmax(0,1fr)!important;gap:0!important;padding:40px 120px 36px!important}
+header{grid-template-columns:560px minmax(0,1fr)!important;column-gap:0!important}
+.marca{margin-left:0!important}
+header .buscador{left:50%!important;width:620px!important}
+.panel{left:0!important;width:560px!important;padding:0!important;gap:16px!important;overflow:visible}
+.zona,header .sesion,nav{left:0!important}
+.escritorio{padding-top:0!important}
+.zona{width:100%!important}
+.paginas{margin:0!important;padding:0!important}
+.pista{gap:0!important}
+.pagina{grid-template-columns:repeat(4,1fr)!important;justify-content:stretch!important;justify-items:center!important;grid-auto-rows:128px!important;row-gap:0!important;padding:0!important;align-items:start!important}
+.chip-lbl{max-width:260px!important}
+/* alturas de widget = múltiplos de fila (128) menos el espacio entre widgets (16) */
+.fila-superior{height:112px}
+.fila-superior .card{height:112px;padding:12px 16px!important}
+.fila-superior .hora{font-size:38px!important}
+.fecha{margin-top:6px!important}.saludo{margin-top:2px!important}
+.card-mood{height:112px;padding:12px 16px!important}
+.card-mood .titulo-card{margin-bottom:8px}
+.tema{height:52px}
+.card.novedades{height:112px;padding:12px 16px!important}
+.card.noticiero{height:240px;padding:12px 16px!important;overflow:hidden}
+.card.noticiero .noticia{padding:3px 4px}
+.card.noticiero .titulo-card{margin-bottom:6px}
+.nov-vacio{padding:6px 0!important}
+.clima-ico{width:38px;height:38px;flex-basis:38px}
+.fila-superior .temp{font-size:28px!important}
+/* Dock y puntos al centro de la pantalla */
+nav{grid-column:1/-1!important;justify-self:center!important}
+.puntos-pag{position:absolute;left:50%;transform:translateX(-50%);bottom:110px;margin:0!important}
+.zona{position:static}
+.app{position:absolute}
+/* Filas de 150px para llenar la pantalla */
+.escritorio{position:static!important}
+.pagina{grid-auto-rows:150px!important}
+.fila-superior,.fila-superior .card,.card-mood,.card.novedades{height:134px!important}
+.card.noticiero{height:284px!important}
+.fila-superior .hora{font-size:44px!important}
+.fila-superior .temp{font-size:32px!important}
+.tema{height:62px}
+.card.noticiero .noticia{padding:6px 4px}
+.puntos-pag{bottom:128px!important}
+header{margin-bottom:44px}
+.pagina{grid-auto-rows:140px!important}
+.fila-superior,.fila-superior .card,.card-mood,.card.novedades{height:124px!important}
+.card.noticiero{height:264px!important}
+.fila-superior .hora{font-size:40px!important}
+.tema{height:54px}
+.card.noticiero .noticia{padding:4px 4px}
+
+/* ===== Márgenes iguales y bordes alineados ===== */
+.app{margin-left:24px}                         /* centra el lienzo en la pantalla visible */
+.app{padding:84px 100px 60px!important}
+/* íconos de los extremos tocando el borde de la grilla (igual que el avión) */
+.pagina{grid-template-columns:repeat(4,var(--icon))!important;justify-content:space-between!important;justify-items:center!important;padding-left:116px!important}
+.app{padding:84px 72px 60px!important}
+.pagina{padding-left:90px!important;grid-auto-rows:134px!important}
+.fila-superior,.fila-superior .card,.card-mood,.card.novedades{height:118px!important}
+.card.noticiero{height:252px!important}
+.tema{height:50px}
+.app{padding:110px 72px 66px!important;margin-left:23px}
+.pagina{grid-auto-rows:126px!important}
+.fila-superior,.fila-superior .card,.card-mood,.card.novedades{height:110px!important}
+.card.noticiero{height:236px!important}
+.fila-superior .hora{font-size:38px!important}
+.tema{height:46px}
+.card-mood .titulo-card{margin-bottom:6px}
+.card.noticiero .noticia{padding:2px 4px}
+.puntos-pag{bottom:160px!important}
+.paginas{margin:0 -80px!important;padding:0 80px!important}.pista{gap:160px!important}
+/* Barra alineada a la grilla de íconos (no al centro de la pantalla) */
+header .buscador{left:650px!important;transform:none!important;width:auto!important;right:var(--bar-r,600px)!important}
+:root{--bar-r:392px}
+/* Dock más grande, estilo iPad */
+.nav-chip{width:56px!important;height:56px!important;flex:0 0 56px!important}
+.nav-chip svg{width:28px!important;height:28px!important}
+.nav-item{padding:6px!important}
+nav{padding:12px 22px!important;gap:20px!important;border-radius:28px!important}
+.puntos-pag{bottom:176px!important}
+/* Nuevos colores: Mood lavanda, Lo ultimito durazno (tonos de marca) */
+.card-mood{background:linear-gradient(160deg,#f1e6f5,#e2d0ea)!important;border-color:rgba(137,3,123,.12)!important}
+.card.novedades{background:linear-gradient(160deg,#fde9da,#f8d3b8)!important;border-color:rgba(239,128,28,.18)!important}
+.card-mood .titulo-card h2,.card.novedades .titulo-card h2{color:#3d2439!important}
+/* Fondo A: degradado cálido liso, sin objetos */
+body[data-tema="degradado"] .stage{background-image:none!important;background:radial-gradient(90% 80% at 80% 10%,#f4e6dc 0%,rgba(244,230,220,0) 60%),radial-gradient(80% 70% at 10% 95%,#ece0f0 0%,rgba(236,224,240,0) 60%),linear-gradient(160deg,#f6efe8,#efe4da)!important}
+body[data-tema="degradado"] .stage::after{background:none!important}
+/* Mood: alegría + paz (menta → celeste, con un sol suave) */
+.card-mood{background:radial-gradient(60% 90% at 100% 0%,rgba(255,226,140,.55),rgba(255,226,140,0) 60%),linear-gradient(135deg,#d6f4e8 0%,#cfe9fa 100%)!important;border-color:rgba(40,150,140,.16)!important}
+/* Lo ultimito: novedad y conversación (coral suave) */
+.card.novedades{background:linear-gradient(160deg,#ffe3d8,#ffc7b3)!important;border-color:rgba(230,100,70,.2)!important}
+.card.novedades .nov-vacio{color:#6a3a2c!important}
+/* Fondo liso con manchas suaves de color (para que el vidrio refracte algo) */
+body[data-tema="degradado"] .stage{background:
+  radial-gradient(28% 30% at 14% 44%,rgba(120,210,190,.55),rgba(120,210,190,0) 70%),
+  radial-gradient(26% 28% at 26% 60%,rgba(255,160,130,.55),rgba(255,160,130,0) 70%),
+  radial-gradient(30% 34% at 8% 70%,rgba(170,140,230,.35),rgba(170,140,230,0) 70%),
+  radial-gradient(90% 80% at 80% 10%,#f4e6dc 0%,rgba(244,230,220,0) 60%),
+  linear-gradient(160deg,#f6efe8,#efe4da)!important}
+/* Liquid Glass: vidrio con desenfoque, borde de luz y reflejo especular */
+.card-mood,.card.novedades{
+  backdrop-filter:blur(26px) saturate(190%) brightness(1.06)!important;-webkit-backdrop-filter:blur(26px) saturate(190%) brightness(1.06)!important;
+  border:1px solid rgba(255,255,255,.75)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 -1px 0 rgba(255,255,255,.35),inset 0 0 0 .5px rgba(255,255,255,.4),0 10px 30px rgba(61,36,57,.12),0 2px 6px rgba(61,36,57,.06)!important;
+  overflow:hidden}
+.card-mood::before,.card.novedades::before{display:block!important;content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:0;
+  background:linear-gradient(115deg,rgba(255,255,255,.55) 0%,rgba(255,255,255,.08) 28%,rgba(255,255,255,0) 45%,rgba(255,255,255,0) 70%,rgba(255,255,255,.22) 100%)!important}
+/* Teñido */
+.card-mood{background:linear-gradient(135deg,rgba(150,225,200,.42),rgba(150,205,240,.42))!important}
+.card.novedades{background:linear-gradient(160deg,rgba(255,190,165,.45),rgba(255,160,135,.45))!important}
+/* Manchas extra detrás de reloj, clima y noticiero */
+body[data-tema="degradado"] .stage{background:
+  radial-gradient(18% 20% at 10% 24%,rgba(120,130,160,.45),rgba(120,130,160,0) 70%),
+  radial-gradient(18% 20% at 26% 22%,rgba(90,170,245,.55),rgba(90,170,245,0) 70%),
+  radial-gradient(28% 30% at 14% 44%,rgba(120,210,190,.55),rgba(120,210,190,0) 70%),
+  radial-gradient(26% 28% at 26% 60%,rgba(255,160,130,.55),rgba(255,160,130,0) 70%),
+  radial-gradient(30% 30% at 12% 78%,rgba(230,200,160,.55),rgba(230,200,160,0) 70%),
+  radial-gradient(30% 34% at 24% 86%,rgba(170,140,230,.35),rgba(170,140,230,0) 70%),
+  radial-gradient(90% 80% at 80% 10%,#f4e6dc 0%,rgba(244,230,220,0) 60%),
+  linear-gradient(160deg,#f6efe8,#efe4da)!important}
+/* Liquid Glass teñido en reloj, clima y noticiero */
+.card.reloj,.card.clima,.card.noticiero{
+  backdrop-filter:blur(26px) saturate(190%) brightness(1.04)!important;-webkit-backdrop-filter:blur(26px) saturate(190%) brightness(1.04)!important;
+  border:1px solid rgba(255,255,255,.6)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.8),inset 0 -1px 0 rgba(255,255,255,.25),0 10px 30px rgba(61,36,57,.14),0 2px 6px rgba(61,36,57,.06)!important;overflow:hidden}
+.card.reloj::before,.card.clima::before,.card.noticiero::before{display:block!important;content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:0;
+  background:linear-gradient(115deg,rgba(255,255,255,.4) 0%,rgba(255,255,255,.06) 28%,rgba(255,255,255,0) 45%,rgba(255,255,255,0) 70%,rgba(255,255,255,.16) 100%)!important}
+.card.reloj{background:linear-gradient(160deg,rgba(80,88,105,.72),rgba(50,56,70,.78))!important}
+.card.clima.c-despejado,.card.clima.c-soleado,.card.clima.c-parcial,.card.clima.c-amanecer{background:linear-gradient(170deg,rgba(60,165,245,.72),rgba(25,115,220,.8))!important}
+.card.clima::after{display:none!important}
+.card.noticiero{background:linear-gradient(160deg,rgba(255,255,255,.55),rgba(245,238,228,.55))!important}
+.card.clima>.nube{right:18px!important;top:16px!important;bottom:auto!important;width:64px!important;opacity:.9}
+
+
+/* Íconos de la hoja (traen su propia forma, color y sombra) */
+.chip-ico.chip-img{background:none!important;box-shadow:none!important;overflow:visible!important}
+.chip-ico.chip-img::before,.chip-ico.chip-img::after{display:none!important}
+.chip-ico.chip-img img{width:116%;height:116%;margin:-8%;display:block}
+.nav-chip.nav-img{background:none!important;box-shadow:none!important;overflow:visible!important}
+.nav-chip.nav-img::before{display:none!important}
+.nav-chip.nav-img img{width:118%;height:118%;margin:-9%;display:block}
+.accion:has(.accion-img){background:none!important;border:0!important;box-shadow:none!important}
+.accion-img{width:118%;height:118%;margin:-9%;display:block}
+
+/* Que no se recorte la primera fila (los íconos traen sombra y margen propio) */
+.paginas{padding-top:16px!important;margin-top:-16px!important}
+
+/* Última columna: nombres largos en dos líneas para no pasar el margen */
+
+
+.app{margin-left:0!important}
+
+/* Fondo nuevo: escritorio con objetos en las esquinas inferiores */
+body[data-tema="degradado"] .stage{background:var(--fondo) center/cover!important}
+body[data-tema="degradado"] .stage::after{background:none!important}
+
+.chip-app{position:relative}
+.chip-badge{position:absolute;top:-8px;left:50%;margin-left:calc(var(--icon) / 2 - 18px);z-index:3;
+ min-width:30px;height:22px;padding:0 7px;border-radius:999px;display:grid;place-items:center;
+ font-size:12px;font-weight:700;color:var(--tinta);background:#fff;
+ box-shadow:0 2px 6px rgba(61,36,57,.25),0 0 0 1px rgba(61,36,57,.06)}
+
+.busca-ir:has(.busca-ir-img){background:none!important;box-shadow:none!important;overflow:visible}
+.busca-ir:has(.busca-ir-img)::before{display:none!important}
+.busca-ir-img{width:122%;height:122%;margin:-11%;display:block}
+
+/* 5 íconos por fila */
+.pagina{grid-template-columns:repeat(5,var(--icon))!important}
+
+/* Pantalla 2 seguida, sin saltos de fila */
+.chip-app.fila-nueva{grid-column-start:auto!important}
+
+/* Jaina y alertas al costado del saludo */
+.saludo-fila{display:flex;align-items:center;gap:18px}
+.marca-acc{display:flex;gap:10px}
+.marca{max-width:none!important}
+
+/* Íconos más grandes y más juntos: la grilla mide lo mismo que la barra de búsqueda */
+:root{--icon:84px!important}
+.pagina{grid-template-columns:repeat(5,var(--icon))!important;justify-content:start!important;column-gap:calc((734px - 5 * var(--icon)) / 4)!important;grid-auto-rows:134px!important}
+.chip-lbl{font-size:13.5px!important}
+
+/* Persona y avión junto a alertas, con una pequeña separación */
+.marca-acc{align-items:center}
+.acc-sep{width:14px}
+/* Mismo espacio widgets→íconos que íconos→maceta */
+.paginas,header .buscador{translate:53px 0}
+
+.saludo-top{white-space:nowrap}
+.saludo-fila{gap:14px}
+.marca-acc{gap:8px}
+.acc-sep{width:10px}
+
+.marca-acc .accion{width:40px!important;height:40px!important}
+.marca-acc{gap:6px}
+.acc-sep{width:6px}
+.saludo-fila{gap:12px}
+
+.pagina{grid-auto-rows:126px!important}
+
+/* 1 · Accesos a la derecha, encima del clima (alineados con el borde del panel) */
+.saludo-fila{justify-content:space-between;width:560px}
+.marca{width:560px}
+/* 2 · Activo dentro de la barra, junto al botón de Asíncrona */
+.buscador .servicio{flex:0 0 auto;margin-right:4px;box-shadow:none;background:rgba(59,63,160,.06);border-color:rgba(59,63,160,.12)}
+/* 3 · Dock como la fila superior de un teclado de iMac */
+nav{background:linear-gradient(180deg,#f1f1f3 0%,#dcdde1 100%)!important;border:1px solid rgba(255,255,255,.9)!important;
+ box-shadow:inset 0 1px 0 #fff,inset 0 -2px 0 rgba(0,0,0,.06),0 10px 26px rgba(40,30,30,.18)!important;border-radius:18px!important;padding:10px 14px!important;gap:10px!important}
+.nav-item{width:84px;height:72px;border-radius:12px!important;padding:0!important;display:grid!important;place-items:center;
+ background:linear-gradient(180deg,#ffffff 0%,#f4f4f6 100%);box-shadow:0 1px 0 rgba(255,255,255,.9) inset,0 2px 0 #c4c5ca,0 3px 6px rgba(0,0,0,.12)}
+.nav-item:active{transform:translateY(2px);box-shadow:0 0 0 #c4c5ca,0 1px 3px rgba(0,0,0,.12)}
+.nav-chip{width:48px!important;height:48px!important;flex-basis:48px!important}
+.nav-item[aria-current="page"]::before{bottom:5px!important}
+.marca-acc>:nth-child(3){display:none!important}
+.marca-acc{flex:0 0 274px!important;width:274px!important;max-width:none!important;margin-left:auto;justify-content:space-between;gap:0}
+</style>
+<style>html body .card.card-mood.card-mood.card-mood{border:1px solid rgba(255,255,255,.6)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.8),0 18px 40px rgba(60,30,80,.18)!important}html body .card.card-mood.card-mood.card-mood::before,html body .card.card-mood.card-mood.card-mood::after{opacity:0!important}html body .card.card-mood.card-mood.card-mood,html body .card.card-mood.card-mood.card-mood *:not(svg):not(svg *){color:#fff!important}html body .card.card-mood.card-mood.card-mood .titulo-card h2 svg,html body .card.card-mood.card-mood.card-mood h2 svg{width:24px!important;height:24px!important;padding:5px;box-sizing:border-box;border-radius:8px;background:rgba(255,255,255,.22);stroke:#fff!important;color:#fff!important;border:1px solid rgba(255,255,255,.4)}html body .card.card-mood.card-mood.card-mood h2 svg *{stroke:#fff!important}html body .card.card-mood.card-mood.card-mood h2 svg [fill]:not([fill=none]){fill:#fff!important}html body .card.card-mood.card-mood.card-mood{background:linear-gradient(135deg,#A882DD,#DB5375)!important}html body .card.novedades.novedades.novedades{border:1px solid rgba(255,255,255,.6)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.8),0 18px 40px rgba(60,30,80,.18)!important}html body .card.novedades.novedades.novedades::before,html body .card.novedades.novedades.novedades::after{opacity:0!important}html body .card.novedades.novedades.novedades,html body .card.novedades.novedades.novedades *:not(svg):not(svg *){color:#fff!important}html body .card.novedades.novedades.novedades .titulo-card h2 svg,html body .card.novedades.novedades.novedades h2 svg{width:24px!important;height:24px!important;padding:5px;box-sizing:border-box;border-radius:8px;background:rgba(255,255,255,.22);stroke:#fff!important;color:#fff!important;border:1px solid rgba(255,255,255,.4)}html body .card.novedades.novedades.novedades h2 svg *{stroke:#fff!important}html body .card.novedades.novedades.novedades h2 svg [fill]:not([fill=none]){fill:#fff!important}html body .card.novedades.novedades.novedades{background:linear-gradient(135deg,#FFC145,#EC368D)!important}html body .card.noticiero.noticiero.noticiero{border:1px solid rgba(255,255,255,.6)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.8),0 18px 40px rgba(60,30,80,.18)!important}html body .card.noticiero.noticiero.noticiero::before,html body .card.noticiero.noticiero.noticiero::after{opacity:0!important}html body .card.noticiero.noticiero.noticiero,html body .card.noticiero.noticiero.noticiero *:not(svg):not(svg *){color:#fff!important}html body .card.noticiero.noticiero.noticiero .titulo-card h2 svg,html body .card.noticiero.noticiero.noticiero h2 svg{width:24px!important;height:24px!important;padding:5px;box-sizing:border-box;border-radius:8px;background:rgba(255,255,255,.22);stroke:#fff!important;color:#fff!important;border:1px solid rgba(255,255,255,.4)}html body .card.noticiero.noticiero.noticiero h2 svg *{stroke:#fff!important}html body .card.noticiero.noticiero.noticiero h2 svg [fill]:not([fill=none]){fill:#fff!important}html body .card.noticiero.noticiero.noticiero{background:linear-gradient(135deg,#E57A44,#251351)!important}html body .noticiero.noticiero.noticiero li>*:last-child,html body .card.noticiero.noticiero [class] span:last-child{background:rgba(255,255,255,.18)!important;border-color:rgba(255,255,255,.3)!important}</style><style>html body .card.card-mood.card-mood.card-mood h2 svg{background:#fff!important;border:0!important;box-shadow:0 2px 6px rgba(0,0,0,.15)}html body .card.card-mood.card-mood.card-mood h2 svg *{stroke:#9b4fc0!important}</style><style>html body .card.novedades.novedades.novedades h2 svg{background:#fff!important;border:0!important;box-shadow:0 2px 6px rgba(0,0,0,.15)}html body .card.novedades.novedades.novedades h2 svg *{stroke:#f0663f!important}</style><style>html body .card.noticiero.noticiero.noticiero h2 svg{background:#fff!important;border:0!important;box-shadow:0 2px 6px rgba(0,0,0,.15)}html body .card.noticiero.noticiero.noticiero h2 svg *{stroke:#c4502a!important}</style><style>.buscador .servicio{margin-right:0;margin-left:10px}</style><style id="bloque-productos">.chip-app{filter:drop-shadow(0 6px 10px rgba(40,20,10,.22)) drop-shadow(0 2px 3px rgba(40,20,10,.18))}
+html body header .buscador #buscaIr{width:46px!important;height:46px!important;min-width:0!important;flex:0 0 46px!important}html body header .buscador{border-radius:18px!important}.buscador{box-sizing:border-box;max-width:none!important;flex:none!important;min-height:0!important}nav,.puntos-pag,.puntos-pag *,.buscador{transition:none!important}.stage{background-size:118% auto!important;background-position:0% 50%!important}.nav-item{flex:1 1 0!important;width:auto!important;height:60px!important}nav{padding:8px 14px!important}.nav-chip{width:42px!important;height:42px!important}</style><style id="puntos-ios">
+html body .puntos-pag{background:none!important;box-shadow:none!important;border:0!important;backdrop-filter:none!important;padding:0!important;gap:9px!important;height:auto!important}
+html body .puntos-pag .punto-pag{width:7px!important;height:7px!important;min-width:0!important;padding:0!important;border-radius:50%!important;border:0!important;background:rgba(70,45,60,.25)!important;box-shadow:none!important}
+html body .puntos-pag .punto-pag.activo{background:rgba(70,45,60,.75)!important}
+html body .puntos-pag .punto-pag::before,html body .puntos-pag .punto-pag::after,html body .puntos-pag::before,html body .puntos-pag::after{display:none!important}
+</style><style id="etiquetas">
+.etiqueta-zona{position:absolute;z-index:3;pointer-events:none;display:flex;align-items:center;gap:7px;font-size:15.5px;font-weight:650;letter-spacing:.06em;text-transform:uppercase;color:rgba(84,28,74,.88);line-height:20px;white-space:nowrap}.etiqueta-zona svg{width:18px;height:18px;flex:0 0 18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+</style><style id="widgets-apple">
+html body .app .card.reloj.reloj.reloj{background:linear-gradient(180deg,#232325,#141416)!important;border:1px solid rgba(255,255,255,.08)!important}
+html body .app .card.reloj.reloj.reloj::before,html body .app .card.reloj.reloj.reloj::after{opacity:0!important}
+html body .app .card.noticiero.noticiero.noticiero{background:rgba(72,72,76,.80)!important;backdrop-filter:blur(30px) saturate(1.4)!important;-webkit-backdrop-filter:blur(30px) saturate(1.4)!important;border:1px solid rgba(255,255,255,.10)!important}
+html body .app .card.noticiero.noticiero.noticiero li>*:last-child,html body .app .card.noticiero.noticiero.noticiero [class] span:last-child{background:rgba(255,255,255,.12)!important;border-color:rgba(255,255,255,.16)!important}
+html body .app .card.card-mood.card-mood.card-mood{background:rgba(206,203,201,.88)!important;backdrop-filter:blur(30px) saturate(1.3)!important;-webkit-backdrop-filter:blur(30px) saturate(1.3)!important;border:1px solid rgba(255,255,255,.6)!important}
+html body .app .card.card-mood.card-mood.card-mood h2 svg{background:#8e5bd6!important}html body .app .card.card-mood.card-mood.card-mood h2 svg *{stroke:#fff!important}
+html body .app .card.noticiero.noticiero.noticiero h2 svg{background:#ff8a3d!important}html body .app .card.noticiero.noticiero.noticiero h2 svg *{stroke:#fff!important}
+html body .app .card.card-mood.card-mood.card-mood::before,html body .app .card.card-mood.card-mood.card-mood::after,</style><style id="ajustes-gadgets">html body .app .card.novedades.novedades.novedades{background:rgba(255,255,255,.94)!important;border:1px solid rgba(255,255,255,.9)!important}html body .app .card.novedades.novedades.novedades,html body .app .card.novedades.novedades.novedades *:not(svg):not(svg *),html body .app .card.card-mood.card-mood.card-mood,html body .app .card.card-mood.card-mood.card-mood *:not(svg):not(svg *){color:#1c1c1e!important;text-shadow:none!important}html body .app .card.novedades.novedades.novedades .nov-vacio{color:#6e6e73!important}html body .app .card.novedades.novedades.novedades h2 svg{background:#ff6b2c!important}html body .app .card.novedades.novedades.novedades h2 svg *{stroke:#fff!important}html body .app .paginas{translate:53px 7.3px!important}
+html body .app .card.noticiero{display:flex!important;flex-direction:column}
+html body .app .card.noticiero .noticia{flex:1 1 0;align-items:center;padding-top:0!important;padding-bottom:0!important}
+html body .app .card.noticiero .noticia+.noticia{border-top:1px solid rgba(255,255,255,.09)}
+</style>
+<style id="variante">html body .app.app .card.reloj.reloj.reloj{background:linear-gradient(180deg,#3a1d3c,#24102a)!important;border:1px solid rgba(255,255,255,.08)!important;backdrop-filter:blur(30px) saturate(1.4)!important;-webkit-backdrop-filter:blur(30px) saturate(1.4)!important}html body .app.app .card.reloj.reloj.reloj::before,html body .app.app .card.reloj.reloj.reloj::after{opacity:0!important}html body .app.app .card.reloj.reloj.reloj,html body .app.app .card.reloj.reloj.reloj *:not(svg):not(svg *){color:#fff!important;text-shadow:none!important}html body .app.app .card.reloj.reloj.reloj time,html body .app.app .card.reloj.reloj.reloj .nov-vacio{color:rgba(255,255,255,.7)!important}html body .app.app .card.card-mood.card-mood.card-mood{background:rgba(232,222,240,.90)!important;border:1px solid rgba(255,255,255,.7)!important;backdrop-filter:blur(30px) saturate(1.4)!important;-webkit-backdrop-filter:blur(30px) saturate(1.4)!important}html body .app.app .card.card-mood.card-mood.card-mood::before,html body .app.app .card.card-mood.card-mood.card-mood::after{opacity:0!important}html body .app.app .card.card-mood.card-mood.card-mood,html body .app.app .card.card-mood.card-mood.card-mood *:not(svg):not(svg *){color:#2a1530!important;text-shadow:none!important}html body .app.app .card.card-mood.card-mood.card-mood time,html body .app.app .card.card-mood.card-mood.card-mood .nov-vacio{color:#6f5a78!important}html body .app.app .card.novedades.novedades.novedades{background:rgba(255,255,255,.94)!important;border:1px solid rgba(255,255,255,.9)!important;backdrop-filter:blur(30px) saturate(1.4)!important;-webkit-backdrop-filter:blur(30px) saturate(1.4)!important}html body .app.app .card.novedades.novedades.novedades::before,html body .app.app .card.novedades.novedades.novedades::after{opacity:0!important}html body .app.app .card.novedades.novedades.novedades,html body .app.app .card.novedades.novedades.novedades *:not(svg):not(svg *){color:#2a1530!important;text-shadow:none!important}html body .app.app .card.novedades.novedades.novedades time,html body .app.app .card.novedades.novedades.novedades .nov-vacio{color:#6f5a78!important}html body .app.app .card.noticiero.noticiero.noticiero{background:rgba(58,28,62,.86)!important;border:1px solid rgba(255,255,255,.08)!important;backdrop-filter:blur(30px) saturate(1.4)!important;-webkit-backdrop-filter:blur(30px) saturate(1.4)!important}html body .app.app .card.noticiero.noticiero.noticiero::before,html body .app.app .card.noticiero.noticiero.noticiero::after{opacity:0!important}html body .app.app .card.noticiero.noticiero.noticiero,html body .app.app .card.noticiero.noticiero.noticiero *:not(svg):not(svg *){color:#fff!important;text-shadow:none!important}html body .app.app .card.noticiero.noticiero.noticiero time,html body .app.app .card.noticiero.noticiero.noticiero .nov-vacio{color:rgba(255,255,255,.7)!important}html body .app.app .card.noticiero.noticiero.noticiero time{background:rgba(255,255,255,.10)!important}</style><style id="fondos-temas">
+html body .stage{background-image:var(--fondo)!important}
+
+html body .tema{background-size:cover!important;background-position:center!important}
+html body[data-tema="atardecer"] .saludo-top,html body[data-tema="confeti"] .saludo-top,
+html body[data-tema="atardecer"] .saludo-sub,html body[data-tema="confeti"] .saludo-sub,
+html body[data-tema="atardecer"] .etiqueta-zona,html body[data-tema="confeti"] .etiqueta-zona,
+html body[data-tema="atardecer"] .chip-lbl,html body[data-tema="confeti"] .chip-lbl{color:#fff!important;text-shadow:0 1px 3px rgba(0,0,0,.45),0 0 12px rgba(0,0,0,.25)!important}
+html body[data-tema="atardecer"] .puntos-pag .punto-pag,html body[data-tema="confeti"] .puntos-pag .punto-pag{background:rgba(255,255,255,.45)!important}
+html body[data-tema="atardecer"] .puntos-pag .punto-pag.activo,html body[data-tema="confeti"] .puntos-pag .punto-pag.activo{background:#fff!important}
+html body[data-tema="atardecer"] .stage::after,html body[data-tema="confeti"] .stage::after{background:linear-gradient(180deg,rgba(0,0,0,.10),rgba(0,0,0,.18))!important}
+html body[data-tema="ondas"] .stage::after,html body[data-tema="degradado"] .stage::after{background:none!important}
+</style><style id="dock-titulo">
+nav .dock-titulo{flex:0 0 auto;display:flex;align-items:center;gap:7px;padding:0 14px 0 8px;font-size:14px;font-weight:650;letter-spacing:.06em;text-transform:uppercase;color:rgba(84,28,74,.88);white-space:nowrap}
+nav .dock-titulo svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+nav .dock-sep{flex:0 0 1px;align-self:stretch;margin:10px 6px 10px 0;background:rgba(84,28,74,.18)}
+</style><style id="dock-nombres">
+html body nav .nav-item{height:76px!important;flex-direction:column!important;justify-content:center!important;gap:5px!important;padding:0!important;display:flex!important;align-items:center!important;background:none!important;box-shadow:none!important;border:0!important}
+html body nav .nav-chip{width:46px!important;height:46px!important;flex:0 0 46px!important;filter:drop-shadow(0 4px 6px rgba(40,20,10,.20))}
+html body nav .nav-nombre{display:block;font-size:11.5px;line-height:1;font-weight:500;color:#3a1c3e;text-align:center;white-space:nowrap}
+html body nav .nav-item[aria-current="page"]::before{display:none!important}
+</style><style id="dock-aire">
+html body nav{padding:10px 18px!important;gap:4px!important}
+html body nav .nav-item{height:72px!important;gap:7px!important}
+html body nav .nav-chip{width:42px!important;height:42px!important;flex:0 0 42px!important}
+html body nav .dock-titulo{padding:0 10px 0 6px!important}
+html body nav .dock-sep{margin:8px 14px 8px 0!important}
+</style><style id="flechas-pag">
+html body .puntos-pag .punto-pag{display:none!important}
+html body .puntos-pag{gap:8px!important;display:flex!important;align-items:center}
+.flecha-pag{width:30px;height:30px;border-radius:50%;border:1px solid rgba(255,255,255,.8);background:rgba(255,255,255,.75);box-shadow:0 2px 6px rgba(60,30,60,.12);display:grid;place-items:center;cursor:pointer;padding:0;color:#3a1c3e;transition:opacity .2s}
+.flecha-pag svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.flecha-pag[disabled]{opacity:.35;cursor:default}
+</style><style id="aire-barras">
+html body nav{padding-top:5px!important;padding-bottom:5px!important}
+html body nav .nav-item{height:72px!important;gap:6px!important}
+html body nav .nav-chip{width:42px!important;height:42px!important;flex:0 0 42px!important}
+</style><style id="marco-acciones">html body .marca-acc{box-sizing:border-box!important;padding:5px 10px!important;border-radius:999px!important;border:1px solid rgba(255,255,255,.9)!important;background:rgba(255,255,255,.28)!important;box-shadow:0 0 0 .5px rgba(84,28,74,.12),0 6px 16px rgba(60,30,40,.08)!important;backdrop-filter:blur(12px)!important;-webkit-backdrop-filter:blur(12px)!important}</style><style id="robot-plano">html body header .buscador #buscaIr{width:44px!important;height:44px!important;min-width:0!important;flex:0 0 44px!important}html body header .buscador #buscaIr .busca-ir-img{width:100%!important;height:100%!important}</style><style id="cabecera-alineada">html body .saludo-top{line-height:1.08!important}html body .saludo-sub{margin-top:0!important}</style><style id="lbl-aire">html body .paginas .chip-app .chip-lbl{transform:translateY(3px)}</style><style id="grupos-puntos">html body .chip-app.g-az .chip-lbl::before{background:#2f7bff}html body .chip-app.g-ro .chip-lbl::before{background:#ff3b30}html body .chip-app.g-ve .chip-lbl::before{background:#34c759}html body .chip-app.g-gr .chip-lbl::before{background:#8e8e93}html body .chip-app.g-mo .chip-lbl::before{background:#8e44ec}html body .chip-app[class*=" g-"] .chip-lbl::before{content:"";display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:0}</style><style id="esquinas-servicio">html body header .buscador .servicio{border-radius:16px!important}html body header .buscador .servicio .serv-activo{border-radius:12px!important}</style><style id="temas">
+/* Fondos de cada tema (mood). Archivos en assets/fondos */
+html body[data-tema="degradado"],html body [data-tema="degradado"]:not(body){--fondo:url("assets/fondos/escritorio.webp")}
+html body .tema.t-degradado{background-image:url("assets/fondos/miniaturas/escritorio.jpg")!important}
+html body[data-tema="atardecer"],html body [data-tema="atardecer"]:not(body){--fondo:url("assets/fondos/futbol.webp")}
+html body .tema.t-atardecer{background-image:url("assets/fondos/miniaturas/futbol.jpg")!important}
+html body[data-tema="confeti"],html body [data-tema="confeti"]:not(body){--fondo:url("assets/fondos/tesla.webp")}
+html body .tema.t-confeti{background-image:url("assets/fondos/miniaturas/tesla.jpg")!important}
+html body[data-tema="ondas"],html body [data-tema="ondas"]:not(body){--fondo:url("assets/fondos/starbucks.webp")}
+html body .tema.t-ondas{background-image:url("assets/fondos/miniaturas/starbucks.jpg")!important}
+html body[data-tema="atardecer"] .stage::after{background:linear-gradient(180deg,rgba(0,20,50,.34),rgba(0,10,30,.22))!important}
+</style>
+<style id="figma">
+/* Ajustes para importar en Figma: sin filtros (Figma los convierte en imagen borrosa) */
+html body .chip-app{filter:none!important}
+html body .chip-ico{box-shadow:0 6px 10px rgba(40,20,10,.22),0 2px 3px rgba(40,20,10,.18)!important}
+html body[data-tema="degradado"] .chip-lbl,html body[data-tema="ondas"] .chip-lbl{text-shadow:none!important}
+</style>
+<style>html,body{width:1920px!important;height:1080px!important;overflow:hidden!important;margin:0}*{transition:none!important;animation:none!important}</style></head>
+<body data-tema="degradado">
+
+<div class="chasis"></div>
+<div class="bg-photo"></div>
+<div class="stage" style="background-size: 105% !important; background-position: 0% 50% !important;"></div>
+
+
+
+
+<div class="app" style="transform: none; translate: none; left: 40.6667px; top: 0px;">
+
+  <header style="transform: translate(166.159px, 55.0642px);">
+    <div class="marca"><div class="saludo-fila"><div class="saludo-top" style="translate: 0px -12.0019px;">Hola, Manuel</div><div class="marca-acc" style="translate: 0px -0.120865px;"><button class="accion a-jaina" id="btnJaina" aria-label="Jaina, asistente virtual" title="Jaina · asistente">
+          <img class="accion-img" alt="" src="assets/iconos/acciones/jaina.png">
+        </button><button class="accion a-notif" id="btnNotif" aria-label="Notificaciones" title="Notificaciones">
+          <img class="accion-img" alt="" src="assets/iconos/acciones/notificaciones.png">
+        </button><span class="acc-sep"></span><div class="menu-wrap">
+          <button class="accion a-user usuario" id="btnUser" aria-label="Mi cuenta" title="Mi cuenta" aria-haspopup="menu" aria-expanded="false" aria-controls="menuUser">
+          <img class="accion-img" alt="" src="assets/iconos/acciones/cohete.png">
+        </button>
+          <div class="menu-pop" id="menuUser" role="menu" aria-label="Mi cuenta" hidden="">
+            <a class="menu-item" role="menuitem" href="ipartner-admin.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="14" rx="2"></rect><circle cx="9" cy="12" r="2"></circle><path d="M6 17a3 3 0 0 1 6 0M14 11h4M14 15h3M9 6V4h6v2"></path></svg>Admin</a>
+            <a class="menu-item" role="menuitem" href="ipartner-actualizar-datos.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="10" r="3"></circle><path d="M6.6 18.3a6 6 0 0 1 10.8 0"></path></svg>Actualizar datos</a>
+            <a class="menu-item" role="menuitem" href="ipartner-cambiar-password.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path><circle cx="12" cy="16" r="1.2"></circle></svg>Cambiar password</a>
+            <span class="menu-sep" role="separator"></span>
+            <a class="menu-item menu-salir" role="menuitem" href="ipartner-login.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-4"></path><path d="M9 8l-4 4 4 4M5 12h11"></path></svg>Cerrar sesión</a>
+          </div>
+        </div><div class="menu-wrap">
+          <button class="accion a-viaje" id="btnViaje" aria-label="Más opciones" title="Más opciones" aria-haspopup="menu" aria-expanded="false" aria-controls="menuViaje">
+          <img class="accion-img" alt="" src="assets/iconos/acciones/avion.png">
+        </button>
+          <div class="menu-pop" id="menuViaje" role="menu" aria-label="Más opciones" hidden="">
+            <a class="menu-item" role="menuitem" href="ipartner-system.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="2"></rect><rect x="9.5" y="9.5" width="5" height="5" rx="1"></rect><path d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3"></path></svg>System</a>
+            <a class="menu-item" role="menuitem" href="ipartner-slam.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4h6v2.5H9Z"></path><path d="M15 5h2a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2"></path><path d="M12 18.5s-4.6-2.7-4.6-5.8a2.4 2.4 0 0 1 4.6-1 2.4 2.4 0 0 1 4.6 1c0 3.1-4.6 5.8-4.6 5.8Z" fill="currentColor" stroke="none"></path></svg>SLAM</a>
+            <a class="menu-item" role="menuitem" href="ipartner-puntos-ip.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4h8v5a4 4 0 0 1-8 0Z"></path><path d="M8 6H5v1a3 3 0 0 0 3 3M16 6h3v1a3 3 0 0 1-3 3M12 13v4M9 20h6M10 17h4"></path></svg>Puntos IP</a>
+            <a class="menu-item" role="menuitem" href="ipartner-eventos.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M3 10h18M8 3v4M16 3v4"></path><path d="m12 13 .9 1.8 2 .3-1.45 1.4.35 2-1.8-.95-1.8.95.35-2L9.1 15.1l2-.3Z"></path></svg>Eventos</a>
+            <a class="menu-item" role="menuitem" href="ipartner-sugerencias.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10a4 4 0 0 1 8 0v9H4Z"></path><path d="M8 10h10a2 2 0 0 1 2 2v7h-8M15 5v5M15 5h3"></path></svg>Buzón de sugerencias</a>
+          </div>
+        </div></div></div><div class="saludo-sub" style="translate: 0px -16.6887px;">Qué bueno verte de nuevo.</div></div>
+    <div class="buscador" style="right: auto !important; width: 747.43px !important; height: 52.0613px !important; translate: calc(46.276px) 11.5873px; transform: translateY(-7.79135px) !important;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.2-3.2"></path></svg>
+        <input id="busca" type="text" placeholder="Buscar DNI" autocomplete="off" aria-label="Buscar DNI" inputmode="numeric" maxlength="8" pattern="[0-9]*">
+        <button id="buscaClear" class="busca-x" aria-label="Limpiar" hidden="">×</button>
+        <!-- Estado del servicio: data-horas="24" o "12" según el plan del cliente -->
+      
+        <button id="buscaIr" class="busca-ir" aria-label="Asíncrona" title="Asíncrona"><img class="busca-ir-img" alt="" src="assets/iconos/acciones/asincrona.png">
+        </button><div class="servicio" id="servicio" data-horas="24" role="status" aria-label="Servicio activo, 24 horas">
+        <span class="serv-activo">Activo</span>
+        <span class="serv-horas">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+          <span id="servHoras">24h</span>
+        </span>
+      </div>
+      </div>
+    <div class="sesion">
+      <div class="acciones">
+      </div>
+    </div>
+  </header>
+
+  <aside class="panel" style="transform: translate(166.159px, 55.0642px);">
+
+    <!-- 1. Hora + clima -->
+    <div class="fila-superior">
+      <div class="card reloj tx-claro">
+        <div>
+          <div class="hora"><span id="hora">12:47</span><small id="meridiano">PM</small></div>
+          <div class="fecha" id="fecha">Miércoles, 14 de octubre</div>
+          <div class="saludo">¡Disfruta tu día!</div>
+        </div>
+      </div>
+
+      <div class="card clima c-despejado"><svg class="nube" viewBox="0 0 120 70" aria-hidden="true"><path d="M30 62h66a20 20 0 0 0 0-40 26 26 0 0 0-49-6A18 18 0 0 0 30 62Z" fill="#fff" opacity=".35"></path><path d="M18 66h50a14 14 0 0 0 0-28 18 18 0 0 0-34-4A13 13 0 0 0 18 66Z" fill="#fff" opacity=".5"></path></svg>
+        <div class="ciudad">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.9)" stroke-width="1.8"><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11Z"></path><circle cx="12" cy="10" r="2.4"></circle></svg>
+          Lima, Perú
+        </div>
+        <div class="clima-cuerpo">
+          <span class="clima-ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#ffd36b" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4" fill="#ffd36b"></circle><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"></path></svg>
+          </span>
+          <div>
+            <div class="temp">26°C</div>
+            <div class="estado" id="climaEstado">Despejado</div>
+          </div>
+        </div>
+        <div class="rangos">
+          <span><i class="max"></i>Máx: 26°C</span>
+          <span><i class="min"></i>Mín: 20°C</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Temas / mood -->
+    <div class="card card-mood">
+      <div class="titulo-card">
+        <h2>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#a5619b" stroke-width="1.8"><rect x="3" y="4" width="18" height="13" rx="2"></rect><path d="M8 21h8"></path></svg>
+          <span class="h2-txt">¿Cuál es tu mood de hoy?</span>
+        </h2>
+      </div>
+      <div class="temas">
+        <button class="tema t-degradado" data-tema="degradado" aria-pressed="true" aria-label="Tema escritorio"></button>
+        <button class="tema t-atardecer" data-tema="atardecer" aria-pressed="false" aria-label="Tema fútbol"></button>
+        <button class="tema t-confeti" data-tema="confeti" aria-pressed="false" aria-label="Tema Tesla"></button>
+        <button class="tema t-ondas" data-tema="ondas" aria-pressed="false" aria-label="Tema Starbucks"></button>
+      </div>
+    </div>
+
+    <!-- 3. Lo ultimito (comunicados) -->
+    <div class="card novedades">
+      <div class="titulo-card">
+        <h2>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#a5619b" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="10" r="3"></circle><path d="M1 21a5 5 0 0 1 10 0"></path><circle cx="18" cy="10" r="3"></circle><path d="M13 21a5 5 0 0 1 10 0"></path><path d="M9.8 2.5h4.4a1.3 1.3 0 0 1 1.3 1.3v1.9a1.3 1.3 0 0 1-1.3 1.3h-1.4L12 8.2l-.8-1.2H9.8a1.3 1.3 0 0 1-1.3-1.3V3.8a1.3 1.3 0 0 1 1.3-1.3Z" fill="#a5619b" stroke="none"></path></svg>
+          Lo ultimito
+        </h2>
+        <span class="nov-badge" id="novBadge">0</span>
+      </div>
+      <div class="nov-vacio" id="novVacio">No hay comunicados vigentes.</div>
+      <div class="nov-carrusel" id="novCarrusel" hidden="">
+        <button class="nov-nav prev" id="novPrev" aria-label="Anterior" title="Anterior">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg>
+        </button>
+        <div class="nov-actual" id="novActual"></div>
+        <button class="nov-nav next" id="novNext" aria-label="Siguiente" title="Siguiente">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"></path></svg>
+        </button>
+      </div>
+      <div class="nov-puntos" id="novPuntos" hidden=""></div>
+    </div>
+
+    <!-- 4. Noticiero iPartner -->
+    <div class="card noticiero">
+      <div class="titulo-card">
+        <h2>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ef801c" stroke-width="2" stroke-linecap="round"><path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6 5.6 18.4"></path></svg>
+          Noticiero iPartner
+        </h2>
+        <a href="#">Ver todas ›</a>
+      </div>
+      <a class="noticia" href="https://gestion.pe/tu-dinero/" target="_blank" rel="noopener">
+        <span class="not-ico n-naranja"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><rect x="4" y="6" width="16" height="12" rx="2"></rect><path d="M8 12h8"></path></svg></span>
+        <p>AFP: cuatro fechas a tener en cuenta sobre próximos cambios para los afiliados</p><time>Tu Dinero</time>
+      </a>
+      <a class="noticia" href="https://gestion.pe/economia/" target="_blank" rel="noopener">
+        <span class="not-ico n-verde"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11 12 4l8 7v9H4Z"></path></svg></span>
+        <p>¿Seguir pagando alquiler o comprar? Qué evaluar antes de dar el salto a una vivienda propia</p><time>Inmobiliaria</time>
+      </a>
+      <a class="noticia" href="https://gestion.pe/economia/mercados/" target="_blank" rel="noopener">
+        <span class="not-ico n-azul"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m4 16 5-5 4 3 7-7"></path><path d="M15 7h5v5"></path></svg></span>
+        <p>Tipo de cambio hoy en Perú: ¿cuánto está el dólar este miércoles 14 de octubre?</p><time>Mercados</time>
+      </a>
+      <a class="noticia" href="https://gestion.pe/economia/" target="_blank" rel="noopener">
+        <span class="not-ico n-celeste"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M7 19v-6M12 19V8M17 19v-9"></path></svg></span>
+        <p>Perú invierte más en ciberseguridad que la región y el mundo en 2 frentes: ¿no teme a la IA?</p><time>Economía</time>
+      </a>
+    </div>
+
+  </aside>
+
+  <main class="escritorio">
+    <div class="zona">
+      <div class="paginas" id="lienzo" tabindex="-1" style="transform: translate(166.159px, 55.0642px);">
+        <div class="pista" id="pista" style="transition: none; transform: translateX(0px);">
+      <div class="pagina" role="group" aria-label="Pantalla 1" aria-hidden="false">
+        <button class="chip-app g-az k-income" data-id="income" aria-label="Income Ultra, consume 3 consultas" title="Income Ultra (×3)">
+          <span class="chip-ico chip-img"><img alt="" src="assets/iconos/productos/income-ultra.png"></span><span class="chip-badge" aria-hidden="true">×3</span>
+          <span class="chip-lbl">Income Ultra</span>
+        </button>
+        <button class="chip-app g-az k-empresa" data-id="proveedor" aria-label="Rep. Leg, consume 2 consultas" title="Rep. Leg (×2)">
+          <span class="chip-ico chip-img"><img alt="" src="assets/iconos/productos/rep-leg.png"></span><span class="chip-badge" aria-hidden="true">×2</span>
+          <span class="chip-lbl">Rep. Leg</span>
+        </button>
+        <button class="chip-app g-az k-ficha" data-id="ficha-id" aria-label="Ficha ID, consume 1 consulta" title="Ficha ID (×1)">
+          <span class="chip-ico chip-img"><img alt="" src="assets/iconos/productos/ficha-id.png"></span><span class="chip-badge" aria-hidden="true">×1</span>
+          <span class="chip-lbl">Ficha ID</span>
+        </button>
+        <button class="chip-app g-az k-cred" data-id="crediticio" aria-label="Credit PN, consume 1 consulta" title="Credit PN (×1)">
+          <span class="chip-ico chip-img"><img alt="" src="assets/iconos/productos/credit-pn.png"></span><span class="chip-badge" aria-hidden="true">×1</span>
+          <span class="chip-lbl">Credit PN</span>
+        </button>
+        <button class="chip-app g-az k-refer" data-id="referencia-laboral" aria-label="Referencia Laboral, consume 1 consulta" title="Referencia Laboral (×1)">
+          <span class="chip-ico chip-img"><img alt="" src="assets/iconos/productos/referencia-laboral.png"></span><span class="chip-badge" aria-hidden="true">×1</span>
+          <span class="chip-lbl">Referencia Laboral</span>
+        </button>
+        <button class="chip-app g-az k-busq" data-id="busqueda-personas" aria-label="Busca Personas, consume 1 consulta" title="Busca Personas (×1)">
+          <span class="chip-ico chip-img"><img alt="" src="assets/iconos/productos/busca-personas.png"></span><span class="chip-badge" aria-hidden="true">×1</span>
+          <span class="chip-lbl">Busca Personas</span>
+        </button>
+        <button class="chip-app g-ro k-mundo" data-id="extranjero" aria-label="Extranjero, consume 2 consultas" title="Extranjero (×2)">
+          <span class="chip-ico chip-img"><img alt="" src="assets/iconos/productos/extranjero.png"></span><span class="chip-badge" aria-hidden="true">×2</span>
+          <span class="chip-lbl">Extranjero</span>
+        </button>
+        <button class="chip-app g-ve k-splaft" data-id="splaft" aria-label="Splaft, consume 1 consulta" title="Splaft (×1)">
+          <span class="chip-ico chip-img"><img alt="" src="assets/iconos/productos/splaft.png"></span><span class="chip-badge" aria-hidden="true">×1</span>
+          <span class="chip-lbl">Splaft</span>
+        </button>
+        <button class="chip-app g-ve k-ruc" data-id="ruc" aria-label="RUC, consume 2 consultas" title="RUC (×2)">
+          <span class="chip-ico chip-img"><img alt="" src="assets/iconos/productos/ruc.png"></span><span class="chip-badge" aria-hidden="true">×2</span>
+          <span class="chip-lbl">RUC</span>
+        </button>
+        <button class="chip-app g-ve k-violeta" data-id="credit-pro" aria-label="Credit Pro, consume 2 consultas" title="Credit Pro (×2)">
+          <span class="chip-ico chip-img"><img alt="" src="assets/iconos/productos/credit-pro.png"></span><span class="chip-badge" aria-hidden="true">×2</span>
+          <span class="chip-lbl">Credit Pro</span>
+        </button>
+        <button class="chip-app g-ve k-cese" data-id="cese-laboral" aria-label="Cese Laboral" title="Cese Laboral">
+          <span class="chip-ico chip-img"><img alt="" src="assets/iconos/productos/cese-laboral.png"></span>
+          <span class="chip-lbl">Cese Laboral</span>
+        </button>
+        <button class="chip-app g-ve k-black" data-id="black-list" aria-label="Black List" title="Black List">
+          <span class="chip-ico chip-img"><img alt="" src="assets/iconos/productos/black-list.png"></span>
+          <span class="chip-lbl">Black List</span>
+        </button>
+        <button class="chip-app g-ve k-b2b" data-id="b2b" aria-label="B2B, consume 1 consulta" title="B2B (×1)">
+          <span class="chip-ico chip-img"><img alt="" src="assets/iconos/productos/b2b.png"></span><span class="chip-badge" aria-hidden="true">×1</span>
+          <span class="chip-lbl">B2B</span>
+        </button>
+        <button class="chip-app g-gr k-icar" data-id="icar" aria-label="Icar, consume 1 consulta" title="Icar (×1)">
+          <span class="chip-ico chip-img"><img alt="" src="assets/iconos/productos/icar.png"></span><span class="chip-badge" aria-hidden="true">×1</span>
+          <span class="chip-lbl">Icar</span>
+        </button>
+        <button class="chip-app g-mo k-nfc" data-id="nfc" aria-label="NFC" title="NFC">
+          <span class="chip-ico chip-img"><img alt="" src="assets/iconos/productos/nfc.png"></span>
+          <span class="chip-lbl">NFC</span>
+        </button>
+        <button class="chip-app g-mo k-app-ip" data-id="app-ip" aria-label="App Ipartner" title="App Ipartner">
+          <span class="chip-ico chip-img"><img alt="" src="assets/iconos/productos/app-ipartner.png"></span>
+          <span class="chip-lbl">App Ipartner</span>
+        </button>
+        <button class="chip-app g-mo k-pod" data-id="podcast" aria-label="Podcast" title="Podcast">
+          <span class="chip-ico chip-img"><img alt="" src="assets/iconos/productos/podcast.png"></span>
+          <span class="chip-lbl">Podcast</span>
+        </button>
+        <button class="chip-app g-mo k-onb" data-id="onboarding" aria-label="On Boarding" title="On Boarding">
+          <span class="chip-ico chip-img"><img alt="" src="assets/iconos/productos/on-boarding.png"></span>
+          <span class="chip-lbl">On Boarding</span>
+        </button>
+      </div>
+      <div class="pagina" role="group" aria-label="Pantalla 2" aria-hidden="true" inert="">
+        <button class="chip-app k-g-ia fila-nueva" data-id="clasico-ia" aria-label="Clásico" title="Clásico">
+          <span class="chip-ico chip-img"><img alt="" src="assets/iconos/productos/clasico-ia.png"></span>
+          <span class="chip-lbl">Clásico</span>
+        </button>
+        <button class="chip-app k-g-ia" data-id="premium-ia" aria-label="Premium IA" title="Premium IA">
+          <span class="chip-ico chip-img"><img alt="" src="assets/iconos/productos/premium-ia.png"></span>
+          <span class="chip-lbl">Premium IA</span>
+        </button>
+        <button class="chip-app k-g-ia" data-id="ia-plus" aria-label="IA Plus" title="IA Plus">
+          <span class="chip-ico chip-img"><img alt="" src="assets/iconos/productos/ia-plus.png"></span>
+          <span class="chip-lbl">IA Plus</span>
+        </button>
+        <button class="chip-app k-g-ia" data-id="vip-ia" aria-label="VIP" title="VIP">
+          <span class="chip-ico chip-img"><img alt="" src="assets/iconos/productos/vip-ia.png"></span>
+          <span class="chip-lbl">VIP</span>
+        </button>
+        <button class="chip-app k-g-z fila-nueva" data-id="zeta" aria-label="ZETA" title="ZETA">
+          <span class="chip-ico chip-img"><img alt="" src="assets/iconos/productos/zeta.png"></span>
+          <span class="chip-lbl">ZETA</span>
+        </button>
+        <button class="chip-app k-g-z" data-id="z-basico" aria-label="Z. Básico" title="Z. Básico">
+          <span class="chip-ico chip-img"><img alt="" src="assets/iconos/productos/z-basico.png"></span>
+          <span class="chip-lbl">Z. Básico</span>
+        </button>
+        <button class="chip-app k-g-z" data-id="z-basico-plus" aria-label="Z. Básico Plus" title="Z. Básico Plus">
+          <span class="chip-ico chip-img"><img alt="" src="assets/iconos/productos/z-basico-plus.png"></span>
+          <span class="chip-lbl">Z. Básico Plus</span>
+        </button>
+        <button class="chip-app k-g-z" data-id="z-premium" aria-label="Z. Premium" title="Z. Premium">
+          <span class="chip-ico chip-img"><img alt="" src="assets/iconos/productos/z-premium.png"></span>
+          <span class="chip-lbl">Z. Premium</span>
+        </button>
+        <button class="chip-app k-g-z" data-id="z-vip" aria-label="Z. VIP" title="Z. VIP">
+          <span class="chip-ico chip-img"><img alt="" src="assets/iconos/productos/z-vip.png"></span>
+          <span class="chip-lbl">Z. VIP</span>
+        </button>
+        <button class="chip-app k-g-clasicos" data-id="clasico" aria-label="Clásico" title="Clásico">
+          <span class="chip-ico chip-img"><img alt="" src="assets/iconos/productos/clasico.png"></span>
+          <span class="chip-lbl">Clásico</span>
+        </button>
+        <button class="chip-app k-g-clasicos" data-id="vip" aria-label="VIP" title="VIP">
+          <span class="chip-ico chip-img"><img alt="" src="assets/iconos/productos/vip.png"></span>
+          <span class="chip-lbl">VIP</span>
+        </button>
+        <button class="chip-app k-g-clasicos" data-id="premium" aria-label="Premium" title="Premium">
+          <span class="chip-ico chip-img"><img alt="" src="assets/iconos/productos/premium.png"></span>
+          <span class="chip-lbl">Premium</span>
+        </button>
+      </div>
+        </div>
+      </div>
+      
+    </div>
+  </main>
+
+  <nav style="width: 747.43px; box-sizing: border-box; translate: 181.978px -162.043px; transform: translate(166.159px, 55.0642px);"><div class="dock-titulo"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg><span>Procesos</span></div><div class="dock-sep"></div>
+    <span class="indicador"></span>
+    <button class="nav-item" aria-current="page" aria-label="Home" title="Home">
+      <span class="nav-chip nav-img"><img alt="" src="assets/iconos/procesos/home.png"></span>
+    <span class="nav-nombre">Home</span></button>
+    <button class="nav-item" aria-label="Monitoreo" title="Monitoreo">
+      <span class="nav-chip nav-img"><img alt="" src="assets/iconos/procesos/monitoreo.png"></span>
+    <span class="nav-nombre">Monitoreo</span></button>
+    <button class="nav-item" aria-label="Asíncrona" title="Asíncrona">
+      <span class="nav-chip nav-img"><img alt="" src="assets/iconos/procesos/asincrona.png"></span>
+    <span class="nav-nombre">Asíncrona</span></button>
+    <button class="nav-item" aria-label="Diccionario Legal" title="Diccionario Legal">
+      <span class="nav-chip nav-img"><img alt="" src="assets/iconos/procesos/diccionario-legal.png"></span>
+    <span class="nav-nombre">Diccionario</span></button>
+    <button class="nav-item" aria-label="Historial" title="Historial">
+      <span class="nav-chip nav-img"><img alt="" src="assets/iconos/procesos/historial.png"></span>
+    <span class="nav-nombre">Historial</span></button>
+    <button class="nav-item" aria-label="Dashboard" title="Dashboard">
+      <span class="nav-chip nav-img"><img alt="" src="assets/iconos/procesos/dashboard.png"></span>
+    <span class="nav-nombre">Dashboard</span></button>
+    <button class="nav-item" aria-label="Analytics" title="Analytics">
+      <span class="nav-chip nav-img"><img alt="" src="assets/iconos/procesos/analytics.png"></span>
+    <span class="nav-nombre">Analytics</span></button>
+    <button class="nav-item" aria-label="Procesos" title="Procesos">
+      <span class="nav-chip nav-img"><img alt="" src="assets/iconos/procesos/procesos.png"></span>
+    <span class="nav-nombre">Procesos</span></button>
+  </nav>
+
+<div id="etqGadgets" class="etiqueta-zona" style="left: 238.148px; top: 261.061px;"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7.5" height="7.5" rx="2"></rect><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"></rect><rect x="3" y="13.5" width="18" height="7.5" rx="2"></rect></svg><span>Gadgets</span></div><div id="etqZona" class="etiqueta-zona" style="left: 934.423px; top: 261.061px;"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 8 12 3 3 8v8l9 5 9-5z"></path><path d="M3 8l9 5 9-5"></path><path d="M12 13v8"></path></svg><span>Productos</span></div><div class="puntos-pag" id="puntosPag" role="tablist" aria-label="Pantallas" style="translate: none !important; position: absolute !important; transform: none !important; bottom: auto !important; margin: 0px !important; z-index: 5 !important; left: 1613.86px !important; top: 782.963px !important;"><button class="punto-pag activo" data-p="0" aria-label="Pantalla 1" aria-current="true"></button><button class="punto-pag" data-p="1" aria-label="Pantalla 2"></button><button class="flecha-pag" aria-label="Página anterior" disabled=""><svg viewBox="0 0 24 24"><path d="m15 6-6 6 6 6"></path></svg></button><button class="flecha-pag" aria-label="Página siguiente"><svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"></path></svg></button></div><div id="etqFunc" class="etiqueta-zona" style="left: 610.802px; top: 236.929px;"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"></path><circle cx="16" cy="7" r="2"></circle><circle cx="10" cy="17" r="2"></circle></svg><span>Funcionalidades</span></div></div>
+
+
+
+
+</body></html>
