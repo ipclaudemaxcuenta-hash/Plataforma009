@@ -1,7 +1,7 @@
 # Home iPartner · paquete para Figma y desarrollo
 
 ## Contenido
-- `index.html`: el home final (lienzo de 1920×1080). Todas las imágenes son archivos externos en `assets/`, ya no van dentro del HTML.
+- `index.html`: el home final (se adapta a 2560×1440, la medida del sistema). Todas las imágenes son archivos externos en `assets/`, ya no van dentro del HTML.
 - `assets/fondos/`: los 4 fondos de tema (escritorio, fútbol, Tesla y Starbucks), en WebP y JPG de 2560×1440 y menos de 1 MB cada uno. Las miniaturas del selector de mood están en `assets/fondos/miniaturas/`.
 - `assets/iconos/productos/`: los íconos de los productos (PNG transparente de 220 px, con su borde de color ya incluido).
 - `assets/iconos/procesos/`: los íconos del Dock de Procesos (PNG de 200 px).
@@ -19,7 +19,7 @@ Importa también estos dos archivos para tener los menús en Figma: en `index.ht
 ## Importar en Figma
 1. Instalar el plugin **html.to.design** en Figma.
 2. Importar `index.html` junto con su carpeta `assets/`. También se puede subir la carpeta a cualquier hosting estático e importar la URL.
-3. Elegir un viewport de 1920×1080.
+3. Elegir un ancho personalizado de **2560** (2560×1440, la medida del sistema). El home se escala solo y mantiene las proporciones.
 4. Opciones: **Use Autolayout apagado**, Create styles & variables encendido y HTML layer names encendido; todo lo demás apagado.
 
 ## Temas

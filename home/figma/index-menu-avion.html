@@ -2193,12 +2193,12 @@ window.addEventListener("storage",function(e){
     var w=document.body.clientWidth, h=document.body.clientHeight;
     var k=Math.min(w/W, h/H);
     var x=(w-W*k)/2, y=(h-H*k)/2;
-    app.style.transform="translate("+x+"px,"+y+"px) scale("+k+")";
+    app.style.transform="none"; app.style.zoom=k; app.style.translate=(x/k)+"px "+(y/k)+"px";
     // centra el contenido dentro de la pantalla visible (marco del iPad)
     var st=document.querySelector(".stage").getBoundingClientRect(), pn=document.querySelector(".panel").getBoundingClientRect();
     var av=document.getElementById("btnViaje").getBoundingClientRect();
     var dx=(st.left+90*k)-pn.left;
-    app.style.transform="translate("+(x+dx)+"px,"+y+"px) scale("+k+")";
+    app.style.transform="none"; app.style.zoom=k; app.style.translate=((x+dx)/k)+"px "+(y/k)+"px";
   }
   encajar(); window.addEventListener("resize",encajar);
 })();
