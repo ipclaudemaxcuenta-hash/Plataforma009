@@ -10,6 +10,9 @@
 ## Hoja de íconos
 - `iconos.html`: todos los íconos sueltos en una sola página, ordenados por grupo y con su nombre y tamaño. Impórtala en Figma igual que el home.
 
+## Página 2 de productos
+- `index-pagina-2.html`: el home mostrando la segunda pantalla de productos (Clásico, Premium IA, ZETA…).
+
 ## Pantallas con menús abiertos
 - `index-menu-cohete.html`: el menú del cohete abierto (Admin, Actualizar datos, Cambiar password y Cerrar sesión).
 - `index-menu-avion.html`: el menú del avión abierto (System, SLAM, Puntos IP, Eventos y Buzón de sugerencias).
