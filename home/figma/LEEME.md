@@ -7,6 +7,9 @@
 - `assets/iconos/procesos/`: los íconos del Dock de Procesos (PNG de 200 px).
 - `assets/iconos/acciones/`: Jaina, notificaciones, cohete, avión y Asíncrona (PNG de 160–200 px).
 
+## Hoja de íconos
+- `iconos.html`: todos los íconos sueltos en una sola página, ordenados por grupo y con su nombre y tamaño. Impórtala en Figma igual que el home.
+
 ## Pantallas con menús abiertos
 - `index-menu-cohete.html`: el menú del cohete abierto (Admin, Actualizar datos, Cambiar password y Cerrar sesión).
 - `index-menu-avion.html`: el menú del avión abierto (System, SLAM, Puntos IP, Eventos y Buzón de sugerencias).
@@ -17,6 +20,7 @@ Importa también estos dos archivos para tener los menús en Figma: en `index.ht
 1. Instalar el plugin **html.to.design** en Figma.
 2. Importar `index.html` junto con su carpeta `assets/`. También se puede subir la carpeta a cualquier hosting estático e importar la URL.
 3. Elegir un viewport de 1920×1080.
+4. Opciones: **Use Autolayout apagado**, Create styles & variables encendido y HTML layer names encendido; todo lo demás apagado.
 
 ## Temas
 El tema se cambia con `body[data-tema]`:
