@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Información del sistema</title>
+<style>
+  :root{
+    --fondo:#F2F2F7;
+    --tarjeta:#FFFFFF;
+    --texto:#000000;
+    --secundario:#8E8E93;
+    --separador:rgba(60,60,67,.18);
+    --presionado:#E5E5EA;
+    --vacio:#E5E5EA;
+    --acento:#EF801C;
+    --acento-tinta:#B5610F;
+    --ok:#34C759;
+    --radio:26px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--fondo)}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;
+    color:var(--texto);-webkit-font-smoothing:antialiased;font-size:17px;
+  }
+
+  /* Barra superior translúcida */
+  .nav{
+    position:sticky;top:0;z-index:10;height:64px;
+    display:flex;align-items:center;justify-content:center;
+    background:rgba(242,242,247,.72);
+    backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);
+    transition:border-color .2s;border-bottom:.5px solid transparent;
+  }
+  .nav.scrolled{border-bottom-color:var(--separador)}
+  .nav h1{font-size:17px;font-weight:600}
+  .volver{
+    position:absolute;left:16px;top:50%;transform:translateY(-50%);
+    width:44px;height:44px;border-radius:50%;border:0;cursor:pointer;
+    background:#fff;box-shadow:0 1px 6px rgba(0,0,0,.08);
+    display:grid;place-items:center;color:var(--texto);text-decoration:none;
+  }
+  .volver svg{width:22px;height:22px}
+
+  main{max-width:720px;margin:0 auto;padding:12px 20px 64px}
+
+  .titulo-grupo{
+    font-size:13px;color:var(--secundario);text-transform:uppercase;letter-spacing:.02em;
+    margin:28px 16px 8px;
+  }
+  .grupo{background:var(--tarjeta);border-radius:var(--radio);overflow:hidden;margin-top:20px}
+  .titulo-grupo + .grupo{margin-top:0}
+  .pie-grupo{font-size:13px;color:var(--secundario);margin:8px 16px 0;line-height:1.4}
+
+  .fila{
+    position:relative;display:flex;align-items:center;justify-content:space-between;gap:16px;
+    min-height:54px;padding:12px 20px;width:100%;
+    background:none;border:0;font:inherit;color:inherit;text-align:left;
+  }
+  .fila + .fila::before{
+    content:"";position:absolute;top:0;left:20px;right:0;height:.5px;background:var(--separador);
+  }
+  button.fila{cursor:pointer}
+  button.fila:active,button.fila.presionada{background:var(--presionado)}
+  button.fila:focus-visible{outline:2px solid var(--acento);outline-offset:-2px;border-radius:var(--radio)}
+  .valor{color:var(--secundario);text-align:right;font-variant-numeric:tabular-nums;display:flex;align-items:center;gap:6px}
+  .chev{width:8px;height:14px;color:#C4C4C7;flex:none}
+  .fila.bloque{flex-direction:column;align-items:flex-start;gap:2px}
+  .fila.bloque .valor{text-align:left;font-size:15px;word-break:break-all}
+
+  /* Filas con nivel */
+  .fila.nivel{flex-direction:column;align-items:stretch;gap:10px;padding:14px 20px}
+  .nivel-cab{display:flex;justify-content:space-between;align-items:center;gap:16px}
+  .nivel-pie{display:flex;justify-content:space-between;align-items:center;gap:12px}
+  .barra{display:flex;gap:4px;flex:1;max-width:260px}
+  .barra i{flex:1;height:6px;border-radius:3px;background:var(--vacio);transform-origin:left;transition:background .3s}
+  .barra i.on{background:var(--acento)}
+  .rango{font-size:13px;font-weight:600;color:var(--acento-tinta)}
+  .spec{font-size:15px;color:var(--secundario)}
+  .pildora{font-size:13px;font-weight:600;color:#1E7D36;background:#E3F6E8;padding:3px 10px;border-radius:999px}
+
+  /* Hoja de detalle */
+  .velo{position:fixed;inset:0;background:rgba(0,0,0,.28);opacity:0;pointer-events:none;transition:opacity .25s;z-index:20}
+  .velo.abierto{opacity:1;pointer-events:auto}
+  .hoja{
+    position:fixed;left:50%;bottom:0;z-index:21;width:min(720px,100%);
+    background:var(--fondo);border-radius:var(--radio) var(--radio) 0 0;
+    transform:translate(-50%,100%);transition:transform .35s cubic-bezier(.2,.8,.2,1);
+    padding:10px 20px 36px;max-height:85vh;overflow:auto;
+  }
+  .hoja.abierto{transform:translate(-50%,0)}
+  .asa{width:36px;height:5px;border-radius:3px;background:#C7C7CC;margin:0 auto 14px}
+  .hoja-cab{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+  .hoja-cab h2{font-size:20px;font-weight:700}
+  .cerrar{border:0;background:#E3E3E8;width:30px;height:30px;border-radius:50%;cursor:pointer;color:#6b6b70;font-size:16px}
+  .hoja .desc{color:var(--secundario);font-size:15px;line-height:1.45;margin:4px 4px 16px}
+  .escala .fila{min-height:48px}
+  .escala .actual{font-weight:600}
+  .escala .actual .valor{color:var(--acento-tinta)}
+  .check{color:var(--acento);font-weight:700}
+
+  .copiado{
+    position:fixed;left:50%;bottom:32px;transform:translate(-50%,20px);opacity:0;
+    background:rgba(30,30,30,.9);color:#fff;font-size:14px;padding:10px 18px;border-radius:999px;
+    transition:.25s;z-index:30;pointer-events:none;
+  }
+  .copiado.ver{opacity:1;transform:translate(-50%,0)}
+
+  @media (prefers-reduced-motion:no-preference){
+    .barra i.on{animation:llenar .5s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--d,0) * 1ms)}
+    @keyframes llenar{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+  }
+  @media (max-width:480px){main{padding:8px 16px 48px}.fila{padding:12px 16px}.fila + .fila::before{left:16px}}
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <a class="volver" href="index.html" aria-label="Volver al inicio">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
+  </a>
+  <h1>Información</h1>
+</header>
+
+<main>
+
+  <!-- Identidad -->
+  <section class="grupo" aria-label="Identidad">
+    <button class="fila" data-copiar><span>Nombre</span><span class="valor">iPartner System<svg class="chev" viewBox="0 0 8 14"><path d="M1 1l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span></button>
+    <button class="fila"><span>Versión del sistema</span><span class="valor">26.6.1<svg class="chev" viewBox="0 0 8 14"><path d="M1 1l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span></button>
+    <div class="fila"><span>Nombre del modelo</span><span class="valor">iPartner Pro Max</span></div>
+    <div class="fila" data-copiar><span>Número de modelo</span><span class="valor">IPX-2026/PE</span></div>
+    <div class="fila" data-copiar><span>Número de serie</span><span class="valor">IPTD7V3NQ2</span></div>
+  </section>
+
+  <!-- Soporte -->
+  <section class="grupo" aria-label="Soporte">
+    <button class="fila"><span>Soporte y garantía</span><svg class="chev" viewBox="0 0 8 14"><path d="M1 1l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+  </section>
+
+  <!-- Contadores -->
+  <section class="grupo" aria-label="Uso">
+    <div class="fila"><span>Productos</span><span class="valor">19</span></div>
+    <div class="fila"><span>Procesos</span><span class="valor">8</span></div>
+    <div class="fila"><span>Consultas</span><span class="valor">12,480</span></div>
+    <div class="fila"><span>Usuarios</span><span class="valor">36</span></div>
+    <div class="fila"><span>Capacidad</span><span class="valor">2 TB</span></div>
+    <div class="fila"><span>Disponible</span><span class="valor">1.88 TB</span></div>
+  </section>
+
+  <!-- Niveles -->
+  <h2 class="titulo-grupo">Especificaciones técnicas</h2>
+  <section class="grupo" id="niveles" aria-label="Especificaciones técnicas"></section>
+  <p class="pie-grupo">Toca una especificación para ver su escala de niveles.</p>
+
+  <!-- Conectividad -->
+  <h2 class="titulo-grupo">Conectividad</h2>
+  <section class="grupo" aria-label="Conectividad">
+    <div class="fila" data-copiar><span>Dirección IP</span><span class="valor">10.42.18.207</span></div>
+    <div class="fila" data-copiar><span>ID de API</span><span class="valor">88:7E:9B:53:30:96</span></div>
+    <div class="fila"><span>Firmware del motor</span><span class="valor">1.70.01</span></div>
+    <button class="fila"><span>Certificado SSL</span><svg class="chev" viewBox="0 0 8 14"><path d="M1 1l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+    <div class="fila bloque" data-copiar><span>EID</span><span class="valor">89049032020008885600242712670170</span></div>
+    <div class="fila"><span>Bloqueo de acceso</span><span class="valor">Sin restricción</span></div>
+  </section>
+
+  <!-- Servidor principal -->
+  <h2 class="titulo-grupo">Servidor principal</h2>
+  <section class="grupo" aria-label="Servidor principal">
+    <div class="fila"><span>Red</span><span class="valor">Activa</span></div>
+    <div class="fila"><span>Proveedor</span><span class="valor">AWS · us-east-1</span></div>
+    <div class="fila" data-copiar><span>ID de instancia</span><span class="valor">35 158649 826537 3</span></div>
+    <div class="fila" data-copiar><span>Nodo</span><span class="valor">8951171010114897355</span></div>
+  </section>
+
+  <!-- Respaldo -->
+  <h2 class="titulo-grupo">Servidor de respaldo</h2>
+  <section class="grupo" aria-label="Servidor de respaldo">
+    <div class="fila"><span>Red</span><span class="valor">En espera</span></div>
+    <div class="fila"><span>Proveedor</span><span class="valor">Google Cloud · southamerica-west1</span></div>
+    <div class="fila" data-copiar><span>ID de instancia</span><span class="valor">35 158649 816271 1</span></div>
+    <div class="fila" data-copiar><span>Nodo</span><span class="valor">8901260908755466828</span></div>
+  </section>
+
+</main>
+
+<div class="velo" id="velo"></div>
+<div class="hoja" id="hoja" role="dialog" aria-modal="true" aria-labelledby="hoja-titulo">
+  <div class="asa"></div>
+  <div class="hoja-cab"><h2 id="hoja-titulo"></h2><button class="cerrar" id="cerrar" aria-label="Cerrar">✕</button></div>
+  <p class="desc" id="hoja-desc"></p>
+  <section class="grupo escala" id="hoja-escala"></section>
+</div>
+<div class="copiado" id="copiado" role="status">Copiado</div>
+
+<script>
+const RANGOS = ["Básico","Medio","Alto","Muy alto","Máximo"];
+const SPECS = [
+  {n:"RAM", v:"512 GB", lvl:5, d:"Memoria disponible para procesar consultas en paralelo."},
+  {n:"Núcleos", v:"128 núcleos", lvl:5, d:"Capacidad de cómputo simultáneo del sistema."},
+  {n:"Microprocesador", v:"Neural X3 · 4.2 GHz", lvl:4, d:"Velocidad de procesamiento de cada consulta."},
+  {n:"Servidor", v:"Cloud dedicado", lvl:4, d:"Infraestructura donde se ejecuta la plataforma."},
+  {n:"Proveedor tecnológico", v:"AWS + Google Cloud", lvl:5, d:"Respaldo y disponibilidad de los proveedores de nube."},
+  {n:"Procesador de Big Data", v:"2.5 M registros/s", lvl:4, d:"Volumen de datos que el sistema cruza por segundo."},
+  {n:"Cerebro de IA", v:"Modelo v4", lvl:5, d:"Nivel de análisis inteligente aplicado a los resultados."},
+  {n:"Query OffLine", v:"Activo", lvl:3, d:"Capacidad de consultar sin conexión directa a las fuentes.", estado:true},
+];
+const chev = '<svg class="chev" viewBox="0 0 8 14"><path d="M1 1l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+
+const cont = document.getElementById("niveles");
+SPECS.forEach((s,i)=>{
+  const b = document.createElement("button");
+  b.className = "fila nivel";
+  const segs = RANGOS.map((_,k)=>`<i class="${k<s.lvl?'on':''}" style="--d:${i*60+k*40}"></i>`).join("");
+  b.innerHTML = `
+    <div class="nivel-cab"><span>${s.n}</span><span class="valor">${s.estado?`<span class="pildora">${s.v}</span>`:`<span class="spec">${s.v}</span>`}${chev}</span></div>
+    <div class="nivel-pie">
+      <div class="barra" role="meter" aria-valuemin="1" aria-valuemax="5" aria-valuenow="${s.lvl}" aria-valuetext="Nivel ${s.lvl} de 5, ${RANGOS[s.lvl-1]}">${segs}</div>
+      <span class="rango">${RANGOS[s.lvl-1]}</span>
+    </div>`;
+  b.addEventListener("click",()=>abrir(s));
+  cont.appendChild(b);
+});
+
+const hoja=document.getElementById("hoja"), velo=document.getElementById("velo");
+let ultimoFoco=null;
+function abrir(s){
+  ultimoFoco=document.activeElement;
+  document.getElementById("hoja-titulo").textContent=s.n;
+  document.getElementById("hoja-desc").textContent=`${s.d} Valor actual: ${s.v}.`;
+  document.getElementById("hoja-escala").innerHTML = RANGOS.map((r,k)=>`
+    <div class="fila ${k+1===s.lvl?'actual':''}"><span>Nivel ${k+1} · ${r}</span>
+    <span class="valor">${k+1===s.lvl?'<span class="check">✓ Actual</span>':''}</span></div>`).join("");
+  hoja.classList.add("abierto"); velo.classList.add("abierto");
+  document.getElementById("cerrar").focus();
+}
+function cerrar(){hoja.classList.remove("abierto");velo.classList.remove("abierto");ultimoFoco&&ultimoFoco.focus()}
+document.getElementById("cerrar").onclick=cerrar; velo.onclick=cerrar;
+document.addEventListener("keydown",e=>{if(e.key==="Escape")cerrar()});
+
+// Barra con borde al hacer scroll
+const nav=document.getElementById("nav");
+addEventListener("scroll",()=>nav.classList.toggle("scrolled",scrollY>4),{passive:true});
+
+// Pulsación larga para copiar
+const aviso=document.getElementById("copiado");
+document.querySelectorAll("[data-copiar]").forEach(el=>{
+  let t;
+  const ini=()=>{t=setTimeout(()=>{
+    const v=el.querySelector(".valor").textContent.trim();
+    navigator.clipboard&&navigator.clipboard.writeText(v).catch(()=>{});
+    aviso.classList.add("ver");setTimeout(()=>aviso.classList.remove("ver"),1400);
+  },550)};
+  const fin=()=>clearTimeout(t);
+  el.addEventListener("pointerdown",ini);["pointerup","pointerleave","pointercancel"].forEach(ev=>el.addEventListener(ev,fin));
+});
+</script>
+</body>
+</html>
