@@ -5,6 +5,9 @@
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{width:1080px;height:1350px;overflow:hidden}
 body{font-family:Inter,"Segoe UI",system-ui,sans-serif;color:#fff;background:#2a1030 url("assets/fondo-eventos.jpg") center/cover no-repeat}
+.flyer::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:linear-gradient(180deg,rgba(10,2,16,.62) 0%,rgba(14,3,20,.55) 45%,rgba(14,3,20,.30) 75%,rgba(10,2,16,.10) 100%)}
+.flyer>*{position:relative;z-index:1}
+.flyer>.tarjetas,.flyer>.pie{position:absolute}
 .flyer{position:relative;width:1080px;height:1350px;padding:96px 88px 0}
 .marca{font-size:26px;font-weight:700;letter-spacing:.02em;opacity:.9}
 .marca b{color:var(--naranja)}
