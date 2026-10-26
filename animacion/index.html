@@ -47,14 +47,50 @@
       radial-gradient(ellipse 12% 20% at 80% 25%, rgba(215,205,235,.45), transparent 70%);
     animation: drift 90s linear infinite; }
 
+  .anim { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
   canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; mix-blend-mode: screen; }
 
-  @media (prefers-reduced-motion: reduce) { .layer { animation: none !important; } canvas { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .layer { animation: none !important; } canvas, .anim { display: none; } }
 </style>
 </head>
 <body>
   <div class="scene">
     <img src="escena.jpg" alt="Jack y Sally bajo la luna llena junto a la reja del cementerio, con Zero y murciélagos">
+<svg class="anim" viewBox="0 0 2000 1124" preserveAspectRatio="none" aria-hidden="true">
+  <defs>
+    <filter id="soft"><feGaussianBlur stdDeviation="14"/></filter>
+    <mask id="mHair"><g fill="#fff" filter="url(#soft)"><path d="M1300 300 C1360 320 1420 420 1430 520 C1440 600 1420 650 1380 650 L1330 560 L1310 380 Z"/><path d="M1180 240 C1240 230 1280 290 1290 360 L1300 520 L1260 600 C1250 520 1260 420 1220 340 Z"/></g></mask>
+    <mask id="mCloth"><g fill="#fff" filter="url(#soft)"><path d="M1110 270 C1150 230 1210 230 1240 260 L1250 420 C1220 470 1170 480 1130 440 C1110 380 1100 320 1110 270 Z"/></g></mask>
+    <mask id="mEars"><g fill="#fff" filter="url(#soft)"><path d="M440 615 C470 610 520 650 530 680 L505 700 C480 680 450 650 440 615 Z"/><path d="M515 670 C550 660 590 665 600 690 L560 705 Z"/></g></mask>
+    <mask id="mBats"><g fill="#fff" filter="url(#soft)"><ellipse cx="470" cy="180" rx="70" ry="45"/><ellipse cx="330" cy="235" rx="70" ry="45"/><ellipse cx="415" cy="390" rx="70" ry="45"/><ellipse cx="600" cy="100" rx="70" ry="45"/><ellipse cx="650" cy="75" rx="70" ry="45"/><ellipse cx="705" cy="120" rx="70" ry="45"/><ellipse cx="560" cy="330" rx="70" ry="45"/><ellipse cx="660" cy="470" rx="70" ry="45"/><ellipse cx="590" cy="440" rx="70" ry="45"/><ellipse cx="790" cy="500" rx="70" ry="45"/><ellipse cx="900" cy="545" rx="70" ry="45"/><ellipse cx="1060" cy="530" rx="70" ry="45"/><ellipse cx="1150" cy="490" rx="70" ry="45"/><ellipse cx="1240" cy="150" rx="70" ry="45"/><ellipse cx="1290" cy="110" rx="70" ry="45"/><ellipse cx="1450" cy="150" rx="70" ry="45"/><ellipse cx="1210" cy="15" rx="70" ry="45"/><ellipse cx="1600" cy="190" rx="70" ry="45"/><ellipse cx="1780" cy="225" rx="70" ry="45"/><ellipse cx="1660" cy="255" rx="70" ry="45"/><ellipse cx="1820" cy="280" rx="70" ry="45"/><ellipse cx="1640" cy="370" rx="70" ry="45"/><ellipse cx="1700" cy="410" rx="70" ry="45"/><ellipse cx="1700" cy="475" rx="70" ry="45"/><ellipse cx="1890" cy="265" rx="70" ry="45"/><ellipse cx="530" cy="630" rx="70" ry="45"/><ellipse cx="380" cy="660" rx="70" ry="45"/><ellipse cx="520" cy="465" rx="70" ry="45"/><ellipse cx="830" cy="590" rx="70" ry="45"/><ellipse cx="1440" cy="90" rx="70" ry="45"/></g></mask>
+    <filter id="fHair" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.012 0.03" numOctaves="2" seed="3" result="n">
+        <animate attributeName="baseFrequency" dur="7s" values="0.012 0.03;0.016 0.026;0.012 0.03" repeatCount="indefinite"/></feTurbulence>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="16" xChannelSelector="R" yChannelSelector="G">
+        <animate attributeName="scale" dur="4s" values="8;22;8" repeatCount="indefinite"/></feDisplacementMap>
+    </filter>
+    <filter id="fCloth" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.02 0.05" numOctaves="2" seed="8" result="n">
+        <animate attributeName="baseFrequency" dur="5s" values="0.02 0.05;0.026 0.04;0.02 0.05" repeatCount="indefinite"/></feTurbulence>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="12" xChannelSelector="R" yChannelSelector="G">
+        <animate attributeName="scale" dur="3.3s" values="6;18;6" repeatCount="indefinite"/></feDisplacementMap>
+    </filter>
+    <filter id="fEars" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="1" seed="5" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="0" xChannelSelector="R" yChannelSelector="G">
+        <animate attributeName="scale" dur="1.6s" values="0;18;0;12;0" repeatCount="indefinite"/></feDisplacementMap>
+    </filter>
+    <filter id="fBats" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.008" numOctaves="1" seed="2" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="0" xChannelSelector="B" yChannelSelector="G">
+        <animate attributeName="scale" dur="0.45s" values="-14;14;-14" repeatCount="indefinite"/></feDisplacementMap>
+    </filter>
+  </defs>
+  <g mask="url(#mBats)"><image href="escena.jpg" width="2000" height="1124" filter="url(#fBats)"/></g>
+  <g mask="url(#mHair)"><image href="escena.jpg" width="2000" height="1124" filter="url(#fHair)"/></g>
+  <g mask="url(#mCloth)"><image href="escena.jpg" width="2000" height="1124" filter="url(#fCloth)"/></g>
+  <g mask="url(#mEars)"><image href="escena.jpg" width="2000" height="1124" filter="url(#fEars)"/></g>
+</svg>
     <div class="layer clouds"></div>
     <div class="layer moon"></div>
     <div class="layer fog"></div>
