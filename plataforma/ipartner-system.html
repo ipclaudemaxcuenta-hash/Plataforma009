@@ -3,6 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <title>Información del sistema</title>
 <style>
   :root{
@@ -21,7 +24,7 @@
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{background:var(--fondo)}
   body{
-    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;
+    font-family:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
     color:var(--texto);-webkit-font-smoothing:antialiased;font-size:17px;
   }
 
@@ -34,7 +37,8 @@
     transition:border-color .2s;border-bottom:.5px solid transparent;
   }
   .nav.scrolled{border-bottom-color:var(--separador)}
-  .nav h1{font-size:17px;font-weight:600}
+  .nav h1,.hoja-cab h2,.titulo-grupo,.rango{font-family:"Outfit",sans-serif}
+  .nav h1{font-size:19px;font-weight:600;letter-spacing:-.01em}
   .volver{
     position:absolute;left:16px;top:50%;transform:translateY(-50%);
     width:44px;height:44px;border-radius:50%;border:0;cursor:pointer;
