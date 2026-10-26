@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><title>Próximos eventos · iPartner</title>
+<style>
+:root{--morado:#541c4a;--morado-2:#89037b;--naranja:#ef801c;--crema:#fff6ee}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1350px;overflow:hidden}
+body{font-family:Inter,"Segoe UI",system-ui,sans-serif;color:#fff;background:#2a1030 url("assets/fondo-eventos.jpg") center/cover no-repeat}
+.flyer{position:relative;width:1080px;height:1350px;padding:96px 88px 0}
+.marca{font-size:26px;font-weight:700;letter-spacing:.02em;opacity:.9}
+.marca b{color:var(--naranja)}
+.eyebrow{margin-top:56px;display:inline-flex;align-items:center;gap:10px;font-size:20px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#ffd2a6}
+.eyebrow i{width:10px;height:10px;border-radius:50%;background:var(--naranja);box-shadow:0 0 14px var(--naranja)}
+h1{margin-top:18px;font-size:92px;line-height:.98;font-weight:800;letter-spacing:-.02em}
+h1 span{color:var(--naranja)}
+.sub{margin-top:22px;font-size:26px;line-height:1.4;color:rgba(255,255,255,.78);max-width:760px}
+.tarjetas{position:absolute;left:88px;right:88px;top:610px;display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.card{position:relative;height:520px;border-radius:36px;padding:40px 36px;overflow:hidden;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);
+  box-shadow:0 30px 60px rgba(20,5,25,.45),inset 0 1px 0 rgba(255,255,255,.25);
+  backdrop-filter:blur(18px) saturate(140%);-webkit-backdrop-filter:blur(18px) saturate(140%)}
+.card.tonazo{background:linear-gradient(160deg,rgba(239,128,28,.30),rgba(137,3,123,.22));border-color:rgba(255,190,130,.35)}
+.tag{display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:999px;font-size:17px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25)}
+.tonazo .tag{background:var(--naranja);border-color:transparent;color:#fff}
+.tag svg{width:18px;height:18px}
+.num{margin-top:34px;font-size:18px;font-weight:600;letter-spacing:.2em;color:rgba(255,255,255,.6);text-transform:uppercase}
+h2{margin-top:10px;font-size:52px;line-height:1.02;font-weight:800;letter-spacing:-.01em}
+.tonazo h2{color:#fff}
+.tonazo h2 em{font-style:normal;color:#ffd2a6}
+.desc{margin-top:18px;font-size:22px;line-height:1.45;color:rgba(255,255,255,.82)}
+.chips{position:absolute;left:36px;bottom:40px;display:flex;flex-wrap:wrap;gap:10px;max-width:300px}
+.chip{font-size:16px;font-weight:600;padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2)}
+.munieco{position:absolute;right:-6px;bottom:-24px;width:190px;filter:drop-shadow(0 20px 30px rgba(60,10,0,.5))}
+.pie{position:absolute;left:0;right:0;bottom:64px;text-align:center;font-size:22px;color:rgba(255,255,255,.75)}
+.pie b{color:#fff}
+</style></head><body>
+<div class="flyer">
+  <div class="marca">i<b>partner</b></div>
+  <div class="eyebrow"><i></i>Agenda iPartner</div>
+  <h1>Próximos<br><span>eventos</span></h1>
+  <p class="sub">Dos encuentros para conectar, compartir y celebrar juntos.</p>
+
+  <div class="tarjetas">
+    <article class="card preventa">
+      <span class="tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Próximamente</span>
+      <div class="num">Evento 01</div>
+      <h2>Pre-venta</h2>
+      <p class="desc">Conoce nuestros servicios y beneficios en un encuentro pensado para nuevos aliados y clientes.</p>
+      <div class="chips"><span class="chip">Nuevos clientes</span><span class="chip">Cartera post-pago</span></div>
+    </article>
+    <article class="card tonazo">
+      <span class="tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Próximamente</span>
+      <div class="num">Evento 02</div>
+      <h2>IP <em>TONAZO</em></h2>
+      <p class="desc">La fiesta de nuestra comunidad. Más cercana, más nuestra.</p>
+      <img class="munieco" src="assets/munieco.png" alt="">
+    </article>
+  </div>
+  <div class="pie">Muy pronto te contamos <b>fecha y lugar</b>.</div>
+</div>
+</body></html>
