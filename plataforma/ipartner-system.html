@@ -84,10 +84,22 @@
   .fila.nivel{flex-direction:column;align-items:stretch;gap:10px;padding:14px 20px}
   .nivel-cab{display:flex;justify-content:space-between;align-items:center;gap:16px}
   .nivel-pie{padding-left:46px;display:flex;justify-content:space-between;align-items:center;gap:12px}
-  .barra{display:flex;gap:4px;flex:1;max-width:260px}
-  .barra i{flex:1;height:6px;border-radius:3px;background:var(--vacio);transform-origin:left;transition:background .3s}
-  .barra i.on{background:var(--acento)}
-  .rango{font-size:13px;font-weight:500;color:var(--secundario)}
+  .barra{flex:1;max-width:340px;height:10px;border-radius:999px;background:#EEEEF2;overflow:hidden}
+  .barra i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#F7BD7E,var(--acento));transform-origin:left}
+  .rango{font-size:12px;font-weight:600;color:var(--acento-tinta);background:#FDEEDF;padding:3px 10px;border-radius:999px}
+
+  /* Rendimiento: tarjetas con sparkline */
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .kpi{background:var(--tarjeta);border-radius:22px;padding:16px 16px 12px;display:flex;flex-direction:column;gap:6px;min-width:0}
+  .kpi-cab{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--secundario)}
+  .kpi-cab .ico{width:24px;height:24px;border-radius:6px}
+  .kpi-cab .ico svg{width:15px;height:15px}
+  .kpi-num{font-family:"Outfit",sans-serif;font-size:28px;font-weight:600;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+  .kpi svg.spark{width:100%;height:44px;display:block}
+  .delta{font-size:12px;font-weight:600;align-self:flex-start;padding:2px 8px;border-radius:999px}
+  .delta.up{color:#1E7D36;background:#E3F6E8}
+  .delta.eq{color:#6b6b70;background:#EEEEF2}
+  @media (max-width:640px){.kpis{grid-template-columns:repeat(2,1fr)}}
   .spec{font-size:15px;color:var(--secundario)}
   .pildora{font-size:13px;font-weight:600;color:#1E7D36;background:#E3F6E8;padding:3px 10px;border-radius:999px}
 
@@ -120,7 +132,7 @@
   .copiado.ver{opacity:1;transform:translate(-50%,0)}
 
   @media (prefers-reduced-motion:no-preference){
-    .barra i.on{animation:llenar .5s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--d,0) * 1ms)}
+    .barra i{animation:llenar .7s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--d,0) * 1ms)}
     @keyframes llenar{from{transform:scaleX(0)}to{transform:scaleX(1)}}
   }
   @media (max-width:480px){main{padding:8px 16px 48px}.fila{padding:12px 16px}.fila + .fila::before{left:16px}}
@@ -163,6 +175,9 @@
   </section>
 
   <!-- Niveles -->
+  <h2 class="titulo-grupo">Rendimiento · últimos 7 días</h2>
+  <section class="kpis" id="kpis" aria-label="Rendimiento"></section>
+
   <h2 class="titulo-grupo">Especificaciones técnicas</h2>
   <section class="grupo" id="niveles" aria-label="Especificaciones técnicas"></section>
   <p class="pie-grupo">Toca una especificación para ver su escala de niveles.</p>
@@ -235,11 +250,10 @@ const cont = document.getElementById("niveles");
 SPECS.forEach((s,i)=>{
   const b = document.createElement("button");
   b.className = "fila nivel";
-  const segs = RANGOS.map((_,k)=>`<i class="${k<s.lvl?'on':''}" style="--d:${i*60+k*40}"></i>`).join("");
   b.innerHTML = `
     <div class="nivel-cab"><span class="nombre"><span class="ico" style="background:${s.c}" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#fff">${I[s.ic]}</svg></span>${s.n}</span><span class="valor">${s.estado?`<span class="pildora">${s.v}</span>`:`<span class="spec">${s.v}</span>`}${chev}</span></div>
     <div class="nivel-pie">
-      <div class="barra" role="meter" aria-valuemin="1" aria-valuemax="5" aria-valuenow="${s.lvl}" aria-valuetext="Nivel ${s.lvl} de 5, ${RANGOS[s.lvl-1]}">${segs}</div>
+      <div class="barra" role="meter" aria-valuemin="1" aria-valuemax="5" aria-valuenow="${s.lvl}" aria-valuetext="Nivel ${s.lvl} de 5, ${RANGOS[s.lvl-1]}"><i style="width:${s.lvl*20}%;--d:${i*70}"></i></div>
       <span class="rango">${RANGOS[s.lvl-1]}</span>
     </div>`;
   b.addEventListener("click",()=>abrir(s));
@@ -261,6 +275,31 @@ function abrir(s){
 function cerrar(){hoja.classList.remove("abierto");velo.classList.remove("abierto");ultimoFoco&&ultimoFoco.focus()}
 document.getElementById("cerrar").onclick=cerrar; velo.onclick=cerrar;
 document.addEventListener("keydown",e=>{if(e.key==="Escape")cerrar()});
+
+// Rendimiento: tarjetas con mini gráfico
+const KPIS = [
+  {n:"Consultas", v:"12,480", d:"+18 % sem.", t:"up", c:"#007AFF", ic:"datos", pts:[30,42,38,55,49,63,72]},
+  {n:"Respuesta", v:"0.8 s", d:"−12 % sem.", t:"up", c:"#34C759", ic:"chip", pts:[70,64,66,55,52,48,44]},
+  {n:"Disponibilidad", v:"99.9 %", d:"Estable", t:"eq", c:"#5856D6", ic:"servidor", pts:[60,61,60,62,61,62,62]},
+  {n:"Uso de IA", v:"3,210", d:"+40 % sem.", t:"up", c:"#89037B", ic:"ia", pts:[18,25,22,40,38,55,68]},
+];
+function spark(pts,c,id){
+  const w=160,h=44,mx=Math.max(...pts),mn=Math.min(...pts)-8;
+  const xy=pts.map((v,i)=>[i*w/(pts.length-1),h-4-(v-mn)/(mx-mn)*(h-10)]);
+  const line=xy.map((p,i)=>(i?"L":"M")+p[0].toFixed(1)+" "+p[1].toFixed(1)).join(" ");
+
+  return `<svg class="spark" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-hidden="true">
+    <defs><linearGradient id="g${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${c}" stop-opacity=".22"/><stop offset="1" stop-color="${c}" stop-opacity="0"/></linearGradient></defs>
+    <path d="${line} L${w} ${h} L0 ${h}Z" fill="url(#g${id})"/>
+    <path d="${line}" fill="none" stroke="${c}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/></svg>`;
+}
+document.getElementById("kpis").innerHTML = KPIS.map((k,i)=>`
+  <article class="kpi" aria-label="${k.n}: ${k.v}, ${k.d}">
+    <div class="kpi-cab"><span class="ico" style="background:${k.c}" aria-hidden="true"><svg viewBox="0 0 24 24" fill="#fff">${I[k.ic]}</svg></span>${k.n}</div>
+    <div class="kpi-num">${k.v}</div>
+    ${spark(k.pts,k.c,i)}
+    <span class="delta ${k.t}">${k.d}</span>
+  </article>`).join("");
 
 // Barra con borde al hacer scroll
 const nav=document.getElementById("nav");
